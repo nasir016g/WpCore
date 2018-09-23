@@ -1,0 +1,17 @@
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\obj\Debug\netcoreapp2.0\Wp.Web.WebApi.csprojResolveAssemblyReference.cache
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\obj\Debug\netcoreapp2.0\Wp.Web.WebApi.csproj.CoreCompileInputs.cache
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\obj\Debug\netcoreapp2.0\Wp.Web.WebApi.AssemblyInfoInputs.cache
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\obj\Debug\netcoreapp2.0\Wp.Web.WebApi.AssemblyInfo.cs
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\bin\Debug\netcoreapp2.0\Wp.Web.WebApi.deps.json
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\bin\Debug\netcoreapp2.0\Wp.Web.WebApi.runtimeconfig.json
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\bin\Debug\netcoreapp2.0\Wp.Web.WebApi.runtimeconfig.dev.json
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\bin\Debug\netcoreapp2.0\Wp.Web.WebApi.dll
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\bin\Debug\netcoreapp2.0\Wp.Web.WebApi.pdb
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\bin\Debug\netcoreapp2.0\Wp.Core.dll
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\bin\Debug\netcoreapp2.0\Wp.Data.dll
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\bin\Debug\netcoreapp2.0\Wp.Service.dll
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\bin\Debug\netcoreapp2.0\Wp.Core.pdb
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\bin\Debug\netcoreapp2.0\Wp.Data.pdb
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\bin\Debug\netcoreapp2.0\Wp.Service.pdb
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\obj\Debug\netcoreapp2.0\Wp.Web.WebApi.dll
+C:\Git\WpNetCore\WpCoreSolution\Wp.Web.WebApi\obj\Debug\netcoreapp2.0\Wp.Web.WebApi.pdb

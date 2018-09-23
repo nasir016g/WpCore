@@ -1,0 +1,15 @@
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\obj\Debug\netcoreapp2.0\Wp.Service.csproj.CoreCompileInputs.cache
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\obj\Debug\netcoreapp2.0\Wp.Service.AssemblyInfoInputs.cache
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\obj\Debug\netcoreapp2.0\Wp.Service.AssemblyInfo.cs
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\obj\Debug\netcoreapp2.0\Wp.Service.csprojResolveAssemblyReference.cache
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\bin\Debug\netcoreapp2.0\Wp.Service.deps.json
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\bin\Debug\netcoreapp2.0\Wp.Service.dll
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\bin\Debug\netcoreapp2.0\Wp.Core.dll
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\bin\Debug\netcoreapp2.0\Wp.Data.dll
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\bin\Debug\netcoreapp2.0\Wp.Core.pdb
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\bin\Debug\netcoreapp2.0\Wp.Data.pdb
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\bin\Debug\netcoreapp2.0\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\bin\Debug\netcoreapp2.0\Wp.Service.pdb
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\obj\Debug\netcoreapp2.0\Wp.Service.dll
+C:\Git\WpNetCore\WpCoreSolution\Libraries\Wp.Service\obj\Debug\netcoreapp2.0\Wp.Service.pdb

@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Domain\Albums\**" />
+    <Compile Remove="Domain\Common\**" />
+    <Compile Remove="Domain\Expenses\**" />
+    <Compile Remove="Interfaces\Repositories\Security\**" />
+    <EmbeddedResource Remove="Domain\Albums\**" />
+    <EmbeddedResource Remove="Domain\Common\**" />
+    <EmbeddedResource Remove="Domain\Expenses\**" />
+    <EmbeddedResource Remove="Interfaces\Repositories\Security\**" />
+    <None Remove="Domain\Albums\**" />
+    <None Remove="Domain\Common\**" />
+    <None Remove="Domain\Expenses\**" />
+    <None Remove="Interfaces\Repositories\Security\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Domain\Common\WebsiteSettings.cs" />
+    <Compile Include="Domain\Common\WorkContextModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.http.abstractions\2.0.1\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.caching.abstractions\2.0.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Identity.Stores">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.identity.stores\2.0.1\lib\netstandard2.0\Microsoft.Extensions.Identity.Stores.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.primitives\2.0.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\Services\" />
+  </ItemGroup>
+
+</Project>
