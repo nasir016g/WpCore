@@ -12782,11 +12782,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Git\\WpNetCore\\WpCoreSolution\\Wp.Web.WebApi\\Wp.Web.WebApi.csproj",
+      "projectUniqueName": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Web.WebApi\\Wp.Web.WebApi.csproj",
       "projectName": "Wp.Web.WebApi",
-      "projectPath": "C:\\Git\\WpNetCore\\WpCoreSolution\\Wp.Web.WebApi\\Wp.Web.WebApi.csproj",
+      "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Web.WebApi\\Wp.Web.WebApi.csproj",
       "packagesPath": "C:\\Users\\nasir\\.nuget\\packages\\",
-      "outputPath": "C:\\Git\\WpNetCore\\WpCoreSolution\\Wp.Web.WebApi\\obj\\",
+      "outputPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Web.WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12805,17 +12805,17 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Git\\WpNetCore\\WpCoreSolution\\Libraries\\Wp.Core\\Wp.Core.csproj": {
-              "projectPath": "C:\\Git\\WpNetCore\\WpCoreSolution\\Libraries\\Wp.Core\\Wp.Core.csproj"
+            "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Core\\Wp.Core.csproj": {
+              "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Core\\Wp.Core.csproj"
             },
-            "C:\\Git\\WpNetCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj": {
-              "projectPath": "C:\\Git\\WpNetCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj"
+            "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj": {
+              "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj"
             },
-            "C:\\Git\\WpNetCore\\WpCoreSolution\\Libraries\\Wp.Service\\Wp.Service.csproj": {
-              "projectPath": "C:\\Git\\WpNetCore\\WpCoreSolution\\Libraries\\Wp.Service\\Wp.Service.csproj"
+            "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Service\\Wp.Service.csproj": {
+              "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Service\\Wp.Service.csproj"
             },
-            "C:\\Git\\WpNetCore\\WpCoreSolution\\Wp.Web.Framework\\Wp.Web.Framework.csproj": {
-              "projectPath": "C:\\Git\\WpNetCore\\WpCoreSolution\\Wp.Web.Framework\\Wp.Web.Framework.csproj"
+            "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Web.Framework\\Wp.Web.Framework.csproj": {
+              "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Web.Framework\\Wp.Web.Framework.csproj"
             }
           }
         }

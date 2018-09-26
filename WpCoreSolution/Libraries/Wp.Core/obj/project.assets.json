@@ -686,15 +686,12 @@
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
-      "projectUniqueName": "C:\\Git\\WpNetCore\\WpCoreSolution\\Libraries\\Wp.Core\\Wp.Core.csproj",
+      "projectUniqueName": "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Core\\Wp.Core.csproj",
       "projectName": "Wp.Core",
-      "projectPath": "C:\\Git\\WpNetCore\\WpCoreSolution\\Libraries\\Wp.Core\\Wp.Core.csproj",
+      "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Core\\Wp.Core.csproj",
       "packagesPath": "C:\\Users\\nasir\\.nuget\\packages\\",
-      "outputPath": "C:\\Git\\WpNetCore\\WpCoreSolution\\Libraries\\Wp.Core\\obj\\",
+      "outputPath": "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

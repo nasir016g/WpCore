@@ -4341,11 +4341,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Git\\WpNetCore\\WpCoreSolution\\Wp.Web.Framework\\Wp.Web.Framework.csproj",
+      "projectUniqueName": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Web.Framework\\Wp.Web.Framework.csproj",
       "projectName": "Wp.Web.Framework",
-      "projectPath": "C:\\Git\\WpNetCore\\WpCoreSolution\\Wp.Web.Framework\\Wp.Web.Framework.csproj",
+      "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Web.Framework\\Wp.Web.Framework.csproj",
       "packagesPath": "C:\\Users\\nasir\\.nuget\\packages\\",
-      "outputPath": "C:\\Git\\WpNetCore\\WpCoreSolution\\Wp.Web.Framework\\obj\\",
+      "outputPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Web.Framework\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4364,11 +4364,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Git\\WpNetCore\\WpCoreSolution\\Libraries\\Wp.Core\\Wp.Core.csproj": {
-              "projectPath": "C:\\Git\\WpNetCore\\WpCoreSolution\\Libraries\\Wp.Core\\Wp.Core.csproj"
+            "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Core\\Wp.Core.csproj": {
+              "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Core\\Wp.Core.csproj"
             },
-            "C:\\Git\\WpNetCore\\WpCoreSolution\\Libraries\\Wp.Service\\Wp.Service.csproj": {
-              "projectPath": "C:\\Git\\WpNetCore\\WpCoreSolution\\Libraries\\Wp.Service\\Wp.Service.csproj"
+            "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Service\\Wp.Service.csproj": {
+              "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Service\\Wp.Service.csproj"
             }
           }
         }
