@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using NJsonSchema;
+using NSwag.AspNetCore;
 using System;
 using System.Text;
 using Wp.Core;
@@ -82,6 +84,8 @@ namespace Wp.Web.WebApi
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
+            services.AddSwagger();
+
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -134,6 +138,11 @@ namespace Wp.Web.WebApi
 
             app.UseAuthentication();
             app.UseHttpsRedirection();
+            app.UseSwaggerUi3WithApiExplorer(settings =>
+            {
+                settings.GeneratorSettings.DefaultPropertyNameHandling =
+                    PropertyNameHandling.CamelCase;
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
