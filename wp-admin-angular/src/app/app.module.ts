@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule, BaseRequestOptions } from '@angular/http'; 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AlertModule } from 'ngx-alerts';
-import {Ng2Webstorage} from 'ngx-webstorage';
+//import {Ng2Webstorage} from 'ngx-webstorage';
 
 // app modules
 import { AccountModule } from './account/account.module';
@@ -27,7 +27,7 @@ import { AppRouting } from './app.routing';
     HttpModule, 
     BrowserAnimationsModule,   
     AlertModule.forRoot({maxMessages: 5, timeout: 5000}), 
-    Ng2Webstorage,  
+    //Ng2Webstorage,  
     AppRouting,
     AccountModule   
   ],
