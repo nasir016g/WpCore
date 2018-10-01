@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 
 import { environment } from '../../environments/environment';
-import { WebPage, BaseModel } from '../models/webpage.model';
+import { WebPage, BaseModel } from '../_models/webpage.model';
 
 
 @Injectable()

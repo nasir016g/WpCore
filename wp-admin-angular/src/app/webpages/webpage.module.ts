@@ -9,7 +9,7 @@ import { WebPageDetailComponent } from './webpage-detail.component';
 
 // service
 import { WebPageService } from '../_services';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../_shared/shared.module';
 
 export const ROUTES: Routes = [
   {
