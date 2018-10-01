@@ -3,8 +3,8 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Router } from '@angular/router';
 
-import { WebPage } from '../models/webpage.model';
-import { WebPageService } from '../services/webpage.service';
+import { WebPage } from '../_models';
+import { WebPageService } from '../_services';
 
 
 @Component({

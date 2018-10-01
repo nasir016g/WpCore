@@ -6,12 +6,10 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 // components
 import { WebPageListComponent } from './webpage-list.component';
 import { WebPageDetailComponent } from './webpage-detail.component';
-import { ControlMessagesComponent } from '../shared/components/control-messages.component';
 
 // service
-import { WebPageService } from '../services/webpage.service';
+import { WebPageService } from '../_services';
 import { SharedModule } from '../shared/shared.module';
-
 
 export const ROUTES: Routes = [
   {

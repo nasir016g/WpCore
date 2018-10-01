@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'ngx-alerts';
 
-import { WebPage } from '../models/webpage.model';
-import { WebPageService } from '../services/webpage.service';
+import { WebPage } from '../_models';
+import { WebPageService } from '../_services';
 import { validateConfig } from '@angular/router/src/config';
 
 @Component({
@@ -15,13 +15,13 @@ import { validateConfig } from '@angular/router/src/config';
 export class WebPageDetailComponent implements OnInit {
   form: FormGroup;
   model: WebPage = new WebPage();
- 
+
   constructor(private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private alertService: AlertService,
     private pageService: WebPageService
-  ) {    
+  ) {
 
     if (this.activatedRoute.snapshot.params['id']) {
       this.model.id = parseInt(this.activatedRoute.snapshot.params['id']);
@@ -34,7 +34,7 @@ export class WebPageDetailComponent implements OnInit {
       id: this.model.id,
       virtualPath: [this.model.virtualPath, [Validators.required]],
       navigationName: [this.model.navigationName, [Validators.required]],
-      visible: [this.model.visible], 
+      visible: [this.model.visible],
       allowAnonymousAccess: [this.model.allowAnonymousAccess],
       displayOrder: [this.model.displayOrder],
       metaTitle: [this.model.metaTitle],
@@ -57,7 +57,7 @@ export class WebPageDetailComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['webpage/list']);
-  }  
+  }
 
   onSubmit() {
     if (this.form.valid) {
@@ -69,7 +69,7 @@ export class WebPageDetailComponent implements OnInit {
         }
           , error => {
             for (var fieldName in error.error) {
-             this.alertService.danger(error.error[fieldName]);
+              this.alertService.danger(error.error[fieldName]);
             }
 
             console.log(error.error)

@@ -10,16 +10,13 @@ import { ControlMessagesComponent } from './components/control-messages.componen
 @NgModule({
     imports: [
         CommonModule,
-        RouterModule,
-        
+        RouterModule,        
         ModalModule.forRoot(), 
         CollapseModule.forRoot(), 
         BsDropdownModule.forRoot(),
-       
-       
     ],
     declarations: [ControlMessagesComponent],
     providers: [],
-    exports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule,ControlMessagesComponent]
+    exports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, ControlMessagesComponent]
 })
 export class SharedModule { }
