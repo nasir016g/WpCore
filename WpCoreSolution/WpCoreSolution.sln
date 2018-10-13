@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wp.Web.WebApi", "Wp.Web.WebApi\Wp.Web.WebApi.csproj", "{E1BFB6AC-D235-4E91-B7D7-FC8B8C848471}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wp.Web.WebApi_1", "Wp.Web.WebApi_1\Wp.Web.WebApi_1.csproj", "{E1BFB6AC-D235-4E91-B7D7-FC8B8C848471}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{FECAC992-93E0-4C44-A247-7FA0772679B2}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wp.Data", "Libraries\Wp.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wp.Service", "Libraries\Wp.Service\Wp.Service.csproj", "{7F505337-9BD4-45BC-A2BE-E27B901AD934}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wp.Web.Framework", "Wp.Web.Framework\Wp.Web.Framework.csproj", "{80A8B788-DFBC-4D79-9227-F019AD6E0111}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wp.Web.Framework", "Wp.Web.Framework\Wp.Web.Framework.csproj", "{80A8B788-DFBC-4D79-9227-F019AD6E0111}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
