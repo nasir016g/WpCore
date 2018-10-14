@@ -68,7 +68,7 @@ using Wp.Web.WebApi.Models.AccountViewModels;
             WriteLiteral("<!DOCTYPE html>\n<html>\n");
             EndContext();
             BeginContext(23, 158, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "081a6c143efa4a8e96e666718b8a4553", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cf2b7fd4be524129aca75038a103eb36", async() => {
                 BeginContext(29, 118, true);
                 WriteLiteral("\n    <meta charset=\"utf-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>");
                 EndContext();
@@ -98,12 +98,12 @@ using Wp.Web.WebApi.Models.AccountViewModels;
             WriteLiteral("\n");
             EndContext();
             BeginContext(182, 448, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "617d103f935740caba5ecfb091232f78", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "af1cbcc6aa8b49479936ff6fa54d400d", async() => {
                 BeginContext(188, 187, true);
                 WriteLiteral("\n    <nav class=\"navbar navbar-inverse navbar-fixed-top\">\n        <div class=\"container\">\n\n            <div class=\"navbar-collapse collapse\">\n                    <div style=\"float:left;\">");
                 EndContext();
                 BeginContext(375, 64, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "17534f451074488b8d075b429d7d0ce8", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d13a5c371fc5404787d59c15b0b92e88", async() => {
                     BeginContext(431, 4, true);
                     WriteLiteral("Home");
                     EndContext();

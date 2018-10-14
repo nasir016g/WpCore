@@ -4,3 +4,17 @@ WpCoreSolution/Wp\.Web\.WebApi/bin/
 WpCoreSolution/Wp\.Web\.WebApi/obj/
 
 WpCoreSolution/\.vs/WpCoreSolution/v15/
+
+WpCoreSolution/Libraries/Wp\.Service/obj/
+
+WpCoreSolution/Libraries/Wp\.Service/bin/
+
+WpCoreSolution/\.vs/
+
+WpCoreSolution/Wp\.Web\.Framework/bin/
+
+WpCoreSolution/Wp\.Web\.Framework/obj/
+
+WpCoreSolution/Libraries/Wp\.Core/obj/
+
+WpCoreSolution/Libraries/Wp\.Data/obj/

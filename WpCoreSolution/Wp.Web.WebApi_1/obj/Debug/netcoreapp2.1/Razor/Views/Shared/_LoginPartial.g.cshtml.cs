@@ -91,12 +91,12 @@ using Wp.Core.Security;
             WriteLiteral("    ");
             EndContext();
             BeginContext(208, 499, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ec7f6945b477413dab8b69611aa0b0a7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "11af076caf364aaaabe4e1e000dce2b9", async() => {
                 BeginContext(301, 88, true);
                 WriteLiteral("\n        <div>\n            <div style=\"float:left; padding-left:20px;\">\n                ");
                 EndContext();
                 BeginContext(389, 97, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7f139b950177425493338ef271996daa", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7c41b98a2d1448c38d2324d35c8d2b1f", async() => {
                     BeginContext(445, 6, true);
                     WriteLiteral("Hello ");
                     EndContext();
@@ -168,7 +168,7 @@ else
             WriteLiteral("    <div>\n        <div style=\"float:left; padding-left:20px;\">");
             EndContext();
             BeginContext(779, 74, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "932d0593ff994619a6b95519c04c8c66", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a3c7a43a5863484cb888995b1397092c", async() => {
                 BeginContext(841, 8, true);
                 WriteLiteral("Register");
                 EndContext();
@@ -194,7 +194,7 @@ else
             WriteLiteral("</div>\n        <div  style=\"float:left; padding-left:20px;\">");
             EndContext();
             BeginContext(913, 69, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "35b53504b0844abdacb9001b8853894c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9fe30db033834ed1af45840ddebeff98", async() => {
                 BeginContext(972, 6, true);
                 WriteLiteral("Log in");
                 EndContext();
