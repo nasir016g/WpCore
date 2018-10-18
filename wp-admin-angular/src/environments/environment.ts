@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   // apiUrl: 'http://localhost:59734/api/',
-  apiUrl: 'http://localhost:57031/api/',
+  apiUrl: 'https://localhost:5001/api/',
   // apiUrl: 'http://wpcorelocal/api/',
   tokenService: 'token'  
 };

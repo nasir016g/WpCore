@@ -5,7 +5,6 @@ import { AlertService } from 'ngx-alerts';
 
 import { WebPage } from '../_models';
 import { WebPageService } from '../_services';
-import { validateConfig } from '@angular/router/src/config';
 
 @Component({
   selector: 'app-webpage',
@@ -16,12 +15,12 @@ export class WebPageDetailComponent implements OnInit {
   form: FormGroup;
   model: WebPage = new WebPage();
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private alertService: AlertService,
-    private pageService: WebPageService
-  ) {
+    private pageService: WebPageService) {
 
     if (this.activatedRoute.snapshot.params['id']) {
       this.model.id = parseInt(this.activatedRoute.snapshot.params['id']);

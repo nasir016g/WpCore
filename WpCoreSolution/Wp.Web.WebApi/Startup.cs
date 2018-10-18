@@ -52,30 +52,18 @@ namespace Wp.Web.WebApi
             });
 
             services.AddDbContext<WpContext>(options =>
-            options.UseLazyLoadingProxies()
+                    options.UseLazyLoadingProxies()
              .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Wp.Web.WebApi")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            {
-                options.Password.RequiredLength = 6;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-            })
-              .AddEntityFrameworkStores<WpContext>()
-              .AddDefaultUI()
-              .AddDefaultTokenProviders();
+            services.AddDefaultIdentity<ApplicationUser>(options =>
+                {
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
 
-            //services.AddDbContext<WpContext>(options =>
-            //   options.UseSqlServer(
-            //       Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDefaultIdentity<ApplicationUser>(options => 
-            //    {
-            //        options.Password.RequiredLength = 6;
-            //        options.Password.RequireUppercase = false;
-            //        options.Password.RequireNonAlphanumeric = false;
-
-            //    })
-            //    .AddEntityFrameworkStores<WpContext>();
+                })
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<WpContext>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
            .AddCookie()
@@ -94,14 +82,15 @@ namespace Wp.Web.WebApi
                };
            });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                 .AddJsonOptions(options =>
+            services
+                .AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(options =>
                  {
                      options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                      options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                  });
-            services.AddSwagger();
 
+            services.AddSwagger();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // repositories

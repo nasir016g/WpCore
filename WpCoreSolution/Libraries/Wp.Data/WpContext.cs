@@ -28,7 +28,7 @@ namespace Wp.Data
 
         public WpContext(DbContextOptions<WpContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
