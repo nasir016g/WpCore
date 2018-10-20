@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wp.Web.Framework", "Wp.Web.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wp.Web.WebApi", "Wp.Web.WebApi\Wp.Web.WebApi.csproj", "{33D940BA-62A7-473C-B1C7-ED0B8B149971}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wp.Web.Api", "Wp.Web.Api\Wp.Web.Api.csproj", "{5BA3D1BB-6097-4D7E-9B88-27DB7C5A1C3A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,12 +52,6 @@ Global
 		{33D940BA-62A7-473C-B1C7-ED0B8B149971}.Release|Any CPU.Build.0 = Release|Any CPU
 		{33D940BA-62A7-473C-B1C7-ED0B8B149971}.Staging|Any CPU.ActiveCfg = Debug|Any CPU
 		{33D940BA-62A7-473C-B1C7-ED0B8B149971}.Staging|Any CPU.Build.0 = Debug|Any CPU
-		{5BA3D1BB-6097-4D7E-9B88-27DB7C5A1C3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5BA3D1BB-6097-4D7E-9B88-27DB7C5A1C3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5BA3D1BB-6097-4D7E-9B88-27DB7C5A1C3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5BA3D1BB-6097-4D7E-9B88-27DB7C5A1C3A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5BA3D1BB-6097-4D7E-9B88-27DB7C5A1C3A}.Staging|Any CPU.ActiveCfg = Debug|Any CPU
-		{5BA3D1BB-6097-4D7E-9B88-27DB7C5A1C3A}.Staging|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

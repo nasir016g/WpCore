@@ -53,7 +53,7 @@ namespace Wp.Web.Api
 
             services.AddDbContext<WpContext>(options =>
                     options.UseLazyLoadingProxies()
-             .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Wp.Web.WebApi")));
+             .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Wp.Web.Api")));
 
             services.AddDefaultIdentity<ApplicationUser>(options =>
             {
