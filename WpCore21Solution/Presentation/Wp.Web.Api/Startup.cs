@@ -51,22 +51,7 @@ namespace Wp.Web.Api
 
            }).AddRoles<IdentityRole>().AddEntityFrameworkStores<WpContext>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-          .AddCookie()
-          .AddJwtBearer(jwtBearerOptions =>
-          {
-              jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
-              {
-                  ValidateActor = false,
-                  ValidateAudience = false,
-                  ValidateLifetime = true,
-                  ValidateIssuerSigningKey = true,
-                  ValidIssuer = Configuration["Token:Issuer"],
-                  ValidAudience = Configuration["Token:Audience"],
-                  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes
-                                                     (Configuration["Token:Key"]))
-              };
-          });
+            //services.AddJwt(Configuration); // comment this line out when using mvc views otherwise loging will not work
 
             services.AddWp();
             services.AddAutoMapper();
@@ -84,6 +69,7 @@ namespace Wp.Web.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            ServiceCollectionExtensions2.AddLogger();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

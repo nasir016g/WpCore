@@ -28,6 +28,7 @@ using AutoMapper;
 using Wp.Web.WebApi.Infrastructure.Mapper;
 using NJsonSchema;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace Wp.Web.WebApi
 {
@@ -123,8 +124,12 @@ namespace Wp.Web.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            
+            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            //loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
