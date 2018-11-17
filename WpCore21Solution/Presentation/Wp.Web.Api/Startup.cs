@@ -51,7 +51,7 @@ namespace Wp.Web.Api
 
            }).AddRoles<IdentityRole>().AddEntityFrameworkStores<WpContext>();
 
-            //services.AddJwt(Configuration); // comment this line out when using mvc views otherwise loging will not work
+            services.AddJwt(Configuration); // comment this line out when using mvc views otherwise loging will not work
 
             services.AddWp();
             services.AddAutoMapper();
