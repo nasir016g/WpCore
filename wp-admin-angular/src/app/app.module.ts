@@ -15,7 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 
 // services
-import { UserService } from './_services/user.service';
+import { UserService } from './_services';
 
 import { AppRouting } from './app.routing';
 
