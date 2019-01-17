@@ -33,7 +33,7 @@ import { AppRouting } from './app.routing';
     AppComponent,     
     HomeComponent,
     NavComponent,
-    FooterComponent
+    FooterComponent,
   ],  
   providers: [    
     UserService,    

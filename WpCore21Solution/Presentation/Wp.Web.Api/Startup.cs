@@ -56,7 +56,7 @@ namespace Wp.Web.Api
             services.AddWp();
             services.AddAutoMapper();
             AutoMapperConfiguration.Init();
-            services.AddSwagger();
+            //services.AddSwagger();
             services
                .AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                .AddJsonOptions(options =>
@@ -91,11 +91,11 @@ namespace Wp.Web.Api
 
             app.UseAuthentication();
 
-            app.UseSwaggerUi3WithApiExplorer(settings =>
-            {
-                settings.GeneratorSettings.DefaultPropertyNameHandling =
-                    PropertyNameHandling.CamelCase;
-            });
+            //app.UseSwaggerUi3WithApiExplorer(settings =>
+            //{
+            //    settings.GeneratorSettings.DefaultPropertyNameHandling =
+            //        PropertyNameHandling.CamelCase;
+            //});
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
