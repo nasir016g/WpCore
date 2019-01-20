@@ -1,4 +1,3 @@
 export * from './authentication.service';
-export * from './user.service';
 export * from './validation.service';
-export * from './webpage.service';
+export * from '../admin/webpage/shared/webpage.service';

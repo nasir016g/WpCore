@@ -4,7 +4,6 @@ import { environment } from '../../environments/environment';
 import { AuthenticationService } from './authentication.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-
 @Injectable()
 export class UserService {
   url = environment.apiUrl + 'greeting';
