@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
@@ -22,8 +24,8 @@ export class AuthenticationService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
 
-    return this._http.post(url, { Email: username, Password: password }, { headers: headers })
-      .map((response: Response) => {
+    return this._http.post(url, { Email: username, Password: password }, { headers: headers }).pipe(
+      map((response: Response) => {
         // login successful if there's a jwt token in the response
         let token = response.json() && response.json().token;
         if (token) {
@@ -37,7 +39,7 @@ export class AuthenticationService {
         else {
           return false;
         }
-      });
+      }));
   }
 
   logout(): void {

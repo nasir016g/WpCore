@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
        this.userService.getGreeting()
       .subscribe(result => {
-        this.greeting = result;
+        this.greeting = result.toString();
       });
   }
 
