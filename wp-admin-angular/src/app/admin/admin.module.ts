@@ -5,7 +5,7 @@ import { AuthGuard } from '../_guard/auth.guard';
 
 export const ROUTES: Routes = [
   {
-    path: '',
+    path: '', //component: AdminNavComponent,
     children:[
       { path: 'webpage', canActivate: [AuthGuard],  loadChildren: './webpage/webpage.module#WebPageModule'}
     ]   
@@ -13,7 +13,6 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     RouterModule.forChild(ROUTES)

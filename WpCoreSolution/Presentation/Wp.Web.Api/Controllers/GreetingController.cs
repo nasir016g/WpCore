@@ -16,7 +16,7 @@ namespace Wp.Web.Api.Controllers
         [HttpGet]
         public string Get()
         {
-            return "Hello " + User.FindFirst(ClaimTypes.NameIdentifier).Value;
+          return "Hello " + User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
     }
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { AuthGuard } from '../_guard/auth.guard';
-import { AuthenticationService } from '../_services/authentication.service';
+// import { AuthenticationService } from '../_services/authentication.service';
 import { SharedModule } from '../_shared/shared.module';
 import { LoginComponent } from './login/login.component';
 
@@ -11,7 +11,7 @@ import { LoginComponent } from './login/login.component';
   ],
   declarations: [LoginComponent],
   providers: [
-    AuthenticationService,
+   // AuthenticationService,
     AuthGuard
   ]
 })
