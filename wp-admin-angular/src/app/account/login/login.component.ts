@@ -20,13 +20,13 @@ export class LoginComponent implements OnInit {
     
     this.auhenticationService.login(this.username, this.password)
       .subscribe(result => {
-        if (result === true) {
-          this.router.navigate(['/']);
+        if (result === true) { 
+          window.location.href = "#";
         } else {
           // login failed
           this.error = 'Username or password is incorrect';
-
         }
       });
+
   }
 }

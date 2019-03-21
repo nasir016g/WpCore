@@ -5,25 +5,23 @@ import { AuthenticationService } from '../../_services';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'  
+  templateUrl: './home.component.html'
 })
 
 export class HomeComponent implements OnInit {
 
   greeting: string;
 
-  constructor(private userService: UserService, private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private userService: UserService, 
+    private authenticationService: AuthenticationService, 
+    private router: Router) {
+  }
 
   ngOnInit() {
-       this.userService.getGreeting()
+    
+    this.userService.getGreeting()
       .subscribe(result => {
         this.greeting = result.toString();
       });
   }
-
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['login']);
-  }
-
 }

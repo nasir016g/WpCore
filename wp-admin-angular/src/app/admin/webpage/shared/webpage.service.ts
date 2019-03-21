@@ -10,7 +10,9 @@ import { environment } from '../../../../environments/environment';
 import { WebPage, BaseModel } from './webpage.model';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class WebPageService {
   url = environment.apiUrl + 'admin/webpage/';
 
@@ -19,43 +21,54 @@ export class WebPageService {
   getAll() {
     return this._http.get<WebPage[]>(this.url)
     .pipe(
-    catchError(this._errorHandler));
+    catchError(this.errorHandler));
   }
 
   getPageById(id) {
     return this._http.get<WebPage>(this.url + id)
 
     .pipe(
-      catchError(this._errorHandler));
+      catchError(this.errorHandler));
+  }
+
+  getPageByVirtualPath(virtualPath) {
+    // not from admin area
+    const url = environment.apiUrl + 'webpage/'
+    return this._http.get<WebPage>(url + virtualPath)
+
+    .pipe(
+      catchError(this.errorHandler));
   }
 
   delete(id) {
     return  this._http.delete(this.url + id)
     .pipe(
-      catchError(this._errorHandler));
+      catchError(this.errorHandler));
   }
 
-  save<tt>(t: any) : Observable<tt> {
-    const model = t as BaseModel;     
+  save(t: any) : Observable<any> {
+    const model = t as BaseModel; 
+    const headers = new HttpHeaders().set('Content-type', 'application/json');    
     if(model.id > 0)
     {
       //edit
-      return this._http.put<tt>(this.url + model.id, JSON.stringify(model), {
-        headers: new HttpHeaders().set('Content-type', 'application/json'),
+      return this._http.put<any>(this.url + model.id, JSON.stringify(model), {
+        headers: headers,
       })
       .pipe(
-        catchError(this._errorHandler))
+        catchError(this.errorHandler))
     } else {
       // new      
-      return this._http.post<tt>(this.url, JSON.stringify(model), {
-        headers: new HttpHeaders().set('Content-type', 'application/json'),
+      return this._http.post<any>(this.url, JSON.stringify(model), {
+        headers: headers,
       })
       .pipe(
-        catchError(this._errorHandler))
+        catchError(this.errorHandler))
      }
   }
 
-  _errorHandler(error: HttpErrorResponse) {    
+  errorHandler(error: HttpErrorResponse) { 
+    console.log(error);  
     return observableThrowError(error || 'Internal server error');
   }
 

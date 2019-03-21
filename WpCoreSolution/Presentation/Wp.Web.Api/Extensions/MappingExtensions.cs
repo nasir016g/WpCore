@@ -98,6 +98,7 @@ namespace Wp.Web.Api.Extensions.Mapper
             var model = new WebPageModel()
             {
                 Id = entity.Id,
+                VirtualPath = entity.VirtualPath,
                 UserHasCreateRights = userHasCreateRights,
                 AvailableSections = sectionService.GetAvailableSections()
             };

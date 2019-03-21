@@ -59,7 +59,7 @@ export class WebPageDetailComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.pageService.save<WebPage>(this.form.value)
+      this.pageService.save(this.form.value)
         .subscribe(resp => {
           this.model = resp;
           this.alertService.success('Page updated successfully.')

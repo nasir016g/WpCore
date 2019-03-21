@@ -8,6 +8,7 @@ const ROUTES: Routes = [
     { path: 'login', component: LoginComponent },
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'admin', canActivate: [AuthGuard],  loadChildren: './admin/admin.module#AdminModule' },
+    { path: 'website', loadChildren: './website/website.module#WebsiteModule' },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

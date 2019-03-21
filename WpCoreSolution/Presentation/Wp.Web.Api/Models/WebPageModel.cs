@@ -14,6 +14,7 @@ namespace Wp.Web.Api.Models
         }
 
         public int Id { get; set; }
+        public string VirtualPath { get; set; }
         public bool UserHasCreateRights { get; set; }
         public IList<BaseReadOnlyModel> Sections { get; set; }
         public IEnumerable<string> AvailableSections { get; set; }

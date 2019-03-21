@@ -24,10 +24,48 @@ namespace Wp.Web.Api.Controllers
             _leService = leSerive;
         }
 
-        [HttpGet("{webPageId}", Name = "DetailsView")]
-        public ActionResult DetailsView(int webPageId)
+        //[HttpGet("{webPageId}", Name = "DetailsView")]
+        //public ActionResult DetailsView(int webPageId)
+        //{
+        //    var entity = _webPageService.GetById(webPageId);
+        //    if (entity != null)
+        //    {
+        //        if (!_webPageService.HasViewRights(entity.Id))
+        //            entity = null;
+        //    }
+
+        //    if (entity == null)
+        //        entity = _webPageService.GetAll().FirstOrDefault();
+
+        //    if (entity == null)
+        //        return RedirectToRoute("Install");
+
+        //    //var sections = page.Sections.ToList();
+        //    var model = entity.ToModel(_webPageService, _sectionService, User, 1, _leService); // Todo: Get language id from user profile
+
+
+        //    ////customer attribute services
+        //    //if (_customAttributeService != null && _customAttributeParser != null)
+        //    //{
+        //    //    //PrepareCustomWebPageAttributes(model, entity, _webPageAttributeService, _webPageAttributeParser, overrideAttributesXml);
+        //    //}
+        //    ////if (addressAttributeFormatter != null && address != null)
+        //    ////{
+        //    ////    model.FormattedCustomAddressAttributes = addressAttributeFormatter.FormatAttributes(address.CustomAttributes);
+        //    ////}
+
+        //    ////ViewBag.MetaTitle = !String.IsNullOrEmpty(entity.MetaTitle) ? entity.MetaTitle + " - " + website.Title : website.Title;
+        //    ////ViewBag.MetaDescription = !String.IsNullOrEmpty(entity.MetaDescription) ? entity.MetaDescription : website.MetaDescription;
+        //    ////ViewBag.MetaKeywords = !String.IsNullOrEmpty(entity.MetaKeywords) ? entity.MetaKeywords : website.MetaKeywords;
+
+        //    return Ok(model);
+        //}
+
+        // temp: use UrlRecord later
+        [HttpGet("{virtualPath}", Name = "DetailsViewByVirtualPath")]
+        public ActionResult DetailsViewByVirtualPath(string virtualPath)
         {
-            var entity = _webPageService.GetById(webPageId);
+            var entity = _webPageService.GetByVirtualPath(virtualPath);
             if (entity != null)
             {
                 if (!_webPageService.HasViewRights(entity.Id))

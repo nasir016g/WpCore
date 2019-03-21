@@ -47,5 +47,12 @@ export class AuthenticationService {
     localStorage.removeItem('currentUser');
     //use sessionStorage to logout when browser closes
 
-  }  
+  }
+  
+  isAuthenticated(): boolean {
+    if (localStorage.getItem('currentUser')) {
+      // logged in so return true
+      return true;
+  }
+  }
 }
