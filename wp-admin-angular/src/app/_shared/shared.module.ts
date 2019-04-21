@@ -4,12 +4,13 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule, CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
 import { ControlMessagesComponent } from './components/control-messages.component';
-
-
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 @NgModule({
     imports: [
         CommonModule,
+        AngularMultiSelectModule,
+        FormsModule,
         RouterModule,        
         ModalModule.forRoot(), 
         CollapseModule.forRoot(), 
@@ -17,6 +18,6 @@ import { ControlMessagesComponent } from './components/control-messages.componen
     ],
     declarations: [ControlMessagesComponent],
     providers: [],
-    exports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, ControlMessagesComponent]
+    exports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, ControlMessagesComponent, AngularMultiSelectModule]
 })
 export class SharedModule { }

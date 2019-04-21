@@ -12,9 +12,9 @@ var map = {
 		"./src/app/admin/admin.module.ts",
 		"admin-admin-module"
 	],
-	"./webpage/webpage.module": [
-		"./src/app/admin/webpage/webpage.module.ts",
-		"webpage-webpage-module"
+	"./website/website.module": [
+		"./src/app/website/website.module.ts",
+		"website-website-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -148,8 +148,14 @@ var AuthenticationService = /** @class */ (function () {
         localStorage.removeItem('currentUser');
         //use sessionStorage to logout when browser closes
     };
+    AuthenticationService.prototype.isAuthenticated = function () {
+        if (localStorage.getItem('currentUser')) {
+            // logged in so return true
+            return true;
+        }
+    };
     AuthenticationService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({ providedIn: 'root' }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_3__["Http"]])
     ], AuthenticationService);
     return AuthenticationService;
@@ -245,7 +251,7 @@ var ValidationService = /** @class */ (function () {
             'required': "Required",
             'invalidEmailAddress': 'Invalid email address',
             'invalidPassword': 'Invalid password. Password must be at least 6 characters long, and contain a number.',
-            'minlength': "Minimum length " + validatorValue.requiredLength
+            'minlength': "Please enter atleast " + validatorValue.requiredLength + " characters"
         };
         return config[validatorName];
     };
@@ -298,9 +304,9 @@ var ControlMessagesComponent = /** @class */ (function () {
     }
     Object.defineProperty(ControlMessagesComponent.prototype, "errorMessage", {
         get: function () {
-            for (var propertyName in this.control.errors) {
-                if (this.control.errors.hasOwnProperty(propertyName) && this.control.touched) {
-                    return _services__WEBPACK_IMPORTED_MODULE_3__["ValidationService"].getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
+            for (var validatorName in this.control.errors) {
+                if (this.control.errors.hasOwnProperty(validatorName) && this.control.touched) {
+                    return _services__WEBPACK_IMPORTED_MODULE_3__["ValidationService"].getValidatorErrorMessage(validatorName, this.control.errors[validatorName]);
                 }
             }
             return null;
@@ -315,7 +321,7 @@ var ControlMessagesComponent = /** @class */ (function () {
     ControlMessagesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'control-messages',
-            template: "<div class=\"error\" *ngIf=\"errorMessage !== null\">{{errorMessage}}</div>"
+            template: "<div class=\"error float-left\" *ngIf=\"errorMessage !== null\">{{errorMessage}}</div>"
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], ControlMessagesComponent);
@@ -343,6 +349,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 /* harmony import */ var _components_control_messages_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/control-messages.component */ "./src/app/_shared/components/control-messages.component.ts");
+/* harmony import */ var angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! angular2-multiselect-dropdown */ "./node_modules/angular2-multiselect-dropdown/fesm5/angular2-multiselect-dropdown.js");
+
 
 
 
@@ -357,6 +365,8 @@ var SharedModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_7__["AngularMultiSelectModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"],
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ModalModule"].forRoot(),
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["CollapseModule"].forRoot(),
@@ -364,7 +374,7 @@ var SharedModule = /** @class */ (function () {
             ],
             declarations: [_components_control_messages_component__WEBPACK_IMPORTED_MODULE_6__["ControlMessagesComponent"]],
             providers: [],
-            exports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"], _components_control_messages_component__WEBPACK_IMPORTED_MODULE_6__["ControlMessagesComponent"]]
+            exports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"], _components_control_messages_component__WEBPACK_IMPORTED_MODULE_6__["ControlMessagesComponent"], angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_7__["AngularMultiSelectModule"]]
         })
     ], SharedModule);
     return SharedModule;
@@ -387,13 +397,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _guard_auth_guard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_guard/auth.guard */ "./src/app/_guard/auth.guard.ts");
-/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_services/authentication.service */ "./src/app/_services/authentication.service.ts");
-/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../_shared/shared.module */ "./src/app/_shared/shared.module.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./login/login.component */ "./src/app/account/login/login.component.ts");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_shared/shared.module */ "./src/app/_shared/shared.module.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login/login.component */ "./src/app/account/login/login.component.ts");
 
 
 
-
+// import { AuthenticationService } from '../_services/authentication.service';
 
 
 var AccountModule = /** @class */ (function () {
@@ -402,11 +411,11 @@ var AccountModule = /** @class */ (function () {
     AccountModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [
-                _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
+                _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"]
             ],
-            declarations: [_login_login_component__WEBPACK_IMPORTED_MODULE_5__["LoginComponent"]],
+            declarations: [_login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"]],
             providers: [
-                _services_authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"],
+                // AuthenticationService,
                 _guard_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]
             ]
         })
@@ -459,7 +468,7 @@ var LoginComponent = /** @class */ (function () {
         this.auhenticationService.login(this.username, this.password)
             .subscribe(function (result) {
             if (result === true) {
-                _this.router.navigate(['/']);
+                window.location.href = "#";
             }
             else {
                 // login failed
@@ -510,38 +519,48 @@ var WebPageService = /** @class */ (function () {
     }
     WebPageService.prototype.getAll = function () {
         return this._http.get(this.url)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this._errorHandler));
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
     };
     WebPageService.prototype.getPageById = function (id) {
         return this._http.get(this.url + id)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this._errorHandler));
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
+    };
+    WebPageService.prototype.getPageByVirtualPath = function (virtualPath) {
+        // not from admin area
+        var url = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].apiUrl + 'webpage/';
+        return this._http.get(url + virtualPath)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
     };
     WebPageService.prototype.delete = function (id) {
         return this._http.delete(this.url + id)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this._errorHandler));
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
     };
     WebPageService.prototype.save = function (t) {
         var model = t;
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-type', 'application/json');
         if (model.id > 0) {
             //edit
             return this._http.put(this.url + model.id, JSON.stringify(model), {
-                headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-type', 'application/json'),
+                headers: headers,
             })
-                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this._errorHandler));
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
         }
         else {
             // new      
             return this._http.post(this.url, JSON.stringify(model), {
-                headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-type', 'application/json'),
+                headers: headers,
             })
-                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this._errorHandler));
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
         }
     };
-    WebPageService.prototype._errorHandler = function (error) {
+    WebPageService.prototype.errorHandler = function (error) {
+        console.log(error);
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error || 'Internal server error');
     };
     WebPageService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], WebPageService);
     return WebPageService;
@@ -558,7 +577,7 @@ var WebPageService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\r\n  <h1>\r\n    <!-- To show this line of text remove fixed-top from nav component -->\r\n    Welcome to {{title}}!\r\n  </h1> \r\n  \r\n  <ngx-alerts></ngx-alerts>\r\n  <app-nav></app-nav>\r\n   <div class=\"container\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n  <app-footer></app-footer>\r\n</div>"
+module.exports = "<div style=\"text-align:center\">\r\n  <h1>\r\n    <!-- To show this line of text remove fixed-top from nav component -->\r\n    Welcome to {{title}}!\r\n  </h1>\r\n\r\n  <ngx-alerts></ngx-alerts>\r\n  <app-nav></app-nav>\r\n  <div class=\"container\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n  <app-footer></app-footer>\r\n</div>"
 
 /***/ }),
 
@@ -616,6 +635,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nav_nav_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./nav/nav.component */ "./src/app/nav/nav.component.ts");
 /* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
 /* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./_services/user.service */ "./src/app/_services/user.service.ts");
+/* harmony import */ var _website_home_home_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./website/home/home.component */ "./src/app/website/home/home.component.ts");
+
 
 
 
@@ -646,6 +667,7 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
                 _nav_nav_component__WEBPACK_IMPORTED_MODULE_10__["NavComponent"],
+                _website_home_home_component__WEBPACK_IMPORTED_MODULE_13__["HomeComponent"],
                 _footer_footer_component__WEBPACK_IMPORTED_MODULE_9__["FooterComponent"],
             ],
             providers: [
@@ -684,6 +706,7 @@ var ROUTES = [
     { path: 'login', component: _account_login_login_component__WEBPACK_IMPORTED_MODULE_1__["LoginComponent"] },
     { path: '', component: _website_home_home_component__WEBPACK_IMPORTED_MODULE_3__["HomeComponent"], canActivate: [_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]] },
     { path: 'admin', canActivate: [_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]], loadChildren: './admin/admin.module#AdminModule' },
+    { path: 'website', loadChildren: './website/website.module#WebsiteModule' },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
@@ -743,7 +766,7 @@ var FooterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<nav class=\"navbar navbar-expand-lg navbar-dark bg-primary fixed-top\">\r\n  <div class=\"container\">\r\n      <a class=\"navbar-brand\" [routerLink]=\"['']\">WpCore </a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor01\" aria-controls=\"navbarColor01\"\r\n      aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarColor01\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li class=\"nav-item active\">\r\n            <a class=\"nav-link\" [routerLink]=\"['admin/webpage/list']\"><i class=\"fa fa-bars\"></i> Pages</a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link\" href=\"#\">Features</a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link\" href=\"#\">Pricing</a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link\" href=\"#\">About</a>\r\n        </li>\r\n      </ul>\r\n      <ul class=\"navbar-nav\">\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" href=\"https://github.com/nasir016g\">\r\n              <i class=\"fa fa-github\" aria-hidden=\"true\"></i>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      <form class=\"form-inline my-2 my-lg-0\">\r\n        <input class=\"form-control mr-sm-2\" type=\"text\" placeholder=\"Search\">\r\n        <button class=\"btn btn-secondary my-2 my-sm-0\" type=\"submit\">Search</button>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</nav>\r\n<br>"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-primary fixed-top\">\r\n  <div class=\"container\">\r\n    <a class=\"navbar-brand\" [routerLink]=\"['']\">WpCore </a>\r\n\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor01\" aria-controls=\"navbarColor01\"\r\n      aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarColor01\" *ngIf=\"!showAdmin\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li *ngFor=\"let wp of webpages\" class=\"nav-item active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['website/page/' + wp.virtualPath]\">{{wp.navigationName}}</a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarColor01\" *ngIf=\"showAdmin\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li class=\"nav-item active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/webpage/list']\"><i class=\"fa fa-bars\"></i> webpage</a>\r\n        </li>\r\n        <!-- <li class=\"nav-item\">\r\n          <a class=\"nav-link\" href=\"#\">About</a>\r\n        </li> -->\r\n      </ul>\r\n      <!-- <ul class=\"navbar-nav\">\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" href=\"https://github.com/nasir016g\">\r\n              <i class=\"fa fa-github\" aria-hidden=\"true\"></i>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      <form class=\"form-inline my-2 my-lg-0\">\r\n        <input class=\"form-control mr-sm-2\" type=\"text\" placeholder=\"Search\">\r\n        <button class=\"btn btn-secondary my-2 my-sm-0\" type=\"submit\">Search</button>\r\n      </form> -->\r\n\r\n    </div> \r\n    <div *ngIf=\"isAuthenticated\">\r\n      <button  class=\"btn btn-success ml-auto\" value=\"getBtnText()\" (click)=\"toggle()\">{{getBtnText()}}</button>\r\n\r\n    </div>\r\n  <div *ngIf=\"isAuthenticated\">\r\n    <a [routerLink]=\"\" class=\" nav-link m-2\" (click)=\"logout($event)\">Logout</a>\r\n  </div>\r\n  <div *ngIf=\"!isAuthenticated\">\r\n    <a [routerLink]=\"['login']\" class=\" nav-link m-2\" >Login</a>\r\n  </div>\r\n  </div>\r\n</nav>\r\n<br>"
 
 /***/ }),
 
@@ -759,20 +782,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavComponent", function() { return NavComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
 
 
 var NavComponent = /** @class */ (function () {
-    function NavComponent() {
+    function NavComponent(pageService, authenticationService, router) {
+        this.pageService = pageService;
+        this.authenticationService = authenticationService;
+        this.router = router;
+        this.webpages = [];
         this.isCollapsed = true;
+        this.isAuthenticated = authenticationService.isAuthenticated();
+        this.showAdmin = !this.isAuthenticated;
     }
     NavComponent.prototype.ngOnInit = function () {
+        this.getNavigations();
+    };
+    NavComponent.prototype.getNavigations = function () {
+        var _this = this;
+        this.pageService.getAll().subscribe(function (res) { return _this.webpages = res; }, function (err) {
+            _this.errorMessage = err.error;
+        });
+    };
+    NavComponent.prototype.getBtnText = function () {
+        return this.showAdmin ? 'Website' : 'Admin';
+    };
+    NavComponent.prototype.toggle = function () {
+        this.showAdmin = !this.showAdmin;
+        window.location.href = "#";
+    };
+    NavComponent.prototype.logout = function (event) {
+        event.preventDefault;
+        this.authenticationService.logout();
+        window.location.href = "login";
     };
     NavComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-nav',
             template: __webpack_require__(/*! ./nav.component.html */ "./src/app/nav/nav.component.html")
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["WebPageService"], _services__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], NavComponent);
     return NavComponent;
 }());
@@ -788,7 +840,7 @@ var NavComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2>\r\n  {{greeting}}\r\n</h2>\r\n<input type=\"button\" (click)=\"logout()\" value=\"Logout\">\r\n\r\n\r\n"
+module.exports = "<h2>\r\n  {{greeting}}\r\n</h2>\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -825,16 +877,14 @@ var HomeComponent = /** @class */ (function () {
             _this.greeting = result.toString();
         });
     };
-    HomeComponent.prototype.logout = function () {
-        this.authenticationService.logout();
-        this.router.navigate(['login']);
-    };
     HomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-home',
             template: __webpack_require__(/*! ./home.component.html */ "./src/app/website/home/home.component.html")
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _services__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], HomeComponent);
     return HomeComponent;
 }());

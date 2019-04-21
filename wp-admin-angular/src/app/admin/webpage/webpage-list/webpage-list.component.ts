@@ -4,6 +4,10 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Router } from '@angular/router';
 import { WebPage } from '../shared/webpage.model';
 import { WebPageService } from '../shared/webpage.service';
+import { HttpClient } from '@angular/common/http';
+import { ResponseContentType, Http } from '@angular/http';
+import { map } from 'rxjs/operators';
+import { ExcelService } from '../../../_services/excelService';
 
 @Component({
   selector: 'app-webpage-list',
@@ -16,7 +20,7 @@ export class WebPageListComponent implements OnInit {
   errorMessage: any;
 
   constructor(private pageService: WebPageService,
-    private router: Router, private modalService: BsModalService) { }
+    private router: Router, private modalService: BsModalService, private excelService:ExcelService) { }
 
   ngOnInit() {
     this.getAll();
@@ -47,5 +51,9 @@ export class WebPageListComponent implements OnInit {
   decline(): void {
     this.deletingPage = null;
     this.modalRef.hide();
+  }
+
+  downloadFile() {
+    this.excelService.exportExcel('sample-from-server');
   }
 }

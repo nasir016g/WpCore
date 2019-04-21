@@ -30,7 +30,7 @@ export class WebPageDetailComponent implements OnInit {
   private buildForm(formBuilder: FormBuilder) {
     this.form = formBuilder.group({
       id: this.model.id,
-      virtualPath: [this.model.virtualPath, [Validators.required]],
+      virtualPath: [this.model.virtualPath, [Validators.required, Validators.minLength(3)]],
       navigationName: [this.model.navigationName, [Validators.required]],
       visible: [this.model.visible],
       allowAnonymousAccess: [this.model.allowAnonymousAccess],

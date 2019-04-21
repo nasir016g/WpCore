@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Wp.Core.Domain.WebPages;
 using Wp.Services.Sections;
 using Wp.Services.WebPages;
@@ -91,6 +93,33 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
            var entity = _webPageService.GetById(id);
             _webPageService.Delete(entity);
         }
+
+        #region import / export
+
+        [HttpGet("download")]
+        public async Task<IActionResult> DownloadFile()
+        {
+            string fileName = "demo.xlsx";
+            var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+            //currentDirectory = currentDirectory + "\\files";
+            var file = Path.Combine(Path.Combine(currentDirectory, "files"), fileName);
+           
+            Stream stream = new FileStream(file, FileMode.Open, FileAccess.Read);
+
+            //var memoryStream = new MemoryStream();
+
+            //fileStream.Position = 0;
+            //fileStream.CopyTo(memoryStream);
+
+            if (stream == null)
+                return NotFound(); // returns a NotFoundResult with Status404NotFound response.
+            //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+            //return File(stream, "application/octet-stream", fileName); // returns a FileStreamResult
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName); // returns a FileStreamResult
+        }
+
+
+        #endregion
 
         #region Sections
 
