@@ -2,11 +2,12 @@
   <div class="container">
     <a class="navbar-brand" [routerLink]="['']">WpCore </a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
-      aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+      aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- website -->
     <div class="collapse navbar-collapse" id="navbarColor01" *ngIf="!showAdmin">
       <ul class="navbar-nav mr-auto">
         <li *ngFor="let wp of webpages" class="nav-item active">
@@ -14,6 +15,8 @@
         </li>
       </ul>
     </div>
+
+    <!-- admin -->
     <div class="collapse navbar-collapse" id="navbarColor01" *ngIf="showAdmin">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
@@ -34,18 +37,18 @@
         <input class="form-control mr-sm-2" type="text" placeholder="Search">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </form> -->
-
-    </div> 
-    <div *ngIf="isAuthenticated">
-      <button  class="btn btn-success ml-auto" value="getBtnText()" (click)="toggle()">{{getBtnText()}}</button>
-
     </div>
-  <div *ngIf="isAuthenticated">
-    <a [routerLink]="" class=" nav-link m-2" (click)="logout($event)">Logout</a>
-  </div>
-  <div *ngIf="!isAuthenticated">
-    <a [routerLink]="['login']" class=" nav-link m-2" >Login</a>
-  </div>
+    <div *ngIf="isAuthenticated">
+      <button class="btn btn-success ml-auto" value="getBtnText()" (click)="toggle()">{{getBtnText()}}</button>
+    </div>
+
+    <!-- login -->
+    <div *ngIf="isAuthenticated">
+      <a [routerLink]="" class=" nav-link m-2" (click)="logout($event)">Logout</a>
+    </div>
+    <div *ngIf="!isAuthenticated">
+      <a [routerLink]="['login']" class=" nav-link m-2">Login</a>
+    </div>
   </div>
 </nav>
 <br>

@@ -53,13 +53,14 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
 
         // GET: api/Page/5
         [HttpGet("{id}", Name = "Get")]
-        public ObjectResult Get(int id)
+        public IActionResult Get(int id)
         {
-            var entity = _webPageService.GetById(id);
-            var model = entity.ToModel();
+            return new ForbidResult();
+            //var entity = _webPageService.GetById(id);
+            //var model = entity.ToModel();
 
-            PrepareModels(entity, model);
-            return Ok(model);
+            //PrepareModels(entity, model);
+            //return Ok(model);
         }       
 
         // POST: api/Page

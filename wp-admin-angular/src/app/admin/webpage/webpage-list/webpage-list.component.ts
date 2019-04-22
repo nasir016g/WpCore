@@ -2,11 +2,8 @@ import { Component, OnInit, TemplateRef  } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Router } from '@angular/router';
-import { WebPage } from '../shared/webpage.model';
-import { WebPageService } from '../shared/webpage.service';
-import { HttpClient } from '@angular/common/http';
-import { ResponseContentType, Http } from '@angular/http';
-import { map } from 'rxjs/operators';
+import { AdminWebPage } from '../shared/admin-webpage.model';
+import { AdminWebpageService } from '../shared/admin-webpage.service';
 import { ExcelService } from '../../../_services/excelService';
 
 @Component({
@@ -14,13 +11,13 @@ import { ExcelService } from '../../../_services/excelService';
   templateUrl: './webpage-list.component.html'
 })
 export class WebPageListComponent implements OnInit {
-  webpages: Array<WebPage> = [];
-  deletingPage: WebPage;
+  webpages: Array<AdminWebPage> = [];
+  deletingPage: AdminWebPage;
   modalRef: BsModalRef;
   errorMessage: any;
 
-  constructor(private pageService: WebPageService,
-    private router: Router, private modalService: BsModalService, private excelService:ExcelService) { }
+  constructor(private pageService: AdminWebpageService,
+    private modalService: BsModalService, private excelService:ExcelService) { }
 
   ngOnInit() {
     this.getAll();
@@ -35,14 +32,14 @@ export class WebPageListComponent implements OnInit {
     );
   }
 
-  delete(webpage: WebPage, template: TemplateRef<any>) {
+  delete(webpage: AdminWebPage, template: TemplateRef<any>) {
     this.deletingPage = webpage;
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }  
  
   confirm(): void {
     this.pageService.delete(this.deletingPage.id).subscribe(
-      resp => {
+      () => {
         this.getAll();
       })   
     this.modalRef.hide();

@@ -7,41 +7,32 @@ import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { WebPage, BaseModel } from './webpage.model';
+import { AdminWebPage, BaseModel } from './admin-webpage.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class WebPageService {
+export class AdminWebpageService {
   url = environment.apiUrl + 'admin/webpage/';
 
-  constructor(private _http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getAll() {
-    return this._http.get<WebPage[]>(this.url)
+    return this.http.get<AdminWebPage[]>(this.url)
     .pipe(
     catchError(this.errorHandler));
   }
 
   getPageById(id) {
-    return this._http.get<WebPage>(this.url + id)
+    return this.http.get<AdminWebPage>(this.url + id)
 
     .pipe(
       catchError(this.errorHandler));
-  }
-
-  getPageByVirtualPath(virtualPath) {
-    // not from admin area
-    const url = environment.apiUrl + 'webpage/'
-    return this._http.get<WebPage>(url + virtualPath)
-
-    .pipe(
-      catchError(this.errorHandler));
-  }
+  }  
 
   delete(id) {
-    return  this._http.delete(this.url + id)
+    return  this.http.delete(this.url + id)
     .pipe(
       catchError(this.errorHandler));
   }
@@ -52,14 +43,14 @@ export class WebPageService {
     if(model.id > 0)
     {
       //edit
-      return this._http.put<any>(this.url + model.id, JSON.stringify(model), {
+      return this.http.put<any>(this.url + model.id, JSON.stringify(model), {
         headers: headers,
       })
       .pipe(
         catchError(this.errorHandler))
     } else {
       // new      
-      return this._http.post<any>(this.url, JSON.stringify(model), {
+      return this.http.post<any>(this.url, JSON.stringify(model), {
         headers: headers,
       })
       .pipe(

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'ngx-alerts';
-import { WebPage } from '../shared/webpage.model';
-import { WebPageService } from '../shared/webpage.service';
+import { AdminWebPage } from '../shared/admin-webpage.model';
+import { from } from 'rxjs';
+
+import { AdminWebpageService } from '../shared/admin-webpage.service';
 
 @Component({
   selector: 'app-webpage',
@@ -12,14 +14,14 @@ import { WebPageService } from '../shared/webpage.service';
 
 export class WebPageDetailComponent implements OnInit {
   form: FormGroup;
-  model: WebPage = new WebPage();
+  model: AdminWebPage = new AdminWebPage();
 
   constructor(
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private alertService: AlertService,
-    private pageService: WebPageService) {
+    private pageService: AdminWebpageService) {
 
     if (this.activatedRoute.snapshot.params['id']) {
       this.model.id = parseInt(this.activatedRoute.snapshot.params['id']);

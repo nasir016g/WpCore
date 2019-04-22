@@ -169,7 +169,7 @@ var AuthenticationService = /** @class */ (function () {
 /*!************************************!*\
   !*** ./src/app/_services/index.ts ***!
   \************************************/
-/*! exports provided: AuthenticationService, ValidationService, WebPageService */
+/*! exports provided: AuthenticationService, ValidationService, AdminWebPageService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -180,8 +180,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _validation_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validation.service */ "./src/app/_services/validation.service.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ValidationService", function() { return _validation_service__WEBPACK_IMPORTED_MODULE_1__["ValidationService"]; });
 
-/* harmony import */ var _admin_webpage_shared_webpage_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../admin/webpage/shared/webpage.service */ "./src/app/admin/webpage/shared/webpage.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WebPageService", function() { return _admin_webpage_shared_webpage_service__WEBPACK_IMPORTED_MODULE_2__["WebPageService"]; });
+/* harmony import */ var _admin_webpage_shared_admin_webpage_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../admin/webpage/shared/admin-webpage.service */ "./src/app/admin/webpage/shared/admin-webpage.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AdminWebPageService", function() { return _admin_webpage_shared_admin_webpage_service__WEBPACK_IMPORTED_MODULE_2__["AdminWebPageService"]; });
 
 
 
@@ -490,16 +490,16 @@ var LoginComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/admin/webpage/shared/webpage.service.ts":
-/*!*********************************************************!*\
-  !*** ./src/app/admin/webpage/shared/webpage.service.ts ***!
-  \*********************************************************/
-/*! exports provided: WebPageService */
+/***/ "./src/app/admin/webpage/shared/admin-webpage.service.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/admin/webpage/shared/admin-webpage.service.ts ***!
+  \***************************************************************/
+/*! exports provided: AdminWebPageService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebPageService", function() { return WebPageService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminWebPageService", function() { return AdminWebPageService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
@@ -512,30 +512,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var WebPageService = /** @class */ (function () {
-    function WebPageService(_http) {
+var AdminWebPageService = /** @class */ (function () {
+    function AdminWebPageService(_http) {
         this._http = _http;
         this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].apiUrl + 'admin/webpage/';
     }
-    WebPageService.prototype.getAll = function () {
+    AdminWebPageService.prototype.getAll = function () {
         return this._http.get(this.url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
     };
-    WebPageService.prototype.getPageById = function (id) {
+    AdminWebPageService.prototype.getPageById = function (id) {
         return this._http.get(this.url + id)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
     };
-    WebPageService.prototype.getPageByVirtualPath = function (virtualPath) {
+    AdminWebPageService.prototype.getPageByVirtualPath = function (virtualPath) {
         // not from admin area
         var url = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].apiUrl + 'webpage/';
         return this._http.get(url + virtualPath)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
     };
-    WebPageService.prototype.delete = function (id) {
+    AdminWebPageService.prototype.delete = function (id) {
         return this._http.delete(this.url + id)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
     };
-    WebPageService.prototype.save = function (t) {
+    AdminWebPageService.prototype.save = function (t) {
         var model = t;
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-type', 'application/json');
         if (model.id > 0) {
@@ -553,17 +553,17 @@ var WebPageService = /** @class */ (function () {
                 .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
         }
     };
-    WebPageService.prototype.errorHandler = function (error) {
+    AdminWebPageService.prototype.errorHandler = function (error) {
         console.log(error);
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error || 'Internal server error');
     };
-    WebPageService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    AdminWebPageService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
-    ], WebPageService);
-    return WebPageService;
+    ], AdminWebPageService);
+    return AdminWebPageService;
 }());
 
 
@@ -766,7 +766,7 @@ var FooterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-primary fixed-top\">\r\n  <div class=\"container\">\r\n    <a class=\"navbar-brand\" [routerLink]=\"['']\">WpCore </a>\r\n\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor01\" aria-controls=\"navbarColor01\"\r\n      aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarColor01\" *ngIf=\"!showAdmin\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li *ngFor=\"let wp of webpages\" class=\"nav-item active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['website/page/' + wp.virtualPath]\">{{wp.navigationName}}</a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarColor01\" *ngIf=\"showAdmin\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li class=\"nav-item active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/webpage/list']\"><i class=\"fa fa-bars\"></i> webpage</a>\r\n        </li>\r\n        <!-- <li class=\"nav-item\">\r\n          <a class=\"nav-link\" href=\"#\">About</a>\r\n        </li> -->\r\n      </ul>\r\n      <!-- <ul class=\"navbar-nav\">\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" href=\"https://github.com/nasir016g\">\r\n              <i class=\"fa fa-github\" aria-hidden=\"true\"></i>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      <form class=\"form-inline my-2 my-lg-0\">\r\n        <input class=\"form-control mr-sm-2\" type=\"text\" placeholder=\"Search\">\r\n        <button class=\"btn btn-secondary my-2 my-sm-0\" type=\"submit\">Search</button>\r\n      </form> -->\r\n\r\n    </div> \r\n    <div *ngIf=\"isAuthenticated\">\r\n      <button  class=\"btn btn-success ml-auto\" value=\"getBtnText()\" (click)=\"toggle()\">{{getBtnText()}}</button>\r\n\r\n    </div>\r\n  <div *ngIf=\"isAuthenticated\">\r\n    <a [routerLink]=\"\" class=\" nav-link m-2\" (click)=\"logout($event)\">Logout</a>\r\n  </div>\r\n  <div *ngIf=\"!isAuthenticated\">\r\n    <a [routerLink]=\"['login']\" class=\" nav-link m-2\" >Login</a>\r\n  </div>\r\n  </div>\r\n</nav>\r\n<br>"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-primary fixed-top\">\r\n  <div class=\"container\">\r\n    <a class=\"navbar-brand\" [routerLink]=\"['']\">WpCore </a>\r\n\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor01\"\r\n      aria-controls=\"navbarColor01\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <!-- website -->\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarColor01\" *ngIf=\"!showAdmin\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li *ngFor=\"let wp of webpages\" class=\"nav-item active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['website/page/' + wp.virtualPath]\">{{wp.navigationName}}</a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n\r\n    <!-- admin -->\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarColor01\" *ngIf=\"showAdmin\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li class=\"nav-item active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/webpage/list']\"><i class=\"fa fa-bars\"></i> webpage</a>\r\n        </li>\r\n        <!-- <li class=\"nav-item\">\r\n          <a class=\"nav-link\" href=\"#\">About</a>\r\n        </li> -->\r\n      </ul>\r\n      <!-- <ul class=\"navbar-nav\">\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" href=\"https://github.com/nasir016g\">\r\n              <i class=\"fa fa-github\" aria-hidden=\"true\"></i>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      <form class=\"form-inline my-2 my-lg-0\">\r\n        <input class=\"form-control mr-sm-2\" type=\"text\" placeholder=\"Search\">\r\n        <button class=\"btn btn-secondary my-2 my-sm-0\" type=\"submit\">Search</button>\r\n      </form> -->\r\n    </div>\r\n    <div *ngIf=\"isAuthenticated\">\r\n      <button class=\"btn btn-success ml-auto\" value=\"getBtnText()\" (click)=\"toggle()\">{{getBtnText()}}</button>\r\n    </div>\r\n\r\n    <!-- login -->\r\n    <div *ngIf=\"isAuthenticated\">\r\n      <a [routerLink]=\"\" class=\" nav-link m-2\" (click)=\"logout($event)\">Logout</a>\r\n    </div>\r\n    <div *ngIf=\"!isAuthenticated\">\r\n      <a [routerLink]=\"['login']\" class=\" nav-link m-2\">Login</a>\r\n    </div>\r\n  </div>\r\n</nav>\r\n<br>"
 
 /***/ }),
 
@@ -824,7 +824,7 @@ var NavComponent = /** @class */ (function () {
             selector: 'app-nav',
             template: __webpack_require__(/*! ./nav.component.html */ "./src/app/nav/nav.component.html")
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["WebPageService"], _services__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["AdminWebPageService"], _services__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], NavComponent);
     return NavComponent;
 }());

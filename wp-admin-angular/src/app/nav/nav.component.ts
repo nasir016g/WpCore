@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { WebPageService, AuthenticationService } from '../_services';
-import { WebPage } from '../admin/webpage/shared/webpage.model';
+import { AdminWebpageService, AuthenticationService } from '../_services';
+import { AdminWebPage } from '../admin/webpage/shared/admin-webpage.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,13 +8,13 @@ import { Router } from '@angular/router';
   templateUrl: './nav.component.html'
 })
 export class NavComponent implements OnInit {
-  webpages: Array<WebPage> = [];
+  webpages: Array<AdminWebPage> = [];
   errorMessage: any;
   showAdmin: boolean;
   btnText: string;
   isCollapsed = true;
   isAuthenticated: boolean
-  constructor(private pageService: WebPageService, public authenticationService: AuthenticationService, private router: Router) {
+  constructor(private pageService: AdminWebpageService, public authenticationService: AuthenticationService, private router: Router) {
     this.isAuthenticated = authenticationService.isAuthenticated();
     this.showAdmin = !this.isAuthenticated;
   }

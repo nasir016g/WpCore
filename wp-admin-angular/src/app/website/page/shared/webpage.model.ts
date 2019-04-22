@@ -1,4 +1,5 @@
 export class WebPage {    
     id: number;
-    virtualPath: string;    
+    virtualPath: string;
+   // sections: any[];    
 }

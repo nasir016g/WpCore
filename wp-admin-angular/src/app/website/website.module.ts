@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '../_guard/auth.guard';
-import { HomeComponent } from './home/home.component';
 import { PageComponent } from './page/page.component';
+import { HtmlContentComponent } from './sections/html-content/html-content.component';
 
 export const ROUTES: Routes = [
   {
@@ -15,7 +14,7 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [PageComponent],
+  declarations: [PageComponent, HtmlContentComponent],
   imports: [
     CommonModule,    
     RouterModule.forChild(ROUTES)

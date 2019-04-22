@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { WebPageService } from '../../_services';
+import { WebpageService } from './shared/webpage.service';
 import { WebPage } from './shared/webpage.model';
 
 @Component({
@@ -9,13 +9,13 @@ import { WebPage } from './shared/webpage.model';
   templateUrl: './page.component.html'
 })
 export class PageComponent implements OnInit {
-  pageName: string;
   webPage = new WebPage();
 
+  //#region ctor
   constructor(
     private activatedRoute: ActivatedRoute, 
     private router: Router,
-    private webPageService: WebPageService) {
+    private webpageService: WebpageService) {
     // https://stackoverflow.com/questions/49407730/angular-2-constructor-and-ngoninit-not-getting-called-if-route-is-manipulated-u
     this.router.events.subscribe(event => {
       if (!(event instanceof NavigationEnd)) {
@@ -31,14 +31,14 @@ export class PageComponent implements OnInit {
 
       const virtualPath = this.activatedRoute.snapshot.params['id'];
       this.getWebPage(virtualPath);
-
     }
   }
+  //#endregion
 
   getWebPage(virtualPath: string){
-    this.webPageService.getPageByVirtualPath(virtualPath).subscribe(x => {
+    this.webpageService.getPageByVirtualPath(virtualPath).subscribe(x => {
+      console.log(x);
       this.webPage = x;
-      this.pageName = x.virtualPath;
     })
   }
 }

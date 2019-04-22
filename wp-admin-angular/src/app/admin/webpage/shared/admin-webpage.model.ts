@@ -3,7 +3,7 @@ export class BaseModel {
 }
 
 
-export class WebPage extends BaseModel {    
+export class AdminWebPage extends BaseModel {    
     parentId: number;
     virtualPath: string;
     navigationName: string;
