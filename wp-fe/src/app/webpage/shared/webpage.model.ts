@@ -1,6 +1,7 @@
 export class WebPage {    
     id: number;
     virtualPath: string;
+    navigationName: string;
     sections: Section[];    
 }
 

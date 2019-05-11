@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { WebPage, Section } from './shared/webpage.model';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { WebpageService } from './shared/webpage.service';
-import { WebPage, HtmlSection, Section } from './shared/webpage.model';
 
 @Component({
-  selector: 'app-page',
-  templateUrl: './page.component.html'
+  selector: 'app-webpage',
+  templateUrl: './webpage.component.html'
 })
-export class PageComponent implements OnInit {
+export class WebpageComponent implements OnInit {
+  
   webPage = new WebPage();
 
   //#region ctor
