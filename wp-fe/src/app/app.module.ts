@@ -7,12 +7,15 @@ import { WebpageComponent } from './webpage/webpage.component';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: '',
-    children:[
-      { path: 'page/:id', component: WebpageComponent}
-    ] 
-  },
+  {path: ':id', component: WebpageComponent},
+  {path: '',  redirectTo: '/home', pathMatch: 'full'},
+  // {
+    
+  //   path: '',
+  //   children:[
+  //     { path: 'page/:id', component: WebpageComponent}
+  //   ] 
+  // },
   { path: '**', redirectTo: '' }
 ];
 

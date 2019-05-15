@@ -30,6 +30,7 @@ export class WebpageComponent implements OnInit {
     if (this.activatedRoute.snapshot.params['id']) {
 
       const virtualPath = this.activatedRoute.snapshot.params['id'];
+      
       this.getWebPage(virtualPath);
     }
   }
