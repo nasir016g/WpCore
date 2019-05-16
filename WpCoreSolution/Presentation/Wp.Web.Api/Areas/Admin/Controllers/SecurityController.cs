@@ -9,7 +9,7 @@ using Wp.Core.Security;
 
 namespace Wp.Web.Api.Areas.Admin.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/admin/[controller]")]
     [ApiController]
     public class SecurityController : ControllerBase
     {
@@ -33,7 +33,7 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
 
         // POST: api/Security
         [HttpPost("Roles/{roleName}")]
-        public async Task<IActionResult> Post([FromBody] string roleName)
+        public async Task<IActionResult> Post(string roleName)
         {
             if (!ModelState.IsValid)
             {

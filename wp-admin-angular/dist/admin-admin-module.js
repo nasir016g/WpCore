@@ -253,7 +253,7 @@ var WebPageDetailComponent = /** @class */ (function () {
                 .subscribe(function (resp) {
                 _this.model = resp;
                 _this.buildForm(_this.formBuilder);
-            }, function (error) { return _this.alertService.danger(error.message); });
+            }, function (error) { return _this.alertService.danger(error); });
         }
     };
     WebPageDetailComponent.prototype.cancel = function () {

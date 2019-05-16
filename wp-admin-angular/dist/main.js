@@ -673,6 +673,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
 /* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./_services/user.service */ "./src/app/_services/user.service.ts");
 /* harmony import */ var _helpers_error_intercptor__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./_helpers/error.intercptor */ "./src/app/_helpers/error.intercptor.ts");
+/* harmony import */ var _security_role_role_list_role_list_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./security/role/role-list/role-list.component */ "./src/app/security/role/role-list/role-list.component.ts");
+/* harmony import */ var ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-bootstrap/dropdown */ "./node_modules/ngx-bootstrap/dropdown/fesm5/ngx-bootstrap-dropdown.js");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./_shared/shared.module */ "./src/app/_shared/shared.module.ts");
+
+
+
 
 
 
@@ -698,13 +704,16 @@ var AppModule = /** @class */ (function () {
                 _angular_http__WEBPACK_IMPORTED_MODULE_4__["HttpModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"],
                 ngx_alerts__WEBPACK_IMPORTED_MODULE_6__["AlertModule"].forRoot({ maxMessages: 5, timeout: 5000 }),
+                ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_15__["BsDropdownModule"].forRoot(),
                 _app_routing__WEBPACK_IMPORTED_MODULE_11__["AppRouting"],
-                _account_account_module__WEBPACK_IMPORTED_MODULE_7__["AccountModule"]
+                _account_account_module__WEBPACK_IMPORTED_MODULE_7__["AccountModule"],
+                _shared_shared_module__WEBPACK_IMPORTED_MODULE_16__["SharedModule"]
             ],
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
                 _nav_nav_component__WEBPACK_IMPORTED_MODULE_10__["NavComponent"],
                 _footer_footer_component__WEBPACK_IMPORTED_MODULE_9__["FooterComponent"],
+                _security_role_role_list_role_list_component__WEBPACK_IMPORTED_MODULE_14__["RoleListComponent"],
             ],
             providers: [
                 _services_user_service__WEBPACK_IMPORTED_MODULE_12__["UserService"],
@@ -736,12 +745,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _account_login_login_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./account/login/login.component */ "./src/app/account/login/login.component.ts");
 /* harmony import */ var _guard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_guard */ "./src/app/_guard/index.ts");
+/* harmony import */ var _security_role_role_list_role_list_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./security/role/role-list/role-list.component */ "./src/app/security/role/role-list/role-list.component.ts");
+
 
 
 
 var ROUTES = [
     { path: 'login', component: _account_login_login_component__WEBPACK_IMPORTED_MODULE_1__["LoginComponent"] },
     { path: 'admin', canActivate: [_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]], loadChildren: './admin/admin.module#AdminModule' },
+    { path: 'security/roles', canActivate: [_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]], component: _security_role_role_list_role_list_component__WEBPACK_IMPORTED_MODULE_3__["RoleListComponent"] },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
@@ -801,7 +813,7 @@ var FooterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-primary fixed-top\">\r\n  <div class=\"container\">\r\n    <a class=\"navbar-brand\" [routerLink]=\"['']\">WpCore </a>\r\n\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor01\"\r\n      aria-controls=\"navbarColor01\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>   \r\n\r\n    <!-- admin -->\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarColor01\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li class=\"nav-item active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/webpage/list']\"><i class=\"fa fa-bars\"></i> webpage</a>\r\n        </li>\r\n        <!-- <li class=\"nav-item\">\r\n          <a class=\"nav-link\" href=\"#\">About</a>\r\n        </li> -->\r\n      </ul>\r\n      <!-- <ul class=\"navbar-nav\">\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" href=\"https://github.com/nasir016g\">\r\n              <i class=\"fa fa-github\" aria-hidden=\"true\"></i>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      <form class=\"form-inline my-2 my-lg-0\">\r\n        <input class=\"form-control mr-sm-2\" type=\"text\" placeholder=\"Search\">\r\n        <button class=\"btn btn-secondary my-2 my-sm-0\" type=\"submit\">Search</button>\r\n      </form> -->\r\n    </div>\r\n    \r\n      <a class=\"ml-auto\" href=\"http://localhost:9000\">Go to website</a>\r\n   \r\n\r\n    <!-- login -->\r\n    <div *ngIf=\"isAuthenticated\">\r\n      <a [routerLink]=\"\" class=\" nav-link m-2\" (click)=\"logout($event)\">Logout</a>\r\n    </div>\r\n    <div *ngIf=\"!isAuthenticated\">\r\n      <a [routerLink]=\"['login']\" class=\" nav-link m-2\">Login</a>\r\n    </div>\r\n  </div>\r\n</nav>\r\n<br>"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-primary fixed-top\">\r\n  <div class=\"container\">\r\n    <a class=\"navbar-brand\" [routerLink]=\"['']\">WpCore </a>\r\n\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor01\"\r\n      aria-controls=\"navbarColor01\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>      \r\n\r\n    <!-- admin -->\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarColor01\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li class=\"nav-item active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/webpage/list']\"><i class=\"fa fa-bars\"></i> webpages</a>\r\n        </li>\r\n        <div class=\"btn-group\" dropdown>\r\n            <button id=\"button-basic\" dropdownToggle type=\"button\" class=\"btn btn-link\"\r\n                    aria-controls=\"dropdown-basic\">\r\n                    <i class=\"fa fa-lock\"></i> Security <span class=\"caret\"></span>\r\n            </button>\r\n            <ul id=\"dropdown-basic\" *dropdownMenu class=\"dropdown-menu\"\r\n                role=\"menu\" aria-labelledby=\"button-basic\">\r\n              <li role=\"menuitem\"><a class=\"dropdown-item\" [routerLink]=\"['security/roles']\">Roles</a></li>\r\n              <li role=\"menuitem\"><a class=\"dropdown-item\" [routerLink]=\"['security/roles']\">Users</a></li>\r\n              <li role=\"menuitem\"><a class=\"dropdown-item\" href=\"#\">Something else here</a></li>\r\n              <li class=\"divider dropdown-divider\"></li>\r\n              <li role=\"menuitem\"><a class=\"dropdown-item\" href=\"#\">Separated link</a>\r\n              </li>\r\n            </ul>\r\n          </div>\r\n\r\n         \r\n       \r\n        <!-- <li class=\"nav-item\">\r\n          <a class=\"nav-link\" href=\"#\">About</a>\r\n        </li> -->\r\n      </ul>\r\n      <!-- <ul class=\"navbar-nav\">\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" href=\"https://github.com/nasir016g\">\r\n              <i class=\"fa fa-github\" aria-hidden=\"true\"></i>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      <form class=\"form-inline my-2 my-lg-0\">\r\n        <input class=\"form-control mr-sm-2\" type=\"text\" placeholder=\"Search\">\r\n        <button class=\"btn btn-secondary my-2 my-sm-0\" type=\"submit\">Search</button>\r\n      </form> -->\r\n    </div>\r\n    \r\n   \r\n      <a class=\"ml-auto\" href=\"http://localhost:9000\">Go to website</a>\r\n   \r\n\r\n    <!-- login -->\r\n    <div *ngIf=\"isAuthenticated\">\r\n      <a [routerLink]=\"\" class=\" nav-link m-2\" (click)=\"logout($event)\">Logout</a>\r\n    </div>\r\n    <div *ngIf=\"!isAuthenticated\">\r\n      <a [routerLink]=\"['login']\" class=\" nav-link m-2\">Login</a>\r\n    </div>\r\n  </div>\r\n</nav>\r\n<br>"
 
 /***/ }),
 
@@ -854,6 +866,135 @@ var NavComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["AdminWebpageService"], _services__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], NavComponent);
     return NavComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/security/role/role-list/role-list.component.html":
+/*!******************************************************************!*\
+  !*** ./src/app/security/role/role-list/role-list.component.html ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  role-list works!\n</p>\n\n\n\n<div class=\"row\">\n  <form [FormGroup]=\"newRoleForm\" (ngSubmit)=\"createRole()\">\n    <div class=\"input-group\">\n      <input formControlName=\"roleName\" placeholder=\"Role name\" class=\"form-control\">\n      <span class=\"input-group-btn\">\n          <button type=\"submit\" class=\"btn btn-default\">Add Role</button>\n      </span>\n    </div>\n  </form>\n</div>\n<div class=\"row\">\n  <div class=\"col-md-6\">\n    <table class=\"table\">\n      <tr>\n        <th>Existing Roles\n        </th>\n        <th></th>\n      </tr>\n      <tr *ngFor=\"let role of roles\">\n        <td>\n          {{role}}\n        </td>\n\n        <td *ngIf=\"role !== 'Admin'\">\n          <button class=\"btn btn-danger\" (click)=\"deleteRole(role)\">Delete</button>\n        </td>\n      </tr>\n    </table>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/security/role/role-list/role-list.component.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/security/role/role-list/role-list.component.ts ***!
+  \****************************************************************/
+/*! exports provided: RoleListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleListComponent", function() { return RoleListComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _shared_role_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/role.service */ "./src/app/security/role/shared/role.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
+
+
+
+var RoleListComponent = /** @class */ (function () {
+    function RoleListComponent(roleService) {
+        this.roleService = roleService;
+    }
+    RoleListComponent.prototype.ngOnInit = function () {
+        this.getRoles();
+    };
+    RoleListComponent.prototype.buildForm = function () {
+        this.newRoleForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
+            roleName: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required])
+        });
+    };
+    RoleListComponent.prototype.getRoles = function () {
+        var _this = this;
+        this.roleService.getRoles().subscribe(function (rez) {
+            _this.roles = rez;
+            _this.buildForm();
+        }, function (err) {
+            console.log(err.error);
+        });
+    };
+    RoleListComponent.prototype.deleteRole = function (role) {
+        var _this = this;
+        this.roleService.delete(role).subscribe(function () {
+            _this.getRoles();
+        });
+    };
+    RoleListComponent.prototype.createRole = function () {
+        var _this = this;
+        if (!this.newRoleForm.valid) {
+            return;
+        }
+        var postedRole = this.newRoleForm.value;
+        this.roleService.create(postedRole).subscribe(function (rez) {
+            _this.roles.push(postedRole);
+            _this.buildForm();
+        });
+    };
+    RoleListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-role-list',
+            template: __webpack_require__(/*! ./role-list.component.html */ "./src/app/security/role/role-list/role-list.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_role_service__WEBPACK_IMPORTED_MODULE_2__["RoleService"]])
+    ], RoleListComponent);
+    return RoleListComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/security/role/shared/role.service.ts":
+/*!******************************************************!*\
+  !*** ./src/app/security/role/shared/role.service.ts ***!
+  \******************************************************/
+/*! exports provided: RoleService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleService", function() { return RoleService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../environments/environment */ "./src/environments/environment.ts");
+
+
+
+
+var RoleService = /** @class */ (function () {
+    function RoleService(http) {
+        this.http = http;
+        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].apiUrl + 'admin/security/roles/';
+    }
+    RoleService.prototype.getRoles = function () {
+        return this.http.get(this.url);
+    };
+    RoleService.prototype.delete = function (role) {
+        return this.http.delete(this.url + role);
+    };
+    RoleService.prototype.create = function (role) {
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-type', 'application/json');
+        return this.http.post(this.url, JSON.stringify(role), {
+            headers: headers,
+        });
+    };
+    RoleService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], RoleService);
+    return RoleService;
 }());
 
 

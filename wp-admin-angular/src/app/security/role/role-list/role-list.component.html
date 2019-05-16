@@ -1,3 +1,34 @@
-<p>
-  role-list works!
-</p>
+
+<div class="row" *ngIf="roles">
+  
+  <div class="col text-right">
+    <form [formGroup]="newRoleForm" (ngSubmit)="createRole()" >
+    <div class="input-group col-md-6 ">
+      <input formControlName="roleName" placeholder="Role name" class="form-control">
+      <span class="input-group-btn">
+          <button type="submit" class="btn btn-primary">Add New Role</button>
+      </span>
+    </div>
+  </form>
+</div>
+</div>
+<div class="row">
+  <div class="col">
+    <table class="table">
+      <tr>
+        <th class="text-left">Existing Roles
+        </th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let role of roles">
+        <td class="text-left">
+          {{role}}
+        </td>
+
+        <td *ngIf="role !== 'Admin'" class="float-right">
+          <button class="btn btn-danger" (click)="deleteRole(role)">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

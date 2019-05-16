@@ -54,7 +54,7 @@
 
     <!-- login -->
     <div *ngIf="isAuthenticated">
-      <a [routerLink]="" class=" nav-link m-2" (click)="logout($event)">Logout</a>
+      <a [routerLink]="" class="nav-link m-2" (click)="logout($event)">Logout</a>
     </div>
     <div *ngIf="!isAuthenticated">
       <a [routerLink]="['login']" class=" nav-link m-2">Login</a>
