@@ -6,7 +6,7 @@
     <div class="input-group col-md-6 ">
       <input formControlName="roleName" placeholder="Role name" class="form-control">
       <span class="input-group-btn">
-          <button type="submit" class="btn btn-primary">Add New Role</button>
+          <button type="submit" class="btn btn-secondary">Add New Role</button>
       </span>
     </div>
   </form>
@@ -26,7 +26,7 @@
         </td>
 
         <td *ngIf="role !== 'Admin'" class="float-right">
-          <button class="btn btn-danger" (click)="deleteRole(role)">Delete</button>
+          <button class="btn btn-secondary" (click)="deleteRole(role)">Delete</button>
         </td>
       </tr>
     </table>
