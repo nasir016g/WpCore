@@ -253,7 +253,7 @@ var WebPageDetailComponent = /** @class */ (function () {
                 .subscribe(function (resp) {
                 _this.model = resp;
                 _this.buildForm(_this.formBuilder);
-            }, function (error) { return _this.alertService.danger(error.message); });
+            }, function (error) { return _this.alertService.danger(error); });
         }
     };
     WebPageDetailComponent.prototype.cancel = function () {
@@ -283,7 +283,7 @@ var WebPageDetailComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             ngx_alerts__WEBPACK_IMPORTED_MODULE_4__["AlertService"],
-            _shared_admin_webpage_service__WEBPACK_IMPORTED_MODULE_6__["AdminWebPageService"]])
+            _shared_admin_webpage_service__WEBPACK_IMPORTED_MODULE_6__["AdminWebpageService"]])
     ], WebPageDetailComponent);
     return WebPageDetailComponent;
 }());
@@ -299,7 +299,7 @@ var WebPageDetailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<ng-template #template>\r\n  <div class=\"modal-body text-center\">\r\n    <p>Are you sure you want to delet?</p>\r\n    <button type=\"button\" class=\"btn btn-default\" (click)=\"confirm()\" >Yes</button>\r\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"decline()\" >No</button>\r\n  </div>\r\n</ng-template>\r\n\r\n<div class=\"alert-danger\">{{errorMessage}}</div>\r\n<table class=\"table table-bordered\">\r\n    <thead>\r\n        <tr>\r\n            <th>ID</th>\r\n            <th>Virtual path</th>\r\n            <th>Navigation name</th>\r\n            <th>  <button class=\"btn btn-success btn-circle\" \r\n                [routerLink]=\"['/admin/webpage/add']\"          \r\n                      title=\"Add Web Page\">\r\n                      <i class=\"fa fa-plus\"></i> \r\n              </button> </th>\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n        <tr *ngFor=\"let wp of webpages\">\r\n            <td>{{wp.id}}</td>\r\n            <td>{{wp.virtualPath}}</td>\r\n            <td>{{wp.navigationName}}</td>           \r\n            <td style=\"width: 70px;\">               \r\n                   <a [routerLink]=\"['/admin/webpage/edit', wp.id]\"> <i class=\"fa fa-edit pointer\"></i></a>                  \r\n                  <i class=\"fa fa-trash pointer\"    \r\n                    (click)=\"delete(webpage, template)\" title=\"Delete\"></i>\r\n            </td>\r\n        </tr>\r\n    </tbody>\r\n</table>\r\n<button class=\"btn btn-primary\" (click)=\"downloadFile()\"><i class=\"fa fa-file-excel-o\"></i> Download</button>\r\n"
+module.exports = "\r\n<ng-template #template>\r\n  <div class=\"modal-body text-center\">\r\n    <p>Are you sure you want to delet?</p>\r\n    <button type=\"button\" class=\"btn btn-default\" (click)=\"confirm()\" >Yes</button>\r\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"decline()\" >No</button>\r\n  </div>\r\n</ng-template>\r\n\r\n<!-- <div class=\"alert-danger\">{{errorMessage}}</div> -->\r\n<table class=\"table table-bordered\">\r\n    <thead>\r\n        <tr>\r\n            <th>ID</th>\r\n            <th>Virtual path</th>\r\n            <th>Navigation name</th>\r\n            <th>  <button class=\"btn btn-success btn-circle\" \r\n                [routerLink]=\"['/admin/webpage/add']\"          \r\n                      title=\"Add Web Page\">\r\n                      <i class=\"fa fa-plus\"></i> \r\n              </button> </th>\r\n        </tr>\r\n    </thead>\r\n    <tbody>\r\n        <tr *ngFor=\"let wp of webpages\">\r\n            <td>{{wp.id}}</td>\r\n            <td>{{wp.virtualPath}}</td>\r\n            <td>{{wp.navigationName}}</td>           \r\n            <td style=\"width: 70px;\">               \r\n                   <a [routerLink]=\"['/admin/webpage/edit', wp.id]\"> <i class=\"fa fa-edit pointer\"></i></a>                  \r\n                  <i class=\"fa fa-trash pointer\"    \r\n                    (click)=\"delete(webpage, template)\" title=\"Delete\"></i>\r\n            </td>\r\n        </tr>\r\n    </tbody>\r\n</table>\r\n<button class=\"btn btn-primary\" (click)=\"downloadFile()\"><i class=\"fa fa-file-excel-o\"></i> Download</button>\r\n"
 
 /***/ }),
 
@@ -316,19 +316,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap/modal */ "./node_modules/ngx-bootstrap/modal/fesm5/ngx-bootstrap-modal.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _shared_admin_webpage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared/admin-webpage.service */ "./src/app/admin/webpage/shared/admin-webpage.service.ts");
-/* harmony import */ var _services_excelService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../_services/excelService */ "./src/app/_services/excelService.ts");
-
+/* harmony import */ var _shared_admin_webpage_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/admin-webpage.service */ "./src/app/admin/webpage/shared/admin-webpage.service.ts");
+/* harmony import */ var _services_excelService__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../_services/excelService */ "./src/app/_services/excelService.ts");
 
 
 
 
 
 var WebPageListComponent = /** @class */ (function () {
-    function WebPageListComponent(pageService, router, modalService, excelService) {
+    function WebPageListComponent(pageService, modalService, excelService) {
         this.pageService = pageService;
-        this.router = router;
         this.modalService = modalService;
         this.excelService = excelService;
         this.webpages = [];
@@ -348,7 +345,7 @@ var WebPageListComponent = /** @class */ (function () {
     };
     WebPageListComponent.prototype.confirm = function () {
         var _this = this;
-        this.pageService.delete(this.deletingPage.id).subscribe(function (resp) {
+        this.pageService.delete(this.deletingPage.id).subscribe(function () {
             _this.getAll();
         });
         this.modalRef.hide();
@@ -365,8 +362,8 @@ var WebPageListComponent = /** @class */ (function () {
             selector: 'app-webpage-list',
             template: __webpack_require__(/*! ./webpage-list.component.html */ "./src/app/admin/webpage/webpage-list/webpage-list.component.html")
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_admin_webpage_service__WEBPACK_IMPORTED_MODULE_4__["AdminWebPageService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalService"], _services_excelService__WEBPACK_IMPORTED_MODULE_5__["ExcelService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_shared_admin_webpage_service__WEBPACK_IMPORTED_MODULE_3__["AdminWebpageService"],
+            ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalService"], _services_excelService__WEBPACK_IMPORTED_MODULE_4__["ExcelService"]])
     ], WebPageListComponent);
     return WebPageListComponent;
 }());

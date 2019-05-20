@@ -170,7 +170,7 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[2.2.1, )"
+              "version": "[2.2.3, )"
             },
             "NSwag.AspNetCore": {
               "target": "Package",

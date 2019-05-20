@@ -51,7 +51,7 @@ export class WebPageDetailComponent implements OnInit {
           this.model = resp;
           this.buildForm(this.formBuilder);
         }
-          , error => this.alertService.danger(error.message));
+          , error => this.alertService.danger(error));
     }
   }
 

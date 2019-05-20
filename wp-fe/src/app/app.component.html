@@ -11,7 +11,7 @@
       <div class="collapse navbar-collapse" id="navbarColor01" *ngIf="!showAdmin">
         <ul class="navbar-nav mr-auto">
           <li *ngFor="let wp of webpages" class="nav-item active">
-            <a class="nav-link" [routerLink]="['page/' + wp.virtualPath]">{{wp.navigationName}}</a>
+            <a class="nav-link" [routerLink]="[wp.virtualPath]">{{wp.navigationName}}</a>
           </li>
           <!-- <li class="nav-item active">
           <a class="nav-link" [routerLink]="['page/home' ]">home</a>

@@ -10,8 +10,11 @@ import { FooterComponent } from './footer/footer.component';
 import { NavComponent } from './nav/nav.component';
 import { AppRouting } from './app.routing';
 import { UserService } from './_services/user.service';
-import { HomeComponent } from './website/home/home.component';
 import { ErrorInterceptor } from './_helpers/error.intercptor';
+import { RoleListComponent } from './security/role/role-list/role-list.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { SharedModule } from './_shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -20,14 +23,16 @@ import { ErrorInterceptor } from './_helpers/error.intercptor';
     HttpModule,
     BrowserAnimationsModule,
     AlertModule.forRoot({ maxMessages: 5, timeout: 5000 }),
+    BsDropdownModule.forRoot(),
     AppRouting,
-    AccountModule
+    AccountModule,
+    SharedModule
   ],
   declarations: [
     AppComponent,
     NavComponent,
-    HomeComponent,
     FooterComponent,
+    RoleListComponent,
   ],
   providers: [
     UserService,
