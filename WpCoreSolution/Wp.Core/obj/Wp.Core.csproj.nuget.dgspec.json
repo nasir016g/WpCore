@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {}
+    "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {}
   },
   "projects": {
-    "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {
+    "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj",
+        "projectUniqueName": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj",
         "projectName": "Wp.Core",
-        "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj",
-        "packagesPath": "C:\\Users\\nasir\\.nuget\\packages\\",
-        "outputPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\obj\\",
+        "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj",
+        "packagesPath": "C:\\Users\\NasirMohammad\\.nuget\\packages\\",
+        "outputPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\nasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\NasirMohammad\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
