@@ -10,7 +10,7 @@ export class RoleService {
   constructor(private http: HttpClient) { }
 
   getRoles(){
-     return this.http.get<string[]>(this.url);
+     return this.http.get<string[]>(this.url + '?Name=Demo2');
   }
 
   delete(role: string)

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using Wp.Core;
+using Wp.Core.Domain.Tenants;
 
 namespace Wp.Data.Repositories
 {
-    public class TenantsBaseRepository<T> : ITenantsBaseRepository<T> where T : Entity
+    public class TenantsBaseRepository : ITenantsBaseRepository
     {
         protected readonly TenantsDbContext Context;
 
@@ -16,42 +17,42 @@ namespace Wp.Data.Repositories
             Context = context;
         }
 
-        public virtual T GetById(int id)
+        public virtual Tenant GetById(int id)
         {
-            return Context.Set<T>().Find(id);
+            return Context.Tenants.Find(id);
         }
 
-        public virtual IQueryable<T> Table
+        public virtual IQueryable<Tenant> Table
         {
             get
             {
-                return Context.Set<T>(); ;
+                return Context.Tenants;
             }
         }
 
-        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public virtual IEnumerable<Tenant> Find(Expression<Func<Tenant, bool>> predicate)
         {
-            return Context.Set<T>().Where(predicate);
+            return Context.Tenants.Where(predicate);
         }
 
-        public void Add(T entity)
+        public void Add(Tenant entity)
         {
-            Context.Set<T>().Add(entity);
+            Context.Tenants.Add(entity);
         }
 
-        public void AddRange(IEnumerable<T> entitiesToAdd)
+        public void AddRange(IEnumerable<Tenant> entitiesToAdd)
         {
-            Context.Set<T>().AddRange(entitiesToAdd);
+            Context.Tenants.AddRange(entitiesToAdd);
         }
 
-        public void Remove(T entity)
+        public void Remove(Tenant entity)
         {
-            Context.Set<T>().Remove(entity);
+            Context.Tenants.Remove(entity);
         }
 
-        public void RemoveRange(IEnumerable<T> entitiesToRemove)
+        public void RemoveRange(IEnumerable<Tenant> entitiesToRemove)
         {
-            Context.Set<T>().RemoveRange(entitiesToRemove);
+            Context.Tenants.RemoveRange(entitiesToRemove);
         }
     }
 }

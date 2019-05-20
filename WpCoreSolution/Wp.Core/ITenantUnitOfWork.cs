@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Wp.Core
 {
-    public interface ITenantUnitOfWork : IDisposable
+    public interface ITenantUnitOfWork // : IDisposable
     {
         int Complete();
         Task<int> CompleteAsync();

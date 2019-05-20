@@ -2,14 +2,14 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Wp.Data.Migrations
+namespace Wp.Data.Migrations.TenantDb
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Tenant",
+                name: "Tenants",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -20,14 +20,14 @@ namespace Wp.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tenant", x => x.Id);
+                    table.PrimaryKey("PK_Tenants", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Tenant");
+                name: "Tenants");
         }
     }
 }

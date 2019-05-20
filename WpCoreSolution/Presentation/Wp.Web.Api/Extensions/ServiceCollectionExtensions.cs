@@ -68,20 +68,21 @@ namespace Wp.Web.Api.Extensions
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                using (TenantsDbContext context = serviceScope.ServiceProvider.GetService<TenantsDbContext>())
+                using (TenantsDbContext tContext = serviceScope.ServiceProvider.GetService<TenantsDbContext>())
                 {
-                    context.Database.Migrate();
-                }
-                using (WpContext context = serviceScope.ServiceProvider.GetService<WpContext>())
-                {
-                    context.Database.Migrate();
-
-                    var tenants = tenantService.GetAll();
-                    foreach (var t in tenants)
+                    tContext.Database.Migrate();
+                    using (WpContext context = serviceScope.ServiceProvider.GetService<WpContext>())
                     {
-                        WpContext wpContext = new WpContext(new DbContextOptions<WpContext>(), t.ConnectionString);
-                        wpContext.Database.Migrate();
+                        context.Database.Migrate();
+
+                        var tenants = tenantService.GetAll();
+                        foreach (var t in tenants)
+                        {
+                            WpContext wpContext = new WpContext(new DbContextOptions<WpContext>(), t.ConnectionString);
+                            wpContext.Database.Migrate();
+                        }
                     }
+
                 }
             }
         }
@@ -92,7 +93,7 @@ namespace Wp.Web.Api.Extensions
 
             // repositories
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            services.AddScoped(typeof(ITenantsBaseRepository<>), typeof(TenantsBaseRepository<>));
+            services.AddScoped(typeof(ITenantsBaseRepository), typeof(TenantsBaseRepository));
             //services.AddScoped<IWebPageRepository, WebPageRepository>();
             //services.AddScoped<IWebPageRoleRepository, WebPageRoleRepository>();
             //services.AddScoped<ISectionRepository, SectionRepository>();
@@ -101,7 +102,7 @@ namespace Wp.Web.Api.Extensions
             services.AddScoped<ITenantUnitOfWork, TenantUnitOfWork>();
             services.AddScoped<ITenantService, TenantService>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             //services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
             services.AddScoped<IWebPageService, WebPageService>();
             services.AddScoped<ISectionService, SectionService>();

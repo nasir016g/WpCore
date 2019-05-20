@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Wp.Core;
+using Wp.Core.Domain.Tenants;
 using Wp.Services;
 
 namespace Wp.Service.Tenants
 {
-    public abstract class TenantEntityService<T> : IEntityService<T> where T : Entity
+    public abstract class TenantEntityService : IEntityService<Tenant> 
     {
         protected ITenantUnitOfWork _unitOfWork;
-        ITenantsBaseRepository<T> _repository;
+        ITenantsBaseRepository _repository;
 
-        public TenantEntityService(ITenantUnitOfWork unitOfWork, ITenantsBaseRepository<T> repository)
+        public TenantEntityService(ITenantUnitOfWork unitOfWork, ITenantsBaseRepository repository)
         {
             _unitOfWork = unitOfWork;
             _repository = repository;
         }
 
-        public virtual T GetById(int id)
+        public virtual Tenant GetById(int id)
         {
             return _repository.GetById(id);
         }
 
-        public virtual void Insert(T entity)
+        public virtual void Insert(Tenant entity)
         {
             if (entity == null)
             {
@@ -34,20 +35,20 @@ namespace Wp.Service.Tenants
         }
 
 
-        public virtual void Update(T entity)
+        public virtual void Update(Tenant entity)
         {
             if (entity == null) throw new ArgumentNullException("entity");
             _unitOfWork.Complete();
         }
 
-        public virtual void Delete(T entity)
+        public virtual void Delete(Tenant entity)
         {
             if (entity == null) throw new ArgumentNullException("entity");
             _repository.Remove(entity);
             _unitOfWork.Complete();
         }
 
-        public virtual IList<T> GetAll()
+        public virtual IList<Tenant> GetAll()
         {
             return _repository.Table.ToList();
         }

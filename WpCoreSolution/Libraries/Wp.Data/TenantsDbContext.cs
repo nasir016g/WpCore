@@ -17,7 +17,7 @@ namespace Wp.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Tenant>().ToTable("Tenant");
+            //modelBuilder.Entity<Tenant>().ToTable("Tenant");
 
         }
     }

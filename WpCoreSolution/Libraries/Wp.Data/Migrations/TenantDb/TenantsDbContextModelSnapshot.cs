@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Wp.Data;
 
-namespace Wp.Data.Migrations.TenantsDb
+namespace Wp.Data.Migrations.TenantDb
 {
     [DbContext(typeof(TenantsDbContext))]
     partial class TenantsDbContextModelSnapshot : ModelSnapshot
@@ -33,7 +33,7 @@ namespace Wp.Data.Migrations.TenantsDb
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tenant");
+                    b.ToTable("Tenants");
                 });
 #pragma warning restore 612, 618
         }

@@ -25,9 +25,9 @@ namespace Wp.Data
             return _context.SaveChanges();
         }
 
-        public void Dispose()
-        {
-            //_context.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    //_context.Dispose();
+        //}
     }
 }
