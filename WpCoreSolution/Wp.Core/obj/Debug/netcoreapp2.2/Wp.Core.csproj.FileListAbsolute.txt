@@ -34,3 +34,11 @@ C:\Git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.AssemblyInf
 C:\Git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.csproj.CopyComplete
 C:\Git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.dll
 C:\Git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.pdb
+C:\Tutorials\_git\WpCore\WpCoreSolution\Wp.Core\bin\Debug\netcoreapp2.2\Wp.Core.deps.json
+C:\Tutorials\_git\WpCore\WpCoreSolution\Wp.Core\bin\Debug\netcoreapp2.2\Wp.Core.dll
+C:\Tutorials\_git\WpCore\WpCoreSolution\Wp.Core\bin\Debug\netcoreapp2.2\Wp.Core.pdb
+C:\Tutorials\_git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.csproj.CoreCompileInputs.cache
+C:\Tutorials\_git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.AssemblyInfoInputs.cache
+C:\Tutorials\_git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.AssemblyInfo.cs
+C:\Tutorials\_git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.dll
+C:\Tutorials\_git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.pdb
