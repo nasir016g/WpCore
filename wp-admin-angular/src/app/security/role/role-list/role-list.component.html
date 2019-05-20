@@ -1,34 +1,33 @@
 
-<div class="row" *ngIf="roles">
-  
-  <div class="col text-right">
-    <form [formGroup]="newRoleForm" (ngSubmit)="createRole()" >
-    <div class="input-group col-md-6 ">
+<div class="card card-body bg-light" *ngIf="roles">
+<form [formGroup]="newRoleForm" (ngSubmit)="createRole()" class="form-inline">
+    <div class="form-group">
+      <!-- <label class="control-label" for="roleName">Create new role</label> -->
       <input formControlName="roleName" placeholder="Role name" class="form-control">
-      <span class="input-group-btn">
-          <button type="submit" class="btn btn-secondary">Add New Role</button>
-      </span>
     </div>
+    <button type="submit" class="btn btn-secondary">Create New Role</button>
   </form>
 </div>
-</div>
-<div class="row">
-  <div class="col">
-    <table class="table">
-      <tr>
-        <th class="text-left">Existing Roles
-        </th>
-        <th></th>
-      </tr>
-      <tr *ngFor="let role of roles">
-        <td class="text-left">
-          {{role}}
-        </td>
-
-        <td *ngIf="role !== 'Admin'" class="float-right">
-          <button class="btn btn-secondary" (click)="deleteRole(role)">Delete</button>
-        </td>
-      </tr>
-    </table>
+<div class="col-md-6">    
+      
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <tr>
+          <th class="text-left">Existing Roles
+          </th>
+          <th>
+          </th>
+        </tr>
+        <tr *ngFor="let role of roles">
+          <td class="text-left">
+            {{role}}
+          </td>
+          <td *ngIf="role !== 'Admin'" class="float-right">
+            <button class="btn btn-outline-danger" (click)="deleteRole(role)">Delete</button>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>

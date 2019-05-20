@@ -8,16 +8,18 @@
       <a class="navbar-brand" [routerLink]="['']">Wp-fe </a>
 
       <!-- website -->
-      <div class="collapse navbar-collapse" id="navbarColor01" *ngIf="!showAdmin">
+      <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li *ngFor="let wp of webpages" class="nav-item active">
             <a class="nav-link" [routerLink]="[wp.virtualPath]">{{wp.navigationName}}</a>
           </li>
           <!-- <li class="nav-item active">
           <a class="nav-link" [routerLink]="['page/home' ]">home</a>
-        </li>-->       
+        </li>-->
         </ul>
       </div>
+      <a class="ml-auto" href="http://localhost:4200">Go to admin</a>
+
     </div>
   </nav>
   <br>
