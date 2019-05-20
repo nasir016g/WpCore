@@ -19,7 +19,6 @@ C:\Git\WpCore\WpCore21Solution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.pdb
 C:\Git\WpCore\WpCoreSolution\Wp.Core\bin\Debug\netcoreapp2.2\Wp.Core.deps.json
 C:\Git\WpCore\WpCoreSolution\Wp.Core\bin\Debug\netcoreapp2.2\Wp.Core.dll
 C:\Git\WpCore\WpCoreSolution\Wp.Core\bin\Debug\netcoreapp2.2\Wp.Core.pdb
-C:\Git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.csprojAssemblyReference.cache
 C:\Git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.csproj.CoreCompileInputs.cache
 C:\Git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.AssemblyInfoInputs.cache
 C:\Git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.AssemblyInfo.cs
