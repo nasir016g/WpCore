@@ -1,4 +1,5 @@
-﻿using Wp.Core.Domain.Sections;
+﻿using Wp.Core;
+using Wp.Core.Domain.Sections;
 
 namespace Wp.Services.Sections
 {

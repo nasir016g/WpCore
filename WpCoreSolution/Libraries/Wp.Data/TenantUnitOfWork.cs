@@ -1,13 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 using Wp.Core;
 
 namespace Wp.Data
 {
-    public class UnitOfWork : IUnitOfWork
+    public class TenantUnitOfWork : ITenantUnitOfWork
     {
-        private readonly WpContext _context;
+        private readonly TenantsDbContext _context;
 
-        public UnitOfWork(WpContext context)
+        public TenantUnitOfWork(TenantsDbContext context)
         {
             _context = context;
         }

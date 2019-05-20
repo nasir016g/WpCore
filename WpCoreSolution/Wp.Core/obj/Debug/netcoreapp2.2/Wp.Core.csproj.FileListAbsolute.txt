@@ -42,3 +42,4 @@ C:\Tutorials\_git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.
 C:\Tutorials\_git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.AssemblyInfo.cs
 C:\Tutorials\_git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.dll
 C:\Tutorials\_git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.pdb
+C:\Tutorials\_git\WpCore\WpCoreSolution\Wp.Core\obj\Debug\netcoreapp2.2\Wp.Core.csprojAssemblyReference.cache

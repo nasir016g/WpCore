@@ -1,5 +1,5 @@
 ﻿
-namespace Wp.Services
+namespace Wp.Core
 {
     public interface IService
     {

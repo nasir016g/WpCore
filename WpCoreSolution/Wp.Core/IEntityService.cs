@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Wp.Core;
 
-namespace Wp.Services
+namespace Wp.Core
 {
     public interface IEntityService<T> : IService
     where T : EntityBase

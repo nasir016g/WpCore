@@ -1,4 +1,5 @@
-﻿using Wp.Core.Domain.Media;
+﻿using Wp.Core;
+using Wp.Core.Domain.Media;
 
 namespace Wp.Services.Media
 {

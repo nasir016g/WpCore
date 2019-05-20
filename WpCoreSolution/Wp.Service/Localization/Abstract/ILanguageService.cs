@@ -1,4 +1,5 @@
-﻿using Wp.Core.Domain.Localization;
+﻿using Wp.Core;
+using Wp.Core.Domain.Localization;
 
 namespace Wp.Services.Localization
 {

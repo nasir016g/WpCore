@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Wp.Core;
 using Wp.Core.Domain.Localization;
 
 namespace Wp.Services.Localization

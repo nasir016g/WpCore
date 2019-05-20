@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Reflection;
+using Wp.Core;
+using Wp.Core.Domain.Tenants;
 using Wp.Core.Mapping.WebPages;
 using Wp.Core.Security;
 using Wp.Data.Mappings;
@@ -11,16 +13,10 @@ namespace Wp.Data
 {
     public class WpContext : IdentityDbContext<ApplicationUser>, IDbContext
     {
-        //public DbSet<Setting> Settings { get; set; }
-        //public DbSet<Language> Languages { get; set; }
-        //public DbSet<LocaleStringResource> LocaleStringResources { get; set; }
-        //public DbSet<LocalizedProperty> LocalizedPropertys { get; set; }
-        //public DbSet<Log> Logs { get; set; }
-        //public DbSet<Photo> Photos { get; set; }
-        //public DbSet<Section> Sections { get; set; }
-        //public DbSet<UrlRecord> UrlRecords { get; set; }
+        private readonly string _connectionString;
+        private readonly Tenant _tenant;
+
         //public DbSet<WebPage> WebPages { get; set; }
-        //public DbSet<WebPageRole> WebPageRoles { get; set; }
         public new DbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return base.Set<TEntity>();
@@ -29,6 +25,35 @@ namespace Wp.Data
         public WpContext(DbContextOptions<WpContext> options) : base(options)
         {
             //Database.EnsureCreated();
+        }
+
+        public WpContext(DbContextOptions<WpContext> options, string connectionString) : base(options)
+        {
+            _connectionString = connectionString;
+        }
+
+        public WpContext(DbContextOptions<WpContext> options, string connectionString, ITenantService tenantService) : base(options)
+        {
+            _connectionString = connectionString;
+            _tenant = tenantService.GetTenant();
+        }
+
+        public WpContext(DbContextOptions<WpContext> options, ITenantService tenantService) : base(options)
+        {
+            _tenant = tenantService.GetTenant();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (_tenant != null)
+            {
+                optionsBuilder.UseSqlServer(_tenant.ConnectionString);
+            }
+            else if (_connectionString != null)
+            {
+                optionsBuilder.UseSqlServer(_connectionString, b => b.MigrationsAssembly("Wp.Data"));
+            }
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

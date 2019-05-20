@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -16,6 +18,7 @@ using Wp.Core.Caching;
 using Wp.Core.Domain.Common;
 using Wp.Data;
 using Wp.Data.Repositories;
+using Wp.Service.Tenants;
 using Wp.Services.Configuration;
 using Wp.Services.Installation;
 using Wp.Services.Localization;
@@ -25,8 +28,63 @@ using Wp.Web.Framework;
 
 namespace Wp.Web.Api.Extensions
 {
-    public static class ServiceCollectionExtensions2
+    public static class ServiceCollectionExtensions
     {
+
+        public static IServiceCollection AddTenantCatalogDbContext(this IServiceCollection services, IConfiguration configuration)
+        {
+            var defaultConnection = configuration.GetConnectionString("DefaultConnection");
+            var tenantCatalogConnection = configuration.GetConnectionString("TenantCatalogConnection");
+            services.AddEntityFrameworkSqlServer();
+            //services.AddDbContext<DigiversDbContext>(options => options.UseSqlServer(defaultConnection, b => b.MigrationsAssembly("Digivers.Data")));
+            //services.AddDbContext<TenantCatalogDbContext>(options => options.UseSqlServer(tenantCatalogConnection, b => b.MigrationsAssembly("Digivers.Data")));
+            services.AddDbContext<WpContext>(options =>
+            {
+                options.UseSqlServer(defaultConnection,
+                sqlServerOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.MigrationsAssembly("Wp.Data");
+                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                });
+            });
+            services.AddDbContext<TenantsDbContext>(options =>
+            {
+                options.UseSqlServer(tenantCatalogConnection,
+                sqlServerOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.MigrationsAssembly("Wp.Data");
+                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                });
+            });
+
+            services.AddScoped<ITenantUnitOfWork, TenantUnitOfWork>();
+            services.AddScoped<ITenantService, TenantService>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            return services;
+        }
+
+        public static void ApplyMigrations(IApplicationBuilder app, ITenantService tenantService)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                using (TenantsDbContext context = serviceScope.ServiceProvider.GetService<TenantsDbContext>())
+                {
+                    context.Database.Migrate();
+                }
+                using (WpContext context = serviceScope.ServiceProvider.GetService<WpContext>())
+                {
+                    context.Database.Migrate();
+
+                    var tenants = tenantService.GetAll();
+                    foreach (var t in tenants)
+                    {
+                        WpContext wpContext = new WpContext(new DbContextOptions<WpContext>(), t.ConnectionString);
+                        wpContext.Database.Migrate();
+                    }
+                }
+            }
+        }
 
         public static IServiceCollection AddWp(this IServiceCollection services)
         {
@@ -34,12 +92,16 @@ namespace Wp.Web.Api.Extensions
 
             // repositories
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped(typeof(ITenantsBaseRepository<>), typeof(TenantsBaseRepository<>));
             //services.AddScoped<IWebPageRepository, WebPageRepository>();
             //services.AddScoped<IWebPageRoleRepository, WebPageRoleRepository>();
             //services.AddScoped<ISectionRepository, SectionRepository>();
 
             // services
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ITenantUnitOfWork, TenantUnitOfWork>();
+            services.AddScoped<ITenantService, TenantService>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();            
             //services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
             services.AddScoped<IWebPageService, WebPageService>();
             services.AddScoped<ISectionService, SectionService>();

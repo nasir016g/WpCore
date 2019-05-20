@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
+using Wp.Core;
 using Wp.Core.Security;
 using Wp.Data;
 using Wp.Web.Api.Extensions;
@@ -37,7 +38,7 @@ namespace Wp.Web.Api
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<WpContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Wp.Web.WebApi")));
+            services.AddDbContext<WpContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Wp.Data")));
             services.AddDefaultIdentity<ApplicationUser>(options =>
            {
                options.Password.RequiredLength = 6;
@@ -48,6 +49,7 @@ namespace Wp.Web.Api
 
             services.AddJwt(Configuration); // comment this line out when using mvc views otherwise loging will not work
 
+            services.AddTenantCatalogDbContext(Configuration);
             services.AddWp();
             services.AddAutoMapper();
             AutoMapperConfiguration.Init();
@@ -62,9 +64,10 @@ namespace Wp.Web.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ITenantService tenantService)
         {
-            ServiceCollectionExtensions2.AddLogger();
+            Wp.Web.Api.Extensions.ServiceCollectionExtensions.ApplyMigrations(app, tenantService);
+            Extensions.ServiceCollectionExtensions.AddLogger();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
