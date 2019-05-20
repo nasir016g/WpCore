@@ -38,7 +38,7 @@ namespace Wp.Web.Api
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<WpContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Wp.Data")));
+            //services.AddDbContext<WpContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Wp.Data")));
             services.AddDefaultIdentity<ApplicationUser>(options =>
            {
                options.Password.RequiredLength = 6;
@@ -66,7 +66,7 @@ namespace Wp.Web.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ITenantService tenantService)
         {
-            Wp.Web.Api.Extensions.ServiceCollectionExtensions.ApplyMigrations(app, tenantService);
+           // Wp.Web.Api.Extensions.ServiceCollectionExtensions.ApplyMigrations(app, tenantService);
             Extensions.ServiceCollectionExtensions.AddLogger();
             if (env.IsDevelopment())
             {

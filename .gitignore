@@ -304,3 +304,11 @@ yarn-error.log
 # System Files
 .DS_Store
 Thumbs.db
+
+bin
+obj
+config
+WpCoreSolution/Libraries/Wp.Data/bin/Debug/netcoreapp2.2/Wp.Core.dll
+WpCoreSolution/Libraries/Wp.Data/bin/Debug/netcoreapp2.2/Wp.Core.pdb
+WpCoreSolution/Libraries/Wp.Data/bin/Debug/netcoreapp2.2/Wp.Data.dll
+WpCoreSolution/Libraries/Wp.Data/bin/Debug/netcoreapp2.2/Wp.Data.pdb

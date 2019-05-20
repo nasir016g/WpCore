@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Api\\Wp.Web.Api.csproj": {}
+    "C:\\Git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Api\\Wp.Web.Api.csproj": {}
   },
   "projects": {
-    "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj": {
+    "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj",
+        "projectUniqueName": "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj",
         "projectName": "Wp.Data",
-        "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj",
-        "packagesPath": "C:\\Users\\NasirMohammad\\.nuget\\packages\\",
-        "outputPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\obj\\",
+        "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj",
+        "packagesPath": "C:\\Users\\nasir\\.nuget\\packages\\",
+        "outputPath": "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\NasirMohammad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {
-                "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj"
+              "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {
+                "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj"
               }
             }
           }
@@ -82,20 +82,20 @@
         }
       }
     },
-    "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Api\\Wp.Web.Api.csproj": {
+    "C:\\Git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Api\\Wp.Web.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Api\\Wp.Web.Api.csproj",
+        "projectUniqueName": "C:\\Git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Api\\Wp.Web.Api.csproj",
         "projectName": "Wp.Web.Api",
-        "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Api\\Wp.Web.Api.csproj",
-        "packagesPath": "C:\\Users\\NasirMohammad\\.nuget\\packages\\",
-        "outputPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Api\\obj\\",
+        "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Api\\Wp.Web.Api.csproj",
+        "packagesPath": "C:\\Users\\nasir\\.nuget\\packages\\",
+        "outputPath": "C:\\Git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\NasirMohammad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -108,14 +108,14 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Framework\\Wp.Web.Framework.csproj": {
-                "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Framework\\Wp.Web.Framework.csproj"
+              "C:\\Git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Framework\\Wp.Web.Framework.csproj": {
+                "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Framework\\Wp.Web.Framework.csproj"
               },
-              "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {
-                "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj"
+              "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {
+                "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj"
               },
-              "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj": {
-                "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj"
+              "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj": {
+                "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj"
               }
             }
           }
@@ -201,20 +201,20 @@
         }
       }
     },
-    "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Framework\\Wp.Web.Framework.csproj": {
+    "C:\\Git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Framework\\Wp.Web.Framework.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Framework\\Wp.Web.Framework.csproj",
+        "projectUniqueName": "C:\\Git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Framework\\Wp.Web.Framework.csproj",
         "projectName": "Wp.Web.Framework",
-        "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Framework\\Wp.Web.Framework.csproj",
-        "packagesPath": "C:\\Users\\NasirMohammad\\.nuget\\packages\\",
-        "outputPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Framework\\obj\\",
+        "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Framework\\Wp.Web.Framework.csproj",
+        "packagesPath": "C:\\Users\\nasir\\.nuget\\packages\\",
+        "outputPath": "C:\\Git\\WpCore\\WpCoreSolution\\Presentation\\Wp.Web.Framework\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\NasirMohammad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -227,11 +227,11 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {
-                "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj"
+              "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {
+                "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj"
               },
-              "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj": {
-                "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj"
+              "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj": {
+                "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj"
               }
             }
           }
@@ -260,20 +260,20 @@
         }
       }
     },
-    "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {
+    "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj",
+        "projectUniqueName": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj",
         "projectName": "Wp.Core",
-        "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj",
-        "packagesPath": "C:\\Users\\NasirMohammad\\.nuget\\packages\\",
-        "outputPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\obj\\",
+        "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj",
+        "packagesPath": "C:\\Users\\nasir\\.nuget\\packages\\",
+        "outputPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\NasirMohammad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -328,20 +328,20 @@
         }
       }
     },
-    "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj": {
+    "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj",
+        "projectUniqueName": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj",
         "projectName": "Wp.Service",
-        "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj",
-        "packagesPath": "C:\\Users\\NasirMohammad\\.nuget\\packages\\",
-        "outputPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Service\\obj\\",
+        "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Service\\Wp.Service.csproj",
+        "packagesPath": "C:\\Users\\nasir\\.nuget\\packages\\",
+        "outputPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\NasirMohammad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nasir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -354,11 +354,11 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj": {
-                "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj"
+              "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj": {
+                "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Libraries\\Wp.Data\\Wp.Data.csproj"
               },
-              "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {
-                "projectPath": "C:\\Tutorials\\_git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj"
+              "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj": {
+                "projectPath": "C:\\Git\\WpCore\\WpCoreSolution\\Wp.Core\\Wp.Core.csproj"
               }
             }
           }
