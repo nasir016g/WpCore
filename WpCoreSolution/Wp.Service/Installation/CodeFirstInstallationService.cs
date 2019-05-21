@@ -11,6 +11,7 @@ using Wp.Core.Domain.Localization;
 using Wp.Core.Domain.Sections;
 using Wp.Core.Domain.Security;
 using Wp.Core.Domain.Seo;
+using Wp.Core.Domain.Tenants;
 using Wp.Core.Domain.WebPages;
 using Wp.Core.Security;
 using Wp.Data;
@@ -41,20 +42,24 @@ namespace Wp.Services.Installation
         public UserManager<ApplicationUser> _userManager;
         public RoleManager<IdentityRole> _roleManager;
         public IHostingEnvironment _hostingEnvironment;
+        private readonly ITenantService _tenantService;
 
-        
+
         #endregion
 
         #region Ctor
 
-        public CodeFirstInstallationService(IUnitOfWork unitOfWork, 
+        public CodeFirstInstallationService(IUnitOfWork unitOfWork,            
             ISettingService settingService,  
             IBaseRepository<WebPage> webPageRepo, 
             IBaseRepository<WebPageRole> webPageRoleRepo, 
             IBaseRepository<UrlRecord> urlRecordRepo, 
             IBaseRepository<Language> languageRepo, 
             IBaseRepository<Section> sectionRepo,
-            UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IHostingEnvironment hostingEnvironment)
+            UserManager<ApplicationUser> userManager, 
+            RoleManager<IdentityRole> roleManager, 
+            IHostingEnvironment hostingEnvironment,
+            ITenantService tenantService)
         {
             _unitOfWork = unitOfWork;
             this._webPageRepo = webPageRepo;
@@ -67,6 +72,8 @@ namespace Wp.Services.Installation
             _userManager = userManager;
             _roleManager = roleManager;
             _hostingEnvironment = hostingEnvironment;
+
+            _tenantService = tenantService;
            
         }
 
@@ -214,6 +221,14 @@ namespace Wp.Services.Installation
         }      
 
         #endregion
+
+        public void InstallTenants()
+        {
+            var tenants = new List<Tenant>()
+            {
+                new Tenant { }
+            };
+        }
 
         public void InstallData()
         {

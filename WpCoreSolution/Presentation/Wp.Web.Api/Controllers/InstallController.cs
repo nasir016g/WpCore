@@ -25,6 +25,12 @@ namespace Wp.Web.Api.Controllers
             return "installed successfully.";
         }
 
+        [HttpGet("Tenants")]
+        public string Tenants()
+        {
+
+        }
+
        
     }
 }
