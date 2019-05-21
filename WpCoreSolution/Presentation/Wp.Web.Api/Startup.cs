@@ -45,7 +45,7 @@ namespace Wp.Web.Api
                options.Password.RequireUppercase = false;
                options.Password.RequireNonAlphanumeric = false;
 
-           }).AddRoles<IdentityRole>().AddEntityFrameworkStores<WpContext>();
+           }).AddRoles<IdentityRole>().AddEntityFrameworkStores<WpDbContext>();
 
             services.AddJwt(Configuration); // comment this line out when using mvc views otherwise loging will not work
 

@@ -8,7 +8,7 @@ using Wp.Data;
 
 namespace Wp.Data.Migrations.TenantDb
 {
-    [DbContext(typeof(TenantsDbContext))]
+    [DbContext(typeof(TenantDbContext))]
     partial class TenantsDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

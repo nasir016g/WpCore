@@ -8,9 +8,9 @@ namespace Wp.Data
 {
     public class TenantUnitOfWork : ITenantUnitOfWork
     {
-        private readonly TenantsDbContext _context;
+        private readonly TenantDbContext _context;
 
-        public TenantUnitOfWork(TenantsDbContext context)
+        public TenantUnitOfWork(TenantDbContext context)
         {
             _context = context;
         }

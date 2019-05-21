@@ -8,7 +8,7 @@ using Wp.Data;
 
 namespace Wp.Data.Migrations.WpDb
 {
-    [DbContext(typeof(WpContext))]
+    [DbContext(typeof(WpDbContext))]
     partial class WpContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

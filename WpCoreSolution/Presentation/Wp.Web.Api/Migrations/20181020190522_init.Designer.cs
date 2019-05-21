@@ -9,7 +9,7 @@ using Wp.Data;
 
 namespace Wp.Web.Api.Migrations
 {
-    [DbContext(typeof(WpContext))]
+    [DbContext(typeof(WpDbContext))]
     [Migration("20181020190522_init")]
     partial class init
     {

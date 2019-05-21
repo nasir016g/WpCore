@@ -38,7 +38,7 @@ namespace Wp.Web.Api.Extensions
             services.AddEntityFrameworkSqlServer();
             //services.AddDbContext<DigiversDbContext>(options => options.UseSqlServer(defaultConnection, b => b.MigrationsAssembly("Digivers.Data")));
             //services.AddDbContext<TenantCatalogDbContext>(options => options.UseSqlServer(tenantCatalogConnection, b => b.MigrationsAssembly("Digivers.Data")));
-            services.AddDbContext<WpContext>(options =>
+            services.AddDbContext<WpDbContext>(options =>
             {
                 options.UseSqlServer(defaultConnection,
                 sqlServerOptionsAction: sqlOptions =>
@@ -47,7 +47,7 @@ namespace Wp.Web.Api.Extensions
                     sqlOptions.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                 });
             });
-            services.AddDbContext<TenantsDbContext>(options =>
+            services.AddDbContext<TenantDbContext>(options =>
             {
                 options.UseSqlServer(tenantCatalogConnection,
                 sqlServerOptionsAction: sqlOptions =>
@@ -68,17 +68,17 @@ namespace Wp.Web.Api.Extensions
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                using (TenantsDbContext tContext = serviceScope.ServiceProvider.GetService<TenantsDbContext>())
+                using (TenantDbContext tContext = serviceScope.ServiceProvider.GetService<TenantDbContext>())
                 {
                     tContext.Database.Migrate();
-                    using (WpContext context = serviceScope.ServiceProvider.GetService<WpContext>())
+                    using (WpDbContext context = serviceScope.ServiceProvider.GetService<WpDbContext>())
                     {
                         context.Database.Migrate();
 
                         var tenants = tenantService.GetAll();
                         foreach (var t in tenants)
                         {
-                            WpContext wpContext = new WpContext(new DbContextOptions<WpContext>(), t.ConnectionString);
+                            WpDbContext wpContext = new WpDbContext(new DbContextOptions<WpDbContext>(), t.ConnectionString);
                             wpContext.Database.Migrate();
                         }
                     }

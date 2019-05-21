@@ -11,7 +11,7 @@ using Wp.Data.Mappings;
 
 namespace Wp.Data
 {
-    public class WpContext : IdentityDbContext<ApplicationUser>, IDbContext
+    public class WpDbContext : IdentityDbContext<ApplicationUser>, IDbContext
     {
         private readonly string _connectionString;
         private readonly Tenant _tenant;
@@ -22,23 +22,23 @@ namespace Wp.Data
             return base.Set<TEntity>();
         }
 
-        public WpContext(DbContextOptions<WpContext> options) : base(options)
+        public WpDbContext(DbContextOptions<WpDbContext> options) : base(options)
         {
             //Database.EnsureCreated();
         }
 
-        public WpContext(DbContextOptions<WpContext> options, string connectionString) : base(options)
+        public WpDbContext(DbContextOptions<WpDbContext> options, string connectionString) : base(options)
         {
             _connectionString = connectionString;
         }
 
-        public WpContext(DbContextOptions<WpContext> options, string connectionString, ITenantService tenantService) : base(options)
-        {
-            _connectionString = connectionString;
-            _tenant = tenantService.GetTenant();
-        }
+        //public WpDbContext(DbContextOptions<WpDbContext> options, string connectionString, ITenantService tenantService) : base(options)
+        //{
+        //    _connectionString = connectionString;
+        //    _tenant = tenantService.GetTenant();
+        //}
 
-        public WpContext(DbContextOptions<WpContext> options, ITenantService tenantService) : base(options)
+        public WpDbContext(DbContextOptions<WpDbContext> options, ITenantService tenantService) : base(options)
         {
             _tenant = tenantService.GetTenant();
         }

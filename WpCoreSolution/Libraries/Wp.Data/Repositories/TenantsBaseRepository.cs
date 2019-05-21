@@ -10,9 +10,9 @@ namespace Wp.Data.Repositories
 {
     public class TenantsBaseRepository : ITenantsBaseRepository
     {
-        protected readonly TenantsDbContext Context;
+        protected readonly TenantDbContext Context;
 
-        public TenantsBaseRepository(TenantsDbContext context)
+        public TenantsBaseRepository(TenantDbContext context)
         {
             Context = context;
         }

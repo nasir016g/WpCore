@@ -6,11 +6,11 @@ using Wp.Core.Domain.Tenants;
 
 namespace Wp.Data
 {
-    public class TenantsDbContext :  DbContext
+    public class TenantDbContext :  DbContext
     {
         public DbSet<Tenant> Tenants { get; set; }
 
-        public TenantsDbContext(DbContextOptions<TenantsDbContext> options) :base(options)
+        public TenantDbContext(DbContextOptions<TenantDbContext> options) :base(options)
         {
         }
 

@@ -9,7 +9,7 @@ using Wp.Data;
 
 namespace Wp.Data.Migrations.WpDb
 {
-    [DbContext(typeof(WpContext))]
+    [DbContext(typeof(WpDbContext))]
     [Migration("20190520152846_Init")]
     partial class Init
     {

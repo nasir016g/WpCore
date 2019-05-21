@@ -9,9 +9,9 @@ namespace Wp.Data.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : Entity
     {
-        protected readonly WpContext Context;
+        protected readonly WpDbContext Context;
 
-        public BaseRepository(WpContext context)
+        public BaseRepository(WpDbContext context)
         {
             Context = context;
         }

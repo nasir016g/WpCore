@@ -9,7 +9,7 @@ using Wp.Data;
 
 namespace Wp.Data.Migrations.TenantDb
 {
-    [DbContext(typeof(TenantsDbContext))]
+    [DbContext(typeof(TenantDbContext))]
     [Migration("20190520190241_init")]
     partial class init
     {

@@ -5,9 +5,9 @@ namespace Wp.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly WpContext _context;
+        private readonly WpDbContext _context;
 
-        public UnitOfWork(WpContext context)
+        public UnitOfWork(WpDbContext context)
         {
             _context = context;
         }
