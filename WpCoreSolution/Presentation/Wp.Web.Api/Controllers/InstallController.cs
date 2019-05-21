@@ -28,7 +28,8 @@ namespace Wp.Web.Api.Controllers
         [HttpGet("Tenants")]
         public string Tenants()
         {
-
+            _installationService.InstallTenants();
+            return "installed tenants successfully.";
         }
 
        
