@@ -803,13 +803,13 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Git\WpCore\wp-admin-angular\node_modules\bootstrap\dist\css\bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
-__webpack_require__(/*! C:\Git\WpCore\wp-admin-angular\node_modules\ngx-bootstrap\datepicker\bs-datepicker.css */"./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css");
-__webpack_require__(/*! C:\Git\WpCore\wp-admin-angular\src\styles.css */"./src/styles.css");
-__webpack_require__(/*! C:\Git\WpCore\wp-admin-angular\src\bootswatch-flatly-bootstrap.min.css */"./src/bootswatch-flatly-bootstrap.min.css");
-__webpack_require__(/*! C:\Git\WpCore\wp-admin-angular\node_modules\font-awesome\css\font-awesome.css */"./node_modules/font-awesome/css/font-awesome.css");
-__webpack_require__(/*! C:\Git\WpCore\wp-admin-angular\node_modules\angular2-multiselect-dropdown\themes\default.theme.css */"./node_modules/angular2-multiselect-dropdown/themes/default.theme.css");
-module.exports = __webpack_require__(/*! C:\Git\WpCore\wp-admin-angular\src\assets\angular2-multiselect-dropdown\custom-theme.css */"./src/assets/angular2-multiselect-dropdown/custom-theme.css");
+__webpack_require__(/*! C:\Git\WpCore\wp-be\node_modules\bootstrap\dist\css\bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
+__webpack_require__(/*! C:\Git\WpCore\wp-be\node_modules\ngx-bootstrap\datepicker\bs-datepicker.css */"./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css");
+__webpack_require__(/*! C:\Git\WpCore\wp-be\src\styles.css */"./src/styles.css");
+__webpack_require__(/*! C:\Git\WpCore\wp-be\src\bootswatch-flatly-bootstrap.min.css */"./src/bootswatch-flatly-bootstrap.min.css");
+__webpack_require__(/*! C:\Git\WpCore\wp-be\node_modules\font-awesome\css\font-awesome.css */"./node_modules/font-awesome/css/font-awesome.css");
+__webpack_require__(/*! C:\Git\WpCore\wp-be\node_modules\angular2-multiselect-dropdown\themes\default.theme.css */"./node_modules/angular2-multiselect-dropdown/themes/default.theme.css");
+module.exports = __webpack_require__(/*! C:\Git\WpCore\wp-be\src\assets\angular2-multiselect-dropdown\custom-theme.css */"./src/assets/angular2-multiselect-dropdown/custom-theme.css");
 
 
 /***/ })

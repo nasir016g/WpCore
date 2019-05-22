@@ -10,7 +10,7 @@ export class RoleService {
   constructor(private http: HttpClient) { }
 
   getRoles(){
-     return this.http.get<string[]>(this.url + '?Name=Demo2');
+     return this.http.get<string[]>(this.url);
   }
 
   delete(role: string)
@@ -19,7 +19,6 @@ export class RoleService {
   }
 
   create(roleName: string){
-
     return this.http.post(this.url + '/' + roleName, null);
     // const headers = new HttpHeaders().set('Content-type', 'application/json');
     // return this.http.post(this.url, JSON.stringify(roleName)

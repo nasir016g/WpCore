@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminWebpageService, AuthenticationService } from '../_services';
+import { AuthenticationService } from '../_services/authentication.service';
 import { AdminWebPage } from '../admin/webpage/shared/admin-webpage.model';
 import { Router } from '@angular/router';
+import { AdminWebpageService } from '../admin/webpage/shared/admin-webpage.service';
 
 @Component({
   selector: 'app-nav',

@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule, CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
 import { ControlMessagesComponent } from './components/control-messages.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { AuthGuard } from '../_guard/auth.guard';
+import { LoginComponent } from '../account/login/login.component';
 
 @NgModule({
     imports: [
@@ -16,8 +18,8 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
         CollapseModule.forRoot(), 
         BsDropdownModule.forRoot(),
     ],
-    declarations: [ControlMessagesComponent],
-    providers: [],
+    declarations: [ControlMessagesComponent, LoginComponent],
+    providers: [AuthGuard],
     exports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, ControlMessagesComponent, AngularMultiSelectModule]
 })
 export class SharedModule { }

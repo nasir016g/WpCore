@@ -50,11 +50,12 @@ namespace Wp.Service.Tenants
 
             if (path.HasValue)
             {
-                string alias = _httpContextAccessor.HttpContext.Request.Query["Name"];
-                if (alias == null)
-                    alias = "Demo1";
+                //string tenantName = _httpContextAccessor.HttpContext.Request.Query["Name"];
+                string tenantName = _httpContextAccessor.HttpContext.Request.Headers["Tenant"];
+                if (tenantName == null)
+                    tenantName = "WpCore1";
 
-                tenant = _tenants.FirstOrDefault(t => t.TenantName.ToLowerInvariant() == alias.ToLowerInvariant());
+                tenant = _tenants.FirstOrDefault(t => t.TenantName.ToLowerInvariant() == tenantName.ToLowerInvariant());
 
             }
 
