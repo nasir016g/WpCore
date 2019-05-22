@@ -16,7 +16,7 @@ namespace Wp.Web.Models.Sections
                 this.Id = section.Id;
                 //this.WebPage = section.WebPage;
                 this.UserHasEditRights = webPageService.HasEditRights(section.WebPageId);
-                this.UserIsAdmin = httpContextAccessor.HttpContext.User.IsInRole(RoleNames.Administrators.ToString());
+                this.UserIsAdmin = httpContextAccessor.HttpContext.User.IsInRole(SystemRoleNames.Administrators);
             }
         }
 

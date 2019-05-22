@@ -152,7 +152,7 @@ namespace Wp.Services.WebPages
 
         public bool IsAdminCurrentUser()
         {
-            if (_httpContext.HttpContext.User.IsInRole(RoleNames.Administrators.ToString()))
+            if (_httpContext.HttpContext.User.IsInRole(SystemRoleNames.Administrators))
             {
                 return true;
             }

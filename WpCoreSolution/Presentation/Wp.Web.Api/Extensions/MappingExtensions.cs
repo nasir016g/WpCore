@@ -91,7 +91,7 @@ namespace Wp.Web.Api.Extensions.Mapper
             if (entity == null)
                 return null;
 
-            bool userIsAdmin = user.IsInRole(RoleNames.Administrators.ToString());
+            bool userIsAdmin = user.IsInRole(SystemRoleNames.Administrators);
             bool userHasEditRights = webPageService.HasEditRights(entity.Id);
             bool userHasCreateRights = webPageService.HasCreateRights(entity.Id);
 

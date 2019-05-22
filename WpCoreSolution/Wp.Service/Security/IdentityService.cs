@@ -51,7 +51,7 @@ namespace Wp.Service.Security
         {
             // at least one user must remain in Administrators Role
             // therefore check if the deleting user is the last user 
-            return (_userManager.GetUsersInRoleAsync(RoleNames.Administrators.ToString()).Result.Count() > 1);
+            return (_userManager.GetUsersInRoleAsync(SystemRoleNames.Administrators).Result.Count() > 1);
         }
     }
 }

@@ -122,9 +122,9 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
                     if (await _userManager.IsInRoleAsync(user, role.Name))
                     {
                         // there must remain at least one admin in system
-                        if(role.Name == RoleNames.Administrators.ToString())
+                        if(role.Name == SystemRoleNames.Administrators)
                         {
-                            var adminUsers = await _userManager.GetUsersInRoleAsync(RoleNames.Administrators.ToString());
+                            var adminUsers = await _userManager.GetUsersInRoleAsync(SystemRoleNames.Administrators);
                             if (adminUsers.Count() < 2) continue;
                         }                        
                         
