@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Wp.Core.Domain.Security;
 using Wp.Core.Security;
 using Wp.Web.Api.Areas.Admin.Models;
 
@@ -83,15 +84,68 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
             var user = await _userManager.FindByNameAsync(userName);
 
             var model = new UserModel { Name = userName };
-            model.Roles = _roleManager.Roles.Select(x => new RoleModel { Name = x.Name});
+            //var roles = _roleManager.Roles.Select(x => new RoleModel { Name = x.Name});
+            var roles = _roleManager.Roles;
 
-            foreach (var role in model.Roles)
+            foreach (var role in roles)
             {
-                role.IsChecked = await _userManager.IsInRoleAsync(user, role.Name);
+                var roleModel = new RoleModel {Name = role.Name };
+                roleModel.IsChecked = await _userManager.IsInRoleAsync(user, role.Name);
+                model.Roles.Add(roleModel); 
             }
 
             return Ok(model);
         }
+
+        [HttpPost("users")]
+        public async Task<IActionResult> PostUser([FromBody]UserModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await _userManager.FindByNameAsync(model.Name);
+            foreach (var role in model.Roles)
+            {
+                if(role.IsChecked)
+                {
+                    //add
+                   if(!await _userManager.IsInRoleAsync(user, role.Name))
+                    {
+                       await _userManager.AddToRoleAsync(user, role.Name);
+                    }
+                }
+                else
+                {
+                    //remove
+                    if (await _userManager.IsInRoleAsync(user, role.Name))
+                    {
+                        // there must remain at least one admin in system
+                        if(role.Name == RoleNames.Administrators.ToString())
+                        {
+                            var adminUsers = await _userManager.GetUsersInRoleAsync(RoleNames.Administrators.ToString());
+                            if (adminUsers.Count() < 2) continue;
+                        }                        
+                        
+                        await _userManager.RemoveFromRoleAsync(user, role.Name);
+                    }
+                }
+            }
+
+            return NoContent();
+        }
+
+        //[HttpPut("users")]
+        //public IActionResult PutUser(UserModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    return NoContent();
+        //}
         #endregion
     }
 }

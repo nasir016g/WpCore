@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../shared/user.model';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../shared/user.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-details',
@@ -20,14 +21,24 @@ export class UserDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getUser();
+  }
+
+  getUser() {
     if (this.model.name != null) {
       // edit
       this.userService.getUserByName(this.model.name)
         .subscribe(rez => {
-          this.model = rez;
-          //this.buildForm(this.formBuilder);
+          this.model = rez;          
         }
           , error => console.log(error));
     }
+  }
+
+  update()  {
+    console.log(this.model);
+    this.userService.update(this.model).subscribe((rez) => {
+      this.getUser();
+    })
   }
 }

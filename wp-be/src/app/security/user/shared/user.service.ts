@@ -31,4 +31,12 @@ export class UserService {
       , {headers: headers  }
      )
   }
+
+  update(userModel: UserModel){
+    //return this.http.post(this.url + '/' + roleName, null);
+     const headers = new HttpHeaders().set('Content-type', 'application/json');
+     return this.http.post(this.url, JSON.stringify(userModel)
+      , {headers: headers  }
+     )
+  }
 }
