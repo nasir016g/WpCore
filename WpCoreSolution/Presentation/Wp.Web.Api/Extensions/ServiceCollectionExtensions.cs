@@ -18,6 +18,7 @@ using Wp.Core.Caching;
 using Wp.Core.Domain.Common;
 using Wp.Data;
 using Wp.Data.Repositories;
+using Wp.Service.Security;
 using Wp.Service.Tenants;
 using Wp.Services.Configuration;
 using Wp.Services.Installation;
@@ -111,6 +112,7 @@ namespace Wp.Web.Api.Extensions
             services.AddScoped<ILocalizedEntityService, LocalizedEntityService>();
             services.AddScoped<ICacheManager, PerRequestCacheManager>();
             services.AddScoped<IInstallationService, CodeFirstInstallationService>();
+            services.AddScoped<IClaimProvider, StandardClaimProvider>();
             services.AddScoped(x =>
             {
                 return x.GetService<ISettingService>().LoadSetting<WebsiteSettings>();

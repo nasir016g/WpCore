@@ -6,6 +6,7 @@ import { WebPageDetailComponent } from './webpage/webpage-detail/webpage-detail.
 import { TooltipModule, TabsModule } from 'ngx-bootstrap';
 import { SharedModule } from '../_shared/shared.module';
 import { ExcelService } from '../_services/excelService';
+import { InstallComponent } from './install/install.component';
 
 export const ROUTES: Routes = [
   {
@@ -14,8 +15,9 @@ export const ROUTES: Routes = [
       { path: 'list', component: WebPageListComponent },
       { path: 'add', component: WebPageDetailComponent },
       { path: 'edit/:id', component: WebPageDetailComponent },
-    ],        
+    ],                
   },
+  { path: 'install', component: InstallComponent },
   
 ];
 
@@ -30,6 +32,7 @@ export const ROUTES: Routes = [
   declarations: [
     WebPageListComponent,
     WebPageDetailComponent,
+    InstallComponent,
   ],
   providers: [ExcelService]
 

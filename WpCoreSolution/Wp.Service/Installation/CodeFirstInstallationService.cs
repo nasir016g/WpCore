@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Wp.Core;
 using Wp.Core.Domain.Common;
 using Wp.Core.Domain.Localization;
@@ -16,6 +17,7 @@ using Wp.Core.Domain.WebPages;
 using Wp.Core.Security;
 using Wp.Data;
 using Wp.Service.Helpers;
+using Wp.Service.Security;
 using Wp.Services.Configuration;
 using Wp.Services.Localization;
 
@@ -24,7 +26,7 @@ namespace Wp.Services.Installation
     public partial interface IInstallationService
     {
         void InstallTenants();
-        void InstallData();
+        Task InstallData();
         void InstallExpenses();
     }
 
@@ -44,6 +46,7 @@ namespace Wp.Services.Installation
         public RoleManager<IdentityRole> _roleManager;
         public IHostingEnvironment _hostingEnvironment;
         private readonly ITenantService _tenantService;
+        private readonly IClaimProvider _claimProvider;
 
 
         #endregion
@@ -60,7 +63,8 @@ namespace Wp.Services.Installation
             UserManager<ApplicationUser> userManager, 
             RoleManager<IdentityRole> roleManager, 
             IHostingEnvironment hostingEnvironment,
-            ITenantService tenantService)
+            ITenantService tenantService,
+            IClaimProvider claimProvider)
         {
             _unitOfWork = unitOfWork;
             this._webPageRepo = webPageRepo;
@@ -75,6 +79,7 @@ namespace Wp.Services.Installation
             _hostingEnvironment = hostingEnvironment;
 
             _tenantService = tenantService;
+            _claimProvider = claimProvider;
            
         }
 
@@ -150,35 +155,52 @@ namespace Wp.Services.Installation
             }           
         }
 
-        private void InstallUsersAndRoles()
+        private async Task InstallUsersAndRoles()
         {
             // Add Users and Roles
            
             //Create Role Administrators if it does not exist
            var admin = _roleManager.FindByNameAsync(SystemRoleNames.Administrators);
             if (admin != null)
-                _roleManager.CreateAsync(new IdentityRole(SystemRoleNames.Administrators)).Wait();
+               await _roleManager.CreateAsync(new IdentityRole(SystemRoleNames.Administrators));
 
             //Create Role Users if it does not exist
             var fUser = _roleManager.FindByNameAsync(SystemRoleNames.Users);
             if (fUser != null)
-                _roleManager.CreateAsync(new IdentityRole(SystemRoleNames.Users)).Wait();
+                await _roleManager.CreateAsync(new IdentityRole(SystemRoleNames.Users));
 
             //Create User=test with password=test
             if (_userManager.FindByNameAsync("test").Result == null)
             {
                 var user = new ApplicationUser { UserName = "test", Email = "test@test.nl" };
-                var userResult = _userManager.CreateAsync(user, "test12").Result;
+                var userResult = await _userManager.CreateAsync(user, "test12");
 
                 // Add User test to Role Administrators
                 if (userResult.Succeeded)
                 {
-                    _userManager.AddToRoleAsync(user, SystemRoleNames.Administrators).Wait();
+                   await _userManager.AddToRoleAsync(user, SystemRoleNames.Administrators);
                 }
                 else
                 {
                     throw new Exception(userResult.Errors.First().ToString());
                 }
+            }
+
+            // install default claims
+            var defaultClaims = _claimProvider.GetDefaultClaims().ToList();
+            foreach (var dc in defaultClaims)
+            {
+               var role = _roleManager.Roles.FirstOrDefault(x => x.Name == dc.RoleName);
+                if(role == null)
+                {
+                  await _roleManager.CreateAsync(new IdentityRole(dc.RoleName));
+                  role = _roleManager.Roles.FirstOrDefault(x => x.Name == dc.RoleName);
+                }
+                foreach (var cr in dc.ClaimRecords)
+                {
+                   await _roleManager.AddClaimAsync(role, new System.Security.Claims.Claim(cr.ClaimType, cr.ClaimValue));
+                }
+                
             }
         }
 
@@ -234,11 +256,11 @@ namespace Wp.Services.Installation
             tenants.ForEach(t => _tenantService.Insert(t));
         }
 
-        public void InstallData()
+        public async Task InstallData()
         {
             InstallWebPages();
             InstallLanguages();
-            InstallUsersAndRoles();
+            await InstallUsersAndRoles();
             InstallRolesAtAPage();
             //InstallSettings();
         }

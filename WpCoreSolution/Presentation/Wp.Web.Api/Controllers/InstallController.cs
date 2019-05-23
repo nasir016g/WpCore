@@ -19,10 +19,10 @@ namespace Wp.Web.Api.Controllers
         }
         // GET: api/Install
         [HttpGet]
-        public string Data()
+        public async Task<IActionResult> Data()
         {
-            _installationService.InstallData();
-            return "installed successfully.";
+            await _installationService.InstallData();
+            return Ok("installed successfully.");
         }
 
         [HttpGet("Tenants")]
