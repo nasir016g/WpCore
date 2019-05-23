@@ -5,6 +5,7 @@ import { AuthGuard } from './_guard/auth.guard';
 import { RoleListComponent } from './security/role/role-list/role-list.component';
 import { UserListComponent } from './security/user/user-list/user-list.component';
 import { UserDetailsComponent } from './security/user/user-details/user-details.component';
+import { AccessControlListComponent } from './configuration/access-control-list/access-control-list.component';
 
 const ROUTES: Routes = [
     { path: 'login', component: LoginComponent },   
@@ -12,6 +13,8 @@ const ROUTES: Routes = [
     { path: 'security/roles', canActivate: [AuthGuard], component: RoleListComponent},
     { path: 'security/users', canActivate: [AuthGuard], component: UserListComponent},
     { path: 'security/users/edit/:userName', canActivate: [AuthGuard], component: UserDetailsComponent},
+
+    { path: 'config/acl', canActivate: [AuthGuard], component: AccessControlListComponent},
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

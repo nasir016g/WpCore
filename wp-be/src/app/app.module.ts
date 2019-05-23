@@ -17,6 +17,7 @@ import { TenantInterceptor } from './_interceptors/tenant.interceptor';
 import { UserListComponent } from './security/user/user-list/user-list.component';
 import { UserDetailsComponent } from './security/user/user-details/user-details.component';
 import { UserService } from './security/user/shared/user.service';
+import { AccessControlListComponent } from './configuration/access-control-list/access-control-list.component';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { UserService } from './security/user/shared/user.service';
     RoleListComponent,
     UserListComponent,
     UserDetailsComponent,
+    AccessControlListComponent,
   ],
   providers: [
     UserService,
