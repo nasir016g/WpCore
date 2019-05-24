@@ -32,19 +32,19 @@ import { ControlMessagesComponent } from './shared/components/control-messages.c
     HttpClientModule,
     HttpModule,
     BrowserAnimationsModule,
-    AlertModule.forRoot({ maxMessages: 5, timeout: 5000 }),
     BsDropdownModule.forRoot(),
     AppRouting,
     FormsModule,
     ReactiveFormsModule,
     //AdminModule,
     SharedModule,
+    AlertModule.forRoot({ maxMessages: 5, timeout: 5000 }),
     ModalModule.forRoot(),
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
 
-    TooltipModule.forRoot(), // must include here
-    TabsModule.forRoot(), // must include here
+    TooltipModule.forRoot(), // must include here (admin)
+    TabsModule.forRoot(), // must include here (admin)
   ],
   declarations: [
     AppComponent,
@@ -58,7 +58,7 @@ import { ControlMessagesComponent } from './shared/components/control-messages.c
     WebPageDetailComponent,
     InstallComponent,
 
-    ControlMessagesComponent,
+   
     LoginComponent
   ],
   providers: [
