@@ -20,6 +20,7 @@ namespace Wp.Service.Security
 
 
 
+
         public virtual IEnumerable<ClaimRecord> GetClaims()
         {
             return new[]

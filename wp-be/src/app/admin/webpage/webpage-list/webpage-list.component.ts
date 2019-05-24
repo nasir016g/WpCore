@@ -4,7 +4,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Router } from '@angular/router';
 import { AdminWebPage } from '../shared/admin-webpage.model';
 import { AdminWebpageService } from '../shared/admin-webpage.service';
-import { ExcelService } from '../../../_services/excelService';
+import { ExcelService } from '../../../shared/services/excelService';
 
 @Component({
   selector: 'app-webpage-list',
