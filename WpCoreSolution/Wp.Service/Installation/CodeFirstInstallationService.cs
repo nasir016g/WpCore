@@ -247,13 +247,7 @@ namespace Wp.Services.Installation
 
         public void InstallTenants()
         {
-            var tenants = new List<Tenant>()
-            {
-                new Tenant { TenantId = Guid.Parse("10DEE2B7-DCBA-45E6-8E03-380D27772944"), TenantName = "WpCore1", ConnectionString = @"server=.\sqlexpress;user id=sa;pwd=aq;persist security info=False;initial catalog=WpCore1;Integrated security=false;Trusted_Connection=false;MultipleActiveResultSets=true"},
-                new Tenant { TenantId = Guid.Parse("66616AEF-53B4-45D8-A9CE-7E6A5CED7EF3"), TenantName = "WpCore2", ConnectionString = @"server=.\sqlexpress;user id=sa;pwd=aq;persist security info=False;initial catalog=WpCore2;Integrated security=false;Trusted_Connection=false;MultipleActiveResultSets=true"},
-            };
-
-            tenants.ForEach(t => _tenantService.Insert(t));
+            _tenantService.InstallTenants();
         }
 
         public async Task InstallData()

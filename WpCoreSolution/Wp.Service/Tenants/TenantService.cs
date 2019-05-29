@@ -29,13 +29,15 @@ namespace Wp.Service.Tenants
             {
                 _currentTenant = GetTenantByName();
             }
-            else
-            {
-                var tenantid = new Guid("10DEE2B7-DCBA-45E6-8E03-380D27772944"); // default
-                _currentTenant = GetTenantByTenantId(tenantid);
-            }
+            //else
+            //{
+            //    var tenantid = new Guid("10DEE2B7-DCBA-45E6-8E03-380D27772944"); // default
+            //    _currentTenant = GetTenantByTenantId(tenantid);
+            //}
 
         }
+
+        #region Utilities
 
         private Tenant GetTenantByName()
         {
@@ -46,19 +48,20 @@ namespace Wp.Service.Tenants
 
             Tenant tenant = null;
 
-            var path = _httpContextAccessor.HttpContext.Request.Path;
-
-            if (path.HasValue)
+            string tenantName = _httpContextAccessor.HttpContext?.Request?.Headers?["Tenant"];
+            if(tenantName == null)
             {
-                //string tenantName = _httpContextAccessor.HttpContext.Request.Query["Name"];
-                string tenantName = _httpContextAccessor.HttpContext.Request.Headers["Tenant"];
-                if (tenantName == null)
-                    tenantName = "WpCore1";
+                // query string (install controller)
+                var path = _httpContextAccessor.HttpContext.Request.Path;
+                if (path.HasValue)
+                {
+                    tenantName = _httpContextAccessor.HttpContext.Request.Query["Name"];
+                    if (tenantName == null)
+                        tenantName = "WpCore1"; // default
+                }
+            }            
 
-                tenant = _tenants.FirstOrDefault(t => t.TenantName.ToLowerInvariant() == tenantName.ToLowerInvariant());
-
-            }
-
+            tenant = _tenants.FirstOrDefault(t => t.TenantName.ToLowerInvariant() == tenantName.ToLowerInvariant());
             return tenant;
         }
 
@@ -71,12 +74,26 @@ namespace Wp.Service.Tenants
             var tenant = _tenants.FirstOrDefault(t => t.TenantId == TenantId);
             return tenant;
         }
-
         
+        #endregion
+
 
         public Tenant GetTenant()
         {
             return _currentTenant;
-        }          
+        }
+
+        public void InstallTenants()
+        {
+            if (this.GetAll().Count > 0) return;
+
+            var tenants = new List<Tenant>()
+            {
+                new Tenant { TenantId = Guid.Parse("10DEE2B7-DCBA-45E6-8E03-380D27772944"), TenantName = "WpCore1", ConnectionString = @"server=.\sqlexpress;user id=sa;pwd=aq;persist security info=False;initial catalog=WpCore1;Integrated security=false;Trusted_Connection=false;MultipleActiveResultSets=true"},
+                new Tenant { TenantId = Guid.Parse("66616AEF-53B4-45D8-A9CE-7E6A5CED7EF3"), TenantName = "WpCore2", ConnectionString = @"server=.\sqlexpress;user id=sa;pwd=aq;persist security info=False;initial catalog=WpCore2;Integrated security=false;Trusted_Connection=false;MultipleActiveResultSets=true"},
+            };
+
+            tenants.ForEach(t => Insert(t));
+        }
     }
 }

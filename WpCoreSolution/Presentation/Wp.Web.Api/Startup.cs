@@ -15,6 +15,7 @@ using Wp.Core.Security;
 using Wp.Data;
 using Wp.Web.Api.Extensions;
 using Wp.Web.Api.Infrastructure.Mapper;
+using ServiceCollectionExtensions = Wp.Web.Api.Extensions.ServiceCollectionExtensions;
 
 namespace Wp.Web.Api
 {
@@ -64,9 +65,9 @@ namespace Wp.Web.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ITenantService tenantService)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            Wp.Web.Api.Extensions.ServiceCollectionExtensions.ApplyMigrations(app, tenantService);
+            ServiceCollectionExtensions.ApplyMigrations(app);
             Extensions.ServiceCollectionExtensions.AddLogger();
             if (env.IsDevelopment())
             {

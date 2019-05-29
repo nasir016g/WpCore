@@ -8,5 +8,7 @@ namespace Wp.Core
     public interface ITenantService : IEntityService<Tenant>
     {
         Tenant GetTenant();
+
+        void InstallTenants();
     }
 }

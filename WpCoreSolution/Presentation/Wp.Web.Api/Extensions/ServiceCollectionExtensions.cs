@@ -65,17 +65,19 @@ namespace Wp.Web.Api.Extensions
             return services;
         }
 
-        public static void ApplyMigrations(IApplicationBuilder app, ITenantService tenantService)
+        public static void ApplyMigrations(IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 using (TenantDbContext tContext = serviceScope.ServiceProvider.GetService<TenantDbContext>())
                 {
                     tContext.Database.Migrate();
+                    var tenantService = serviceScope.ServiceProvider.GetService<ITenantService>(); 
                     using (WpDbContext context = serviceScope.ServiceProvider.GetService<WpDbContext>())
                     {
                         context.Database.Migrate();
 
+                        tenantService.InstallTenants();
                         var tenants = tenantService.GetAll();
                         foreach (var t in tenants)
                         {
