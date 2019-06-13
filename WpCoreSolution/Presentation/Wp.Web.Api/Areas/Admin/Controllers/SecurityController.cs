@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Wp.Core.Domain.Security;
 using Wp.Core.Security;
+using Wp.Service.Security;
 using Wp.Web.Api.Areas.Admin.Models;
 
 namespace Wp.Web.Api.Areas.Admin.Controllers
@@ -17,11 +18,16 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IClaimProvider _claimProvider;
 
-        public SecurityController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public SecurityController(
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            IClaimProvider claimProvider)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            this._claimProvider = claimProvider;
         }
 
         #region roles
@@ -30,10 +36,10 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
         [HttpGet("Roles", Name = "Roles")]
         public IEnumerable<string> Roles()
         {
-           var roles = _roleManager.Roles.Select(x => x.Name).ToList();
-           return roles;
+            var roles = _roleManager.Roles.Select(x => x.Name).ToList();
+            return roles;
         }
-        
+
         // POST: api/Security
         [HttpPost("Roles/{roleName}")]
         public async Task<IActionResult> Post(string roleName)
@@ -62,9 +68,9 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
         [HttpDelete("Roles/{roleName}")]
         public async Task<IActionResult> Delete(string roleName)
         {
-           var role = await _roleManager.FindByNameAsync(roleName);
-           var result = await _roleManager.DeleteAsync(role);
-           return NoContent();
+            var role = await _roleManager.FindByNameAsync(roleName);
+            var result = await _roleManager.DeleteAsync(role);
+            return NoContent();
         }
 
         #endregion
@@ -89,9 +95,9 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
 
             foreach (var role in roles)
             {
-                var roleModel = new RoleModel {Name = role.Name };
+                var roleModel = new RoleModel { Name = role.Name };
                 roleModel.IsChecked = await _userManager.IsInRoleAsync(user, role.Name);
-                model.Roles.Add(roleModel); 
+                model.Roles.Add(roleModel);
             }
 
             return Ok(model);
@@ -108,12 +114,12 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
             var user = await _userManager.FindByNameAsync(model.Name);
             foreach (var role in model.Roles)
             {
-                if(role.IsChecked)
+                if (role.IsChecked)
                 {
                     //add
-                   if(!await _userManager.IsInRoleAsync(user, role.Name))
+                    if (!await _userManager.IsInRoleAsync(user, role.Name))
                     {
-                       await _userManager.AddToRoleAsync(user, role.Name);
+                        await _userManager.AddToRoleAsync(user, role.Name);
                     }
                 }
                 else
@@ -122,12 +128,12 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
                     if (await _userManager.IsInRoleAsync(user, role.Name))
                     {
                         // there must remain at least one admin in system
-                        if(role.Name == SystemRoleNames.Administrators)
+                        if (role.Name == SystemRoleNames.Administrators)
                         {
                             var adminUsers = await _userManager.GetUsersInRoleAsync(SystemRoleNames.Administrators);
                             if (adminUsers.Count() < 2) continue;
-                        }                        
-                        
+                        }
+
                         await _userManager.RemoveFromRoleAsync(user, role.Name);
                     }
                 }
@@ -146,6 +152,43 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
 
         //    return NoContent();
         //}
+        #endregion
+
+        #region claims
+
+        public async Task<IActionResult> GetClaims()
+        {
+            var model = new ClaimRoleModel();
+
+            var claims = _claimProvider.GetClaims();
+            var roles = _roleManager.Roles;
+
+            model.AvailableClaims = claims.ToList();
+
+            foreach (var r in roles)
+            {
+                model.AvailableRoles.Add(new RoleModel
+                {
+                    Name = r.Name
+                });
+            }
+
+
+            foreach (var r in roles)
+            {
+                var roleClaims = await _roleManager.GetClaimsAsync(r);
+                foreach (var c in claims)
+                {
+                    var allowed = roleClaims.Any(rc => rc.Value == c.ClaimValue);
+                    if (!model.Allowed.ContainsKey(c.ClaimValue))
+                        model.Allowed[c.ClaimValue] = new Dictionary<string, bool>();
+                    model.Allowed[c.ClaimValue][r.Name] = allowed;
+                }
+            }
+
+            return Ok(model);
+        }
+
         #endregion
     }
 }
