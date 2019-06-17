@@ -156,6 +156,7 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
 
         #region claims
 
+        [HttpGet("claims")]
         public async Task<IActionResult> GetClaims()
         {
             var model = new ClaimRoleModel();
