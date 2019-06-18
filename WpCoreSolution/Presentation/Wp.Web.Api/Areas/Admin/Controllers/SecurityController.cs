@@ -190,6 +190,37 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
             return Ok(model);
         }
 
+        [HttpPut("claims")]
+        public async Task<IActionResult> SaveClaims(ClaimRoleModel model)
+        {
+            var claims = _claimProvider.GetClaims();
+            var roles = _roleManager.Roles;
+
+            foreach(var r in roles)
+            {
+                var roleName = r.Name.First().ToString().ToLower() + r.Name.Substring(1); // first char lowercase
+                var roleClaims = await _roleManager.GetClaimsAsync(r);
+                foreach (var c in claims)
+                {
+                    var allow = model.Allowed[c.ClaimValue][roleName];
+                    if(allow)
+                    {
+                        if (roleClaims.FirstOrDefault(x => x.Value == c.ClaimValue) == null)
+                            await _roleManager.AddClaimAsync(r, new System.Security.Claims.Claim(c.ClaimType, c.ClaimValue));
+                    }
+                    else
+                    {
+                        await _roleManager.RemoveClaimAsync(r, new System.Security.Claims.Claim(c.ClaimType, c.ClaimValue));
+                    }
+                }
+            }
+            foreach (var cr in  model.Allowed)
+            {
+                
+            }
+            return NoContent();
+        }
+
         #endregion
     }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ClaimRoleModel } from './claim-role.model';
 
 @Injectable({
@@ -15,4 +15,10 @@ export class AccessControlService {
   getClaims(){
     return this.http.get<ClaimRoleModel>(this.url);
  } 
+
+ update(model: ClaimRoleModel){
+   const headers = new HttpHeaders().set('Content-type', 'application/json');
+   return this.http.put(this.url, JSON.stringify(model)
+   , {headers: headers})
+ }
 }

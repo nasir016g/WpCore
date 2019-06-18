@@ -1,24 +1,24 @@
 <p>
-  access-control-list works!
+    access-control-list works!
 </p>
 
 <table *ngIf="claims" class="table table-bordered">
-  <thead>
-      <tr>
-          <th>Claim</th>
-          <th *ngFor="let role of claims.availableRoles">{{role.name}}</th>         
-      </tr>
-  </thead>
-  <tbody>
-      <tr *ngFor="let claim of claims.availableClaims">
-          <td>{{claim.claimValue}}</td>          
-          <td *ngFor="let r of claims.availableRoles">
-              {{claims.allowed}}
-          {{claims.allowed.createWebPages.administrators}}
-           <!-- {{claims.allowed[claim.claimValue][r.name]}} -->
-          
-          </td>
-          
-      </tr>
-  </tbody>
+    <thead>
+        <tr>
+            <th>Claim</th>
+            <th *ngFor="let role of claims.availableRoles">{{role.name}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let claim of claims.availableClaims">
+            <td>{{toLowerFirstChar(claim.claimValue)}}</td>
+            <td *ngFor="let r of claims.availableRoles">
+                {{claims.allowed[toLowerFirstChar(claim.claimValue)][toLowerFirstChar(r.name)]}}
+                <input type="checkbox"
+                    [(ngModel)]="claims.allowed[toLowerFirstChar(claim.claimValue)][toLowerFirstChar(r.name)]">
+            </td>
+        </tr>
+    </tbody>
 </table>
+
+<button type="button" class="btn btn-primary" (click)="update()">Save</button>
