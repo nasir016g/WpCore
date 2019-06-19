@@ -1,0 +1,21 @@
+
+<table *ngIf="claims" class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="text-sm-left">Claim</th>
+            <th *ngFor="let role of claims.availableRoles">{{role.name}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let claim of claims.availableClaims">
+            <td class="text-sm-left">{{claim.claimValue}}</td>
+            <td *ngFor="let r of claims.availableRoles">
+                <input type="checkbox"
+                    [(ngModel)]="claims.allowed[toLowerFirstChar(claim.claimValue)][toLowerFirstChar(r.name)]">
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="col text-right">
+        <button type="button" class="btn btn-primary" (click)="update()">Save</button>
+</div>

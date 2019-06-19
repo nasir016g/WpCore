@@ -15,7 +15,7 @@ import { TenantInterceptor } from './shared/interceptors/tenant.interceptor';
 import { UserListComponent } from './security/user/user-list/user-list.component';
 import { UserDetailsComponent } from './security/user/user-details/user-details.component';
 import { UserService } from './security/user/shared/user.service';
-import { AccessControlListComponent } from './configuration/access-control-list/access-control-list.component';
+import { AccessControlListComponent } from './security/configuration/access-control-list/access-control-list.component';
 import { SharedModule } from './shared/shared.module';
 import { WebPageListComponent } from './admin/webpage/webpage-list/webpage-list.component';
 import { WebPageDetailComponent } from './admin/webpage/webpage-detail/webpage-detail.component';

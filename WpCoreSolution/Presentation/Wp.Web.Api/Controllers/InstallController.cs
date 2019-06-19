@@ -17,7 +17,7 @@ namespace Wp.Web.Api.Controllers
         {
             _installationService = installationService;
         }
-        // GET: api/Install
+        // api/install?Name=WpCore2 e.g.
         [HttpGet]
         public async Task<IActionResult> Data()
         {

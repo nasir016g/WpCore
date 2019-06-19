@@ -5,7 +5,7 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { RoleListComponent } from './security/role/role-list/role-list.component';
 import { UserListComponent } from './security/user/user-list/user-list.component';
 import { UserDetailsComponent } from './security/user/user-details/user-details.component';
-import { AccessControlListComponent } from './configuration/access-control-list/access-control-list.component';
+import { AccessControlListComponent } from './security/configuration/access-control-list/access-control-list.component';
 import { WebPageListComponent } from './admin/webpage/webpage-list/webpage-list.component';
 import { WebPageDetailComponent } from './admin/webpage/webpage-detail/webpage-detail.component';
 import { InstallComponent } from './admin/install/install.component';
