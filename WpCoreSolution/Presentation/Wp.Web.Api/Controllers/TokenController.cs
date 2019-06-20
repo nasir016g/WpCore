@@ -40,6 +40,7 @@ namespace Wp.Web.Api.Controllers
            // LoginViewModel model = new LoginViewModel { Email = Email, Password = Password };
             if (ModelState.IsValid)
             {
+                var allUsers = _userManager.Users;
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null)
                 {
@@ -54,6 +55,7 @@ namespace Wp.Web.Api.Controllers
                     var claims = new[]
                     {
                         new Claim(JwtRegisteredClaimNames.Sub, model.Email),
+                        new Claim(JwtRegisteredClaimNames.Email, "dddd.test.nl"),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                     };
 

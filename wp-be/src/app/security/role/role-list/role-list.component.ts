@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { RoleService } from '../shared/role.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { RoleModel } from '../../user/shared/user.model';
 
 @Component({
   selector: 'app-role-list',
   templateUrl: './role-list.component.html'
 })
 export class RoleListComponent implements OnInit {
-  roles: string[];
+  roles: RoleModel[];
   newRoleForm: FormGroup;
 
   constructor(private roleService: RoleService) { }
@@ -46,7 +47,7 @@ export class RoleListComponent implements OnInit {
     }
     const postedRole = this.newRoleForm.controls['roleName'].value as string;
     this.roleService.create(postedRole).subscribe((rez) => {
-      this.roles.push(postedRole);
+      this.getRoles();
       this.buildForm();
     })
   }

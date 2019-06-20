@@ -8,6 +8,7 @@ export class UserModel {
 
 export class RoleModel {
     name: string;
+    isSystemRole: boolean;
     isChecked: boolean;
 }
  

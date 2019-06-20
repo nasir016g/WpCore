@@ -21,9 +21,9 @@
         </tr>
         <tr *ngFor="let role of roles">
           <td class="text-left">
-            {{role}}
+            {{role.name}}
           </td>
-          <td *ngIf="role !== 'Admin'" class="float-right">
+          <td *ngIf="!role.isSystemRole" class="float-right">
             <button class="btn btn-outline-danger" (click)="deleteRole(role)">Delete</button>
           </td>
         </tr>

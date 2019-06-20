@@ -45,6 +45,7 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
         [HttpGet]       
         public ObjectResult Get()
         {
+           var userClaims = User.Claims;
             var entities = _webPageService.GetAll();
             var models = entities.ToModels();
             //return BadRequest("Something bad happened.");

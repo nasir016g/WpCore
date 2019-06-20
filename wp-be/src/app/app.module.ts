@@ -24,6 +24,7 @@ import { TooltipModule, TabsModule, ModalModule, CollapseModule } from 'ngx-boot
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './security/account/login/login.component';
 import { ControlMessagesComponent } from './shared/components/control-messages.component';
+import { AuthorizationInterceptor } from './shared/interceptors/authorization.interceptor';
 
 @NgModule({
   imports: [
@@ -65,7 +66,8 @@ import { ControlMessagesComponent } from './shared/components/control-messages.c
     UserService,
     BaseRequestOptions,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true, },
-    { provide: HTTP_INTERCEPTORS, useClass: TenantInterceptor, multi: true, }
+    { provide: HTTP_INTERCEPTORS, useClass: TenantInterceptor, multi: true, },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true, }
   ],
   bootstrap: [AppComponent]
 })

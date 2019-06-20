@@ -34,10 +34,19 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
 
         // GET: api/Security
         [HttpGet("Roles", Name = "Roles")]
-        public IEnumerable<string> Roles()
+        public IEnumerable<RoleModel> Roles()
         {
             var roles = _roleManager.Roles.Select(x => x.Name).ToList();
-            return roles;
+
+            List<RoleModel> result = new List<RoleModel>();
+            foreach(var role in roles)
+            {
+                var roleModel = new RoleModel();
+                roleModel.Name = role;
+                roleModel.IsSystemRole = (role == SystemRoleNames.Administrators || role == SystemRoleNames.Editors || role == SystemRoleNames.Users);
+                result.Add(roleModel);
+            }
+            return result;
         }
 
         // POST: api/Security

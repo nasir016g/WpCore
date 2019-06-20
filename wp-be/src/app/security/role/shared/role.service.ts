@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { RoleModel } from '../../user/shared/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class RoleService {
   constructor(private http: HttpClient) { }
 
   getRoles(){
-     return this.http.get<string[]>(this.url);
+     return this.http.get<RoleModel[]>(this.url);
   }
 
   delete(role: string)
