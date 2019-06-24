@@ -1,16 +1,17 @@
 
 import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {  
   public token: string;
 
-  constructor(private _http: Http){
+  constructor(private _http: HttpClient){
     // set token if saved in local storage
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser && currentUser.token;
@@ -21,7 +22,7 @@ export class AuthenticationService {
   login(username: string, password: string): Observable<boolean> {
     
     const url = environment.apiUrl + environment.tokenService;
-    var headers = new Headers();
+    var headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json; charset=utf-8');
 
     return this._http.post(url, { Email: username, Password: password }, { headers: headers }).pipe(
