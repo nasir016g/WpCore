@@ -37,8 +37,6 @@ namespace Wp.Web.Api.Extensions
             var defaultConnection = configuration.GetConnectionString("DefaultConnection");
             var tenantCatalogConnection = configuration.GetConnectionString("TenantCatalogConnection");
             services.AddEntityFrameworkSqlServer();
-            //services.AddDbContext<DigiversDbContext>(options => options.UseSqlServer(defaultConnection, b => b.MigrationsAssembly("Digivers.Data")));
-            //services.AddDbContext<TenantCatalogDbContext>(options => options.UseSqlServer(tenantCatalogConnection, b => b.MigrationsAssembly("Digivers.Data")));
             services.AddDbContext<WpDbContext>(options =>
             {
                 options.UseSqlServer(defaultConnection,

@@ -25,10 +25,10 @@ export class AuthenticationService {
     var headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json; charset=utf-8');
 
-    return this._http.post(url, { Email: username, Password: password }, { headers: headers }).pipe(
-      map((response: Response) => {
+    return this._http.post<any>(url, { Email: username, Password: password }, { headers: headers })
+    .pipe(map(user => {
         // login successful if there's a jwt token in the response
-        let token = response.json() && response.json().token;
+        let token = user && user.token;
         if (token) {
           this.token = token;
 

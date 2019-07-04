@@ -12,6 +12,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUsers(){
+    console.log("get users");
      return this.http.get<UserModel[]>(this.url);
   }
 
