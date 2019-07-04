@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Wp.Core;
 using Wp.Core.Domain.Tenants;
+using Wp.Data;
 
 namespace Wp.Service.Tenants
 {
@@ -17,8 +18,8 @@ namespace Wp.Service.Tenants
 
         public TenantService(
             IHttpContextAccessor httpContextAccessor,
-            ITenantUnitOfWork unitOfWork,
-            ITenantsBaseRepository repository) : base(unitOfWork, repository)
+            TenantDbContext dbContext,
+            ITenantsBaseRepository repository) : base(dbContext, repository)
         {
             
             _httpContextAccessor = httpContextAccessor;

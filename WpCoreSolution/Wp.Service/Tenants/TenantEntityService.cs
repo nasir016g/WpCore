@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using Wp.Core;
 using Wp.Core.Domain.Tenants;
+using Wp.Data;
 using Wp.Services;
 
 namespace Wp.Service.Tenants
 {
     public abstract class TenantEntityService : IEntityService<Tenant> 
     {
-        protected ITenantUnitOfWork _unitOfWork;
+        protected TenantDbContext _dbContext;
         ITenantsBaseRepository _repository;
 
-        public TenantEntityService(ITenantUnitOfWork unitOfWork, ITenantsBaseRepository repository)
+        public TenantEntityService(TenantDbContext dbContext, ITenantsBaseRepository repository)
         {
-            _unitOfWork = unitOfWork;
+            _dbContext = dbContext;
             _repository = repository;
         }
 
@@ -31,21 +32,20 @@ namespace Wp.Service.Tenants
                 throw new ArgumentNullException("entity");
             }
             _repository.Add(entity);
-            _unitOfWork.Complete();
+            _dbContext.SaveChanges();
         }
-
 
         public virtual void Update(Tenant entity)
         {
             if (entity == null) throw new ArgumentNullException("entity");
-            _unitOfWork.Complete();
+            _dbContext.SaveChanges();
         }
 
         public virtual void Delete(Tenant entity)
         {
             if (entity == null) throw new ArgumentNullException("entity");
             _repository.Remove(entity);
-            _unitOfWork.Complete();
+            _dbContext.SaveChanges();
         }
 
         public virtual IList<Tenant> GetAll()

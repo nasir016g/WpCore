@@ -32,38 +32,35 @@ namespace Wp.Web.Api.Extensions
     public static class ServiceCollectionExtensions
     {
 
-        public static IServiceCollection AddTenantCatalogDbContext(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddCatalogDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            var defaultConnection = configuration.GetConnectionString("DefaultConnection");
-            var tenantCatalogConnection = configuration.GetConnectionString("TenantCatalogConnection");
             services.AddEntityFrameworkSqlServer();
             services.AddDbContext<WpDbContext>(options =>
             {
-                options.UseSqlServer(defaultConnection,
-                sqlServerOptionsAction: sqlOptions =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                sqlServerOptionsAction: x =>
                 {
-                    sqlOptions.MigrationsAssembly("Wp.Data");
-                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                    x.MigrationsAssembly("Wp.Data");
+                    x.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                 });
             });
             services.AddDbContext<TenantDbContext>(options =>
             {
-                options.UseSqlServer(tenantCatalogConnection,
-                sqlServerOptionsAction: sqlOptions =>
+                options.UseSqlServer(configuration.GetConnectionString("CatalogConnection"),
+                sqlServerOptionsAction: x =>
                 {
-                    sqlOptions.MigrationsAssembly("Wp.Data");
-                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                    x.MigrationsAssembly("Wp.Data");
+                    x.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                 });
             });
 
-            services.AddScoped<ITenantUnitOfWork, TenantUnitOfWork>();
             services.AddScoped<ITenantService, TenantService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             return services;
         }
 
-        public static void ApplyMigrations(IApplicationBuilder app)
+        public static void Migrate(IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
@@ -100,7 +97,6 @@ namespace Wp.Web.Api.Extensions
             //services.AddScoped<ISectionRepository, SectionRepository>();
 
             // services
-            services.AddScoped<ITenantUnitOfWork, TenantUnitOfWork>();
             services.AddScoped<ITenantService, TenantService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

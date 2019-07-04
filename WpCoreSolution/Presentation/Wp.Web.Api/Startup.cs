@@ -50,7 +50,7 @@ namespace Wp.Web.Api
 
             services.AddJwt(Configuration); // comment this line out when using mvc views otherwise loging will not work
 
-            services.AddTenantCatalogDbContext(Configuration);
+            services.AddCatalogDbContext(Configuration);
             services.AddWp();
             services.AddAutoMapper();
             AutoMapperConfiguration.Init();
@@ -67,7 +67,7 @@ namespace Wp.Web.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            ServiceCollectionExtensions.ApplyMigrations(app);
+            ServiceCollectionExtensions.Migrate(app);
             Extensions.ServiceCollectionExtensions.AddLogger();
             if (env.IsDevelopment())
             {

@@ -16,7 +16,6 @@ namespace Wp.Data
         private readonly string _connectionString;
         private readonly Tenant _tenant;
 
-        //public DbSet<WebPage> WebPages { get; set; }
         public new DbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return base.Set<TEntity>();
@@ -31,12 +30,6 @@ namespace Wp.Data
         {
             _connectionString = connectionString;
         }
-
-        //public WpDbContext(DbContextOptions<WpDbContext> options, string connectionString, ITenantService tenantService) : base(options)
-        //{
-        //    _connectionString = connectionString;
-        //    _tenant = tenantService.GetTenant();
-        //}
 
         public WpDbContext(DbContextOptions<WpDbContext> options, ITenantService tenantService) : base(options)
         {
