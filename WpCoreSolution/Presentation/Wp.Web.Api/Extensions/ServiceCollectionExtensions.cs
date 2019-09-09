@@ -55,7 +55,6 @@ namespace Wp.Web.Api.Extensions
             });
 
             services.AddScoped<ITenantService, TenantService>();
-
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             return services;
         }
