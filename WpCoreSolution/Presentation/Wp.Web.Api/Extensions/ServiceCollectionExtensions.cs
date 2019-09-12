@@ -106,6 +106,7 @@ namespace Wp.Web.Api.Extensions
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<ILocalizedEntityService, LocalizedEntityService>();
             services.AddScoped<ICacheManager, PerRequestCacheManager>();
+            services.AddScoped<IStaticCacheManager, EasyMemoryCacheManager>();
             services.AddScoped<IInstallationService, CodeFirstInstallationService>();
             services.AddScoped<IClaimProvider, StandardClaimProvider>();
             services.AddScoped(x =>

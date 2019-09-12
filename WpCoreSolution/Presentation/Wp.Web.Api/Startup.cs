@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using EasyCaching.Core;
+using EasyCaching.InMemory;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -62,6 +64,12 @@ namespace Wp.Web.Api
                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                });
+
+            services.AddEasyCaching(option =>
+            {
+                // use memory cache with a simple way
+                option.UseInMemory("default");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

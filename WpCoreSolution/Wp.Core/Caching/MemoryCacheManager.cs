@@ -218,6 +218,11 @@ namespace Wp.Core.Caching
             //nothing special
         }
 
+        public T GetEasy<T>(string key, Func<T> acquire)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

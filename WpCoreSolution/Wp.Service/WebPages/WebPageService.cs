@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using Wp.Core;
+using Wp.Core.Caching;
 using Wp.Core.Domain.Sections;
 using Wp.Core.Domain.Security;
 using Wp.Core.Domain.WebPages;
@@ -14,17 +15,33 @@ namespace Wp.Services.WebPages
     public class WebPageService : EntityService<WebPage>, IWebPageService
     {
         private readonly IHttpContextAccessor _httpContext;
+        private readonly IStaticCacheManager _staticCacheManager;
         private readonly IBaseRepository<WebPage> _webPageRepo;
         private readonly IBaseRepository<WebPageRole> _webPageRoleRepo;
         private readonly IBaseRepository<Section> _sectionRepo;
 
-        public WebPageService(IHttpContextAccessor httpContext, IUnitOfWork unitOfWork, IBaseRepository<WebPage> webPageRepo, IBaseRepository<WebPageRole> webPageRoleRepo, IBaseRepository<Section> sectionRepo)
+        public WebPageService(IHttpContextAccessor httpContext,
+            IStaticCacheManager staticCacheManager,
+                              IUnitOfWork unitOfWork,
+                              IBaseRepository<WebPage> webPageRepo,
+                              IBaseRepository<WebPageRole> webPageRoleRepo,
+                              IBaseRepository<Section> sectionRepo)
         : base(unitOfWork, webPageRepo)
         {
             _httpContext = httpContext;
+            _staticCacheManager = staticCacheManager;
             _webPageRepo = webPageRepo;
             _webPageRoleRepo = webPageRoleRepo;
             _sectionRepo = sectionRepo;
+        }
+
+        public override IList<WebPage> GetAll()
+        {
+           return _staticCacheManager.GetEasy("allpages", () =>
+            {
+                return base.GetAll();
+
+            });
         }
 
         public IList<WebPage> GetPagesByParentId(int parentId)

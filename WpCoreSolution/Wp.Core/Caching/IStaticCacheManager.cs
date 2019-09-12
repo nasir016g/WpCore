@@ -9,5 +9,6 @@ namespace Wp.Core.Caching
     /// </summary>
     public interface IStaticCacheManager : ICacheManager
     {
+        T GetEasy<T>(string key, Func<T> acquire);
     }
 }
