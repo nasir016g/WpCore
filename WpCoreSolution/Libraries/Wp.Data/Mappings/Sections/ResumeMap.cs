@@ -9,7 +9,7 @@ namespace Wp.Core.Mappings.Sections
   {
       public override void Configure(EntityTypeBuilder<ResumeSection> entityBuilder) 
         {
-            entityBuilder.ToTable("Section_Resume"); 
+            //entityBuilder.ToTable("Section_Resume"); 
     }
   } 
 }

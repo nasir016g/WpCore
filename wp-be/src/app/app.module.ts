@@ -57,9 +57,7 @@ import { AuthorizationInterceptor } from './shared/interceptors/authorization.in
 
     WebPageListComponent,
     WebPageDetailComponent,
-    InstallComponent,
-
-   
+    InstallComponent,   
     LoginComponent
   ],
   providers: [

@@ -32,7 +32,7 @@ namespace Wp.Web.Api.Extensions
     public static class ServiceCollectionExtensions
     {
 
-        public static IServiceCollection AddCatalogDbContext(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddWpAndCatalogDbContexts(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddEntityFrameworkSqlServer();
             services.AddDbContext<WpDbContext>(options =>

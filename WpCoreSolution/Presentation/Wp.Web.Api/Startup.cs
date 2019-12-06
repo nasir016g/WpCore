@@ -1,18 +1,14 @@
 ﻿using AutoMapper;
-using EasyCaching.Core;
-using EasyCaching.InMemory;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
-using Wp.Core;
 using Wp.Core.Security;
 using Wp.Data;
 using Wp.Web.Api.Extensions;
@@ -42,28 +38,52 @@ namespace Wp.Web.Api
             });
 
             //services.AddDbContext<WpContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Wp.Data")));
-            services.AddDefaultIdentity<ApplicationUser>(options =>
-           {
-               options.Password.RequiredLength = 6;
-               options.Password.RequireUppercase = false;
-               options.Password.RequireNonAlphanumeric = false;
+            
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<WpDbContext>();
 
-           }).AddRoles<IdentityRole>().AddEntityFrameworkStores<WpDbContext>();
+            services.Configure<IdentityOptions>(options =>
+            {
+                //// Password settings.
+                //options.Password.RequireDigit = true;
+                //options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+                //options.Password.RequiredUniqueChars = 1;
+
+                //// Lockout settings.
+                //options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                //options.Lockout.MaxFailedAccessAttempts = 5;
+                //options.Lockout.AllowedForNewUsers = true;
+
+                //// User settings.
+                //options.User.AllowedUserNameCharacters =
+                //"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                //options.User.RequireUniqueEmail = false;
+            });
 
             services.AddJwt(Configuration); // comment this line out when using mvc views otherwise loging will not work
 
-            services.AddCatalogDbContext(Configuration);
+            services.AddWpAndCatalogDbContexts(Configuration);
             services.AddWp();
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup));
             AutoMapperConfiguration.Init();
             //services.AddSwagger();
-            services
-               .AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-               .AddJsonOptions(options =>
-               {
-                   options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                   options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-               });
+            //services.AddMvc()
+            //       .AddNewtonsoftJson(options =>
+            //       {
+            //           options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //           options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            //       });
+
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+            services.AddRazorPages();
 
             services.AddEasyCaching(option =>
             {
@@ -73,10 +93,11 @@ namespace Wp.Web.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             ServiceCollectionExtensions.Migrate(app);
             Extensions.ServiceCollectionExtensions.AddLogger();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -94,24 +115,24 @@ namespace Wp.Web.Api
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
-
-            app.UseAuthentication();
+            app.UseCookiePolicy();            
 
             //app.UseSwaggerUi3WithApiExplorer(settings =>
             //{
             //    settings.GeneratorSettings.DefaultPropertyNameHandling =
             //        PropertyNameHandling.CamelCase;
             //});
-            app.UseMvc(routes =>
+
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                  name: "areas",
-                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapAreaControllerRoute( 
+                    name: "areas", "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

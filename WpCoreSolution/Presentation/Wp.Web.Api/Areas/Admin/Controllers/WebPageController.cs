@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,7 +15,8 @@ using Wp.Web.Api.Extensions.Mapper;
 namespace Wp.Web.Api.Areas.Admin.Controllers
 {
     [Produces("application/json")]
-   [Route("api/admin/[controller]")]
+    [Route("api/admin/[controller]")]
+    [ApiController]
     [ValidateModel]
     public class WebPageController : ControllerBase
     {
@@ -42,7 +44,8 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
 
         #endregion
         // GET: api/Page
-        [HttpGet]       
+        [HttpGet]  
+        [Authorize]
         public ObjectResult Get()
         {
            var userClaims = User.Claims;
