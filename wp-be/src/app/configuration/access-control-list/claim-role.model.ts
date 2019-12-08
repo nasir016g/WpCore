@@ -1,4 +1,4 @@
-import { RoleModel } from '../../user/shared/user.model';
+import { RoleModel } from '../../security/user/user.model';
 
 export class ClaimRoleModel {
     availableClaims: ClaimRecord[];

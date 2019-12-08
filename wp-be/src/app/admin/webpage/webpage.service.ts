@@ -6,8 +6,8 @@ import { HttpErrorResponse } from '@angular/common/http/src/response';
 import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { environment } from '../../../../environments/environment';
-import { AdminWebPage, BaseModel } from './admin-webpage.model';
+import { environment } from '../../../environments/environment';
+import { AdminWebPage, BaseModel } from './webpage.model';
 
 
 @Injectable({

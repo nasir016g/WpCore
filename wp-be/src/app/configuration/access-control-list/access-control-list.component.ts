@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AccessControlService } from '../shared/access-control.service';
-import { ClaimRoleModel } from '../shared/claim-role.model';
+import { AccessControlService } from './access-control.service';
+import { ClaimRoleModel } from './claim-role.model';
 import { ConcatSource } from 'webpack-sources';
 import { AlertService } from 'ngx-alerts';
 

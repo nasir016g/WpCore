@@ -2,9 +2,9 @@ import { Component, OnInit, TemplateRef  } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Router } from '@angular/router';
-import { AdminWebPage } from '../shared/admin-webpage.model';
-import { AdminWebpageService } from '../shared/admin-webpage.service';
-import { ExcelService } from '../../../shared/services/excelService';
+import { AdminWebPage } from './webpage.model';
+import { AdminWebpageService } from './webpage.service';
+import { ExcelService } from '../../shared/services/excelService';
 
 @Component({
   selector: 'app-webpage-list',

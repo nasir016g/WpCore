@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InstallService } from './shared/install.service';
+import { InstallService } from './install.service';
 
 @Component({
   selector: 'app-install',

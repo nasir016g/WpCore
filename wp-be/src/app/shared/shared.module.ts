@@ -1,15 +1,23 @@
 import { NgModule } from '@angular/core';
-import { AuthGuard } from './guard/auth.guard';
-import { ExcelService } from './services/excelService';
 import { ControlMessagesComponent } from './components/control-messages.component';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TabsModule, TooltipModule } from 'ngx-bootstrap';
 
 @NgModule({
-    imports: [     
-    CommonModule,
+    imports: [
+        CommonModule,
+        TabsModule.forRoot(),  // must include here (admin)],
+        TooltipModule.forRoot(), // must include here (admin)
     ],
     declarations: [ControlMessagesComponent,],
-    providers: [AuthGuard, ExcelService],
-    exports: [ControlMessagesComponent]
+    exports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ControlMessagesComponent,
+        TabsModule,
+        TooltipModule,
+    ]
 })
 export class SharedModule { }

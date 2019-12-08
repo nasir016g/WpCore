@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'ngx-alerts';
-import { AdminWebPage } from '../shared/admin-webpage.model';
+import { AdminWebPage } from './webpage.model';
 import { from } from 'rxjs';
 
-import { AdminWebpageService } from '../shared/admin-webpage.service';
+import { AdminWebpageService } from './webpage.service';
 
 @Component({
   selector: 'app-webpage',

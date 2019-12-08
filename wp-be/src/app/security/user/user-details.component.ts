@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserModel } from '../shared/user.model';
+import { UserModel } from './user.model';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../shared/user.service';
+import { UserService } from './user.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({

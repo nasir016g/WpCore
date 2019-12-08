@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserService } from '../shared/user.service';
-import { UserModel } from '../shared/user.model';
+import { UserService } from './user.service';
+import { UserModel } from './user.model';
 
 @Component({
   selector: 'app-user-list',

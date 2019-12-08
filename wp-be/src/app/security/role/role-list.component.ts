@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RoleService } from '../shared/role.service';
+import { RoleService } from './role.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { RoleModel } from '../../user/shared/user.model';
+import { RoleModel } from '../user/user.model';
 
 @Component({
   selector: 'app-role-list',
