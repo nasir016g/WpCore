@@ -6,9 +6,9 @@ using Wp.Web.Models.Sections;
 
 namespace Wp.Web.Api.Models
 {
-    public class WebPageModel
+    public class WebPageFrontEndModel
     {
-        public WebPageModel()
+        public WebPageFrontEndModel()
         {
             Sections = new List<BaseReadOnlyModel>();
         }

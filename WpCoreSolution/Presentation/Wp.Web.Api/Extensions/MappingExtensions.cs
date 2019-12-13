@@ -8,6 +8,8 @@ using Wp.Services.WebPages;
 using Wp.Web.Models.Sections;
 using Wp.Web.Api.Infrastructure.Mapper;
 using Wp.Web.Api.Models;
+using Wp.Web.Api.Models.Admin;
+using System.Collections.Generic;
 
 namespace Wp.Web.Api.Extensions.Mapper
 {
@@ -86,7 +88,7 @@ namespace Wp.Web.Api.Extensions.Mapper
         #endregion
 
         //webpage
-        public static WebPageModel ToModel(this WebPage entity, IWebPageService webPageService, ISectionService sectionService, ClaimsPrincipal user, int languageId, ILocalizedEntityService leService)
+        public static WebPageFrontEndModel ToFrontEndModel(this WebPage entity, IWebPageService webPageService, ISectionService sectionService, ClaimsPrincipal user, int languageId, ILocalizedEntityService leService)
         {
             if (entity == null)
                 return null;
@@ -95,7 +97,7 @@ namespace Wp.Web.Api.Extensions.Mapper
             bool userHasEditRights = webPageService.HasEditRights(entity.Id);
             bool userHasCreateRights = webPageService.HasCreateRights(entity.Id);
 
-            var model = new WebPageModel()
+            var model = new WebPageFrontEndModel()
             {
                 Id = entity.Id,
                 VirtualPath = entity.VirtualPath,
@@ -143,7 +145,32 @@ namespace Wp.Web.Api.Extensions.Mapper
             return null;
         }
 
+        #region Admin
 
+        #region Admin - Webpage
 
+        public static IEnumerable<WebPageModel> ToModels(this IEnumerable<WebPage> entities)
+        {
+            return entities.MapTo<IEnumerable<WebPage>, IEnumerable<WebPageModel>>();
+        }
+
+        public static WebPageModel ToModel(this WebPage entity)
+        {
+            return entity.MapTo<WebPage, WebPageModel>();
+        }
+
+        public static WebPage ToEntity(this WebPageModel model)
+        {
+            return model.MapTo<WebPageModel, WebPage>();
+        }
+
+        public static WebPage ToEntity(this WebPageModel model, WebPage destination)
+        {
+            return model.MapTo(destination);
+        }
+
+        #endregion
+
+        #endregion
     }
 }

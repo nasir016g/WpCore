@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 using Wp.Core.Domain.WebPages;
 using Wp.Services.Sections;
 using Wp.Services.WebPages;
-using Wp.Web.Api.Areas.Admin.Extensions.Mapper;
-using Wp.Web.Api.Areas.Admin.Models;
 using Wp.Web.Api.Controllers;
 using Wp.Web.Api.Extensions.Mapper;
+using Wp.Web.Api.Models.Admin;
 
 namespace Wp.Web.Api.Areas.Admin.Controllers
 {
     [Produces("application/json")]
     [Route("api/admin/[controller]")]
-    [ApiController]
+    //[ApiController]
     [ValidateModel]
     public class WebPageController : ControllerBase
     {
@@ -82,8 +81,12 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
 
         // PUT: api/Page/5
         [HttpPut("{id}")]
-        public NoContentResult Put(int id, [FromBody]WebPageModel model)
+        public IActionResult Put(int id, [FromBody]WebPageModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var entity =_webPageService.GetById(id);
             entity = model.ToEntity(entity);
             _webPageService.Update(entity);

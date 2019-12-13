@@ -79,7 +79,7 @@ namespace Wp.Web.Api.Controllers
                 return RedirectToRoute("Install");
 
             //var sections = page.Sections.ToList();
-            var model = entity.ToModel(_webPageService, _sectionService, User, 1, _leService); // Todo: Get language id from user profile
+            var model = entity.ToFrontEndModel(_webPageService, _sectionService, User, 1, _leService); // Todo: Get language id from user profile
 
 
             ////customer attribute services

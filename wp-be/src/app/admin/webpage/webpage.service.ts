@@ -7,25 +7,25 @@ import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { AdminWebPage, BaseModel } from './webpage.model';
+import { WebPage, BaseModel } from './webpage.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminWebpageService {
+export class WebpageService {
   url = environment.apiUrl + 'admin/webpage/';
 
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get<AdminWebPage[]>(this.url)
+    return this.http.get<WebPage[]>(this.url)
     .pipe(
     catchError(this.errorHandler));
   }
 
   getPageById(id) {
-    return this.http.get<AdminWebPage>(this.url + id)
+    return this.http.get<WebPage>(this.url + id)
 
     .pipe(
       catchError(this.errorHandler));

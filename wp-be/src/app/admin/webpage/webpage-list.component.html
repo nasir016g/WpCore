@@ -1,13 +1,3 @@
-
-<ng-template #template>
-  <div class="modal-body text-center">
-    <p>Are you sure you want to delet?</p>
-    <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
-    <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
-  </div>
-</ng-template>
-
-<!-- <div class="alert-danger">{{errorMessage}}</div> -->
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -29,7 +19,7 @@
             <td style="width: 70px;">               
                    <a [routerLink]="['/admin/webpage/edit', wp.id]"> <i class="fa fa-edit pointer"></i></a>                  
                   <i class="fa fa-trash pointer"    
-                    (click)="delete(webpage, template)" title="Delete"></i>
+                    (click)="delete(wp)" title="Delete"></i>
             </td>
         </tr>
     </tbody>

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Wp.Service.Security;
 
-namespace Wp.Web.Api.Areas.Admin.Models
+namespace Wp.Web.Api.Models.Admin
 {
     public class ClaimRoleModel
     {

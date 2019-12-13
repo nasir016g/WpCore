@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Wp.Core.Domain.WebPages;
-using Wp.Web.Api.Areas.Admin.Models;
+using Wp.Web.Api.Models.Admin;
 
 namespace Wp.Web.Api.Infrastructure
 {

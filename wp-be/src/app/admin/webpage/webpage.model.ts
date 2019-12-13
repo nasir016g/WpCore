@@ -3,13 +3,13 @@ export class BaseModel {
 }
 
 
-export class AdminWebPage extends BaseModel {    
+export class WebPage extends BaseModel {    
     parentId: number;
     virtualPath: string;
     navigationName: string;
-    displayOrder: number;
-    visible: boolean;
-    allowAnonymousAccess: boolean;
+    displayOrder = 1;
+    visible = false;
+    allowAnonymousAccess = false;
     metaKeywords: string;
     metaDescription: string;
     metaTitle: string;

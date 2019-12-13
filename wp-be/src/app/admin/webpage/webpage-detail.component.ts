@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'ngx-alerts';
-import { AdminWebPage } from './webpage.model';
-import { from } from 'rxjs';
+import { WebPage } from './webpage.model';
 
-import { AdminWebpageService } from './webpage.service';
+import { WebpageService } from './webpage.service';
 
 @Component({
   selector: 'app-webpage',
@@ -14,14 +13,14 @@ import { AdminWebpageService } from './webpage.service';
 
 export class WebPageDetailComponent implements OnInit {
   form: FormGroup;
-  model: AdminWebPage = new AdminWebPage();
+  model: WebPage = new WebPage();
 
   constructor(
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private alertService: AlertService,
-    private pageService: AdminWebpageService) {
+    private pageService: WebpageService) {
 
     if (this.activatedRoute.snapshot.params['id']) {
       this.model.id = parseInt(this.activatedRoute.snapshot.params['id']);
@@ -67,13 +66,12 @@ export class WebPageDetailComponent implements OnInit {
           this.alertService.success('Page updated successfully.')
 
         }
-          , error => {
-            for (var fieldName in error.error) {
-              this.alertService.danger(error.error[fieldName]);
-            }
-
-            console.log(error.error)
-          })
+          // , error => {
+          //   for (var fieldName in error.error) {
+          //     this.alertService.danger(error.error[fieldName]);
+          //   }
+          // }
+        )
     }
   }
 }

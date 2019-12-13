@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Wp.Web.Api.Areas.Admin.Models
+﻿namespace Wp.Web.Api.Models.Admin
 {
     public class RoleModel
     {

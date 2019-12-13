@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Reflection;
 using Wp.Core.Security;
 using Wp.Data;
 using Wp.Web.Api.Extensions;
@@ -38,7 +40,7 @@ namespace Wp.Web.Api
             });
 
             //services.AddDbContext<WpContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Wp.Data")));
-            
+
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<WpDbContext>();
@@ -78,7 +80,12 @@ namespace Wp.Web.Api
             //           options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             //       });
 
-            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+            services.AddControllersWithViews()
+                .AddFluentValidation(opt =>
+                {
+                    opt.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+                })
+                .AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -97,7 +104,7 @@ namespace Wp.Web.Api
         {
             ServiceCollectionExtensions.Migrate(app);
             Extensions.ServiceCollectionExtensions.AddLogger();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -115,7 +122,7 @@ namespace Wp.Web.Api
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();            
+            app.UseCookiePolicy();
 
             //app.UseSwaggerUi3WithApiExplorer(settings =>
             //{
@@ -128,7 +135,7 @@ namespace Wp.Web.Api
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapAreaControllerRoute( 
+                endpoints.MapAreaControllerRoute(
                     name: "areas", "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");

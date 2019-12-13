@@ -15,13 +15,13 @@ namespace Wp.Services.WebPages
     public class WebPageService : EntityService<WebPage>, IWebPageService
     {
         private readonly IHttpContextAccessor _httpContext;
-        private readonly IStaticCacheManager _staticCacheManager;
+        private readonly ICacheManager _cacheManager;
         private readonly IBaseRepository<WebPage> _webPageRepo;
         private readonly IBaseRepository<WebPageRole> _webPageRoleRepo;
         private readonly IBaseRepository<Section> _sectionRepo;
 
         public WebPageService(IHttpContextAccessor httpContext,
-            IStaticCacheManager staticCacheManager,
+            ICacheManager cacheManager,
                               IUnitOfWork unitOfWork,
                               IBaseRepository<WebPage> webPageRepo,
                               IBaseRepository<WebPageRole> webPageRoleRepo,
@@ -29,7 +29,7 @@ namespace Wp.Services.WebPages
         : base(unitOfWork, webPageRepo)
         {
             _httpContext = httpContext;
-            _staticCacheManager = staticCacheManager;
+            _cacheManager = cacheManager;
             _webPageRepo = webPageRepo;
             _webPageRoleRepo = webPageRoleRepo;
             _sectionRepo = sectionRepo;
@@ -37,10 +37,9 @@ namespace Wp.Services.WebPages
 
         public override IList<WebPage> GetAll()
         {
-           return _staticCacheManager.GetEasy("allpages", () =>
+           return _cacheManager.Get("allpages", () =>
             {
                 return base.GetAll();
-
             });
         }
 

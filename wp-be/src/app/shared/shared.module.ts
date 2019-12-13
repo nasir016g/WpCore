@@ -3,6 +3,7 @@ import { ControlMessagesComponent } from './components/control-messages.componen
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TabsModule, TooltipModule } from 'ngx-bootstrap';
+import { ConfirmModalComponent } from './components/modals/confirm-modal.component';
 
 @NgModule({
     imports: [
@@ -10,7 +11,13 @@ import { TabsModule, TooltipModule } from 'ngx-bootstrap';
         TabsModule.forRoot(),  // must include here (admin)],
         TooltipModule.forRoot(), // must include here (admin)
     ],
-    declarations: [ControlMessagesComponent,],
+    declarations: [
+        ControlMessagesComponent, 
+        ConfirmModalComponent
+    ],
+    entryComponents: [
+        ConfirmModalComponent
+    ],
     exports: [
         CommonModule,
         FormsModule,

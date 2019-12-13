@@ -1,23 +1,27 @@
-import { Component, OnInit, TemplateRef  } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { Router } from '@angular/router';
-import { AdminWebPage } from './webpage.model';
-import { AdminWebpageService } from './webpage.service';
+import { WebPage } from './webpage.model';
+import { WebpageService } from './webpage.service';
 import { ExcelService } from '../../shared/services/excelService';
+import { ConfirmModalComponent } from '../../shared/components/modals/confirm-modal.component';
+import { AlertService } from 'ngx-alerts';
 
 @Component({
   selector: 'app-webpage-list',
   templateUrl: './webpage-list.component.html'
 })
 export class WebPageListComponent implements OnInit {
-  webpages: Array<AdminWebPage> = [];
-  deletingPage: AdminWebPage;
-  modalRef: BsModalRef;
+  webpages: Array<WebPage> = [];
+  deletingPage: WebPage;
+  bsModalRef: BsModalRef;
   errorMessage: any;
 
-  constructor(private pageService: AdminWebpageService,
-    private modalService: BsModalService, private excelService:ExcelService) { }
+  constructor(
+    private pageService: WebpageService, 
+    private alertService: AlertService,
+    private bsModalService: BsModalService, 
+    private excelService: ExcelService) { }
 
   ngOnInit() {
     this.getAll();
@@ -27,28 +31,26 @@ export class WebPageListComponent implements OnInit {
     this.pageService.getAll().subscribe(
       data => this.webpages = data,
       err => {
-        this.errorMessage = err.error        
-      } 
+        this.alertService.danger(err);
+      }
     );
   }
 
-  delete(webpage: AdminWebPage, template: TemplateRef<any>) {
+  delete(webpage: WebPage) {
     this.deletingPage = webpage;
-    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
-  }  
- 
-  confirm(): void {
-    this.pageService.delete(this.deletingPage.id).subscribe(
-      () => {
-        this.getAll();
-      })   
-    this.modalRef.hide();
-  }
- 
-  decline(): void {
-    this.deletingPage = null;
-    this.modalRef.hide();
-  }
+    this.bsModalRef = this.bsModalService.show(ConfirmModalComponent)
+    this.bsModalRef.content.confirmEvent.subscribe((data: any) => {
+      if (data) {
+        this.pageService.delete(this.deletingPage.id).subscribe(
+          () => {
+            this.getAll();
+          })
+      }
+      else {
+        this.deletingPage = null;
+      }
+    });
+  } 
 
   downloadFile() {
     this.excelService.exportExcel('sample-from-server');
