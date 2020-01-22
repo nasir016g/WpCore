@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Wp.Core;
+using Wp.Web.Api.Extensions.Mapper;
+using Wp.Web.Api.Models.Admin;
 
 namespace Wp.Web.Api.Areas.Admin.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/admin/[controller]")]
     [ApiController]
     public class TenantController : ControllerBase
     {
@@ -20,9 +22,11 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
         }
         // GET: api/Tenant
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ObjectResult Get()
         {
-            return new string[] { "value1", "value2" };
+           var entities = this.tenantService.GetAll();
+            var models = entities.ToModels();
+            return Ok(models);
         }
 
         // GET: api/Tenant/5

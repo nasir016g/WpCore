@@ -10,6 +10,7 @@ using Wp.Web.Api.Infrastructure.Mapper;
 using Wp.Web.Api.Models;
 using Wp.Web.Api.Models.Admin;
 using System.Collections.Generic;
+using Wp.Core.Domain.Tenants;
 
 namespace Wp.Web.Api.Extensions.Mapper
 {
@@ -165,6 +166,30 @@ namespace Wp.Web.Api.Extensions.Mapper
         }
 
         public static WebPage ToEntity(this WebPageModel model, WebPage destination)
+        {
+            return model.MapTo(destination);
+        }
+
+        #endregion
+
+        #region Admin - Tenant
+
+        public static IEnumerable<TenantModel> ToModels(this IEnumerable<Tenant> entities)
+        {
+            return entities.MapTo<IEnumerable<Tenant>, IEnumerable<TenantModel>>();
+        }
+
+        public static TenantModel ToModel(this Tenant entity)
+        {
+            return entity.MapTo<Tenant, TenantModel>();
+        }
+
+        public static Tenant ToEntity(this TenantModel model)
+        {
+            return model.MapTo<TenantModel, Tenant>();
+        }
+
+        public static Tenant ToEntity(this TenantModel model, Tenant destination)
         {
             return model.MapTo(destination);
         }
