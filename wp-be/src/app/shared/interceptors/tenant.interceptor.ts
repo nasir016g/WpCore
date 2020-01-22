@@ -5,9 +5,10 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class TenantInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        const tenantName = localStorage.getItem('tenantName');
         req = req.clone({
             setHeaders: {
-                'Tenant': 'WpCore2'
+                'Tenant': tenantName
             }
         });
 

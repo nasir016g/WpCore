@@ -21,10 +21,10 @@ namespace Wp.Data
             return base.Set<TEntity>();
         }
 
-        public WpDbContext(DbContextOptions<WpDbContext> options) : base(options)
-        {
-            //Database.EnsureCreated();
-        }
+        //public WpDbContext(DbContextOptions<WpDbContext> options) : base(options)
+        //{
+        //    //Database.EnsureCreated();
+        //}
 
         public WpDbContext(DbContextOptions<WpDbContext> options, string connectionString) : base(options)
         {
@@ -38,11 +38,11 @@ namespace Wp.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (_tenant != null)
+            if (_tenant != null) // tenant
             {
                 optionsBuilder.UseSqlServer(_tenant.ConnectionString);
             }
-            else if (_connectionString != null)
+            else if (_connectionString != null) //
             {
                 optionsBuilder.UseSqlServer(_connectionString, b => b.MigrationsAssembly("Wp.Data"));
             }

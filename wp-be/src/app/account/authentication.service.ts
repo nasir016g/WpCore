@@ -1,7 +1,6 @@
 
 import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
@@ -16,8 +15,6 @@ export class AuthenticationService {
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser && currentUser.token;
    }
-
-
 
   login(username: string, password: string): Observable<boolean> {
     
