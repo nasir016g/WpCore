@@ -11,6 +11,7 @@ using Wp.Web.Api.Models;
 using Wp.Web.Api.Models.Admin;
 using System.Collections.Generic;
 using Wp.Core.Domain.Tenants;
+using Wp.Core.Domain.Expenses;
 
 namespace Wp.Web.Api.Extensions.Mapper
 {
@@ -166,6 +167,78 @@ namespace Wp.Web.Api.Extensions.Mapper
         }
 
         public static WebPage ToEntity(this WebPageModel model, WebPage destination)
+        {
+            return model.MapTo(destination);
+        }
+
+        #endregion
+
+        #region Admin - Expense
+
+        public static IEnumerable<ExpenseModel> ToModels(this IEnumerable<Expense> entities)
+        {
+            return entities.MapTo<IEnumerable<Expense>, IEnumerable<ExpenseModel>>();
+        }
+
+        public static ExpenseModel ToModel(this Expense entity)
+        {
+            return entity.MapTo<Expense, ExpenseModel>();
+        }
+
+        public static Expense ToEntity(this ExpenseModel model)
+        {
+            return model.MapTo<ExpenseModel, Expense>();
+        }
+
+        public static Expense ToEntity(this ExpenseModel model, Expense destination)
+        {
+            return model.MapTo(destination);
+        }
+
+        #endregion
+
+        #region Admin - ExpenseAccount
+
+        public static IEnumerable<ExpenseAccountModel> ToModels(this IEnumerable<ExpenseAccount> entities)
+        {
+            return entities.MapTo<IEnumerable<ExpenseAccount>, IEnumerable<ExpenseAccountModel>>();
+        }
+
+        public static ExpenseAccountModel ToModel(this ExpenseAccount entity)
+        {
+            return entity.MapTo<ExpenseAccount, ExpenseAccountModel>();
+        }
+
+        public static ExpenseAccount ToEntity(this ExpenseAccountModel model)
+        {
+            return model.MapTo<ExpenseAccountModel, ExpenseAccount>();
+        }
+
+        public static ExpenseAccount ToEntity(this ExpenseAccountModel model, ExpenseAccount destination)
+        {
+            return model.MapTo(destination);
+        }
+
+        #endregion
+
+        #region Admin - ExpenseCategory
+
+        public static IEnumerable<ExpenseCategoryModel> ToModels(this IEnumerable<ExpenseCategory> entities)
+        {
+            return entities.MapTo<IEnumerable<ExpenseCategory>, IEnumerable<ExpenseCategoryModel>>();
+        }
+
+        public static ExpenseCategoryModel ToModel(this ExpenseCategory entity)
+        {
+            return entity.MapTo<ExpenseCategory, ExpenseCategoryModel>();
+        }
+
+        public static ExpenseCategory ToEntity(this ExpenseCategoryModel model)
+        {
+            return model.MapTo<ExpenseCategoryModel, ExpenseCategory>();
+        }
+
+        public static ExpenseCategory ToEntity(this ExpenseCategoryModel model, ExpenseCategory destination)
         {
             return model.MapTo(destination);
         }

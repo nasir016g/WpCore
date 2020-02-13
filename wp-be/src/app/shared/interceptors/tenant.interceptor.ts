@@ -6,11 +6,13 @@ import { Observable } from 'rxjs';
 export class TenantInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const tenantName = localStorage.getItem('tenantName');
-        req = req.clone({
-            setHeaders: {
-                'Tenant': tenantName
-            }
-        });
+        if(tenantName){
+            req = req.clone({
+                setHeaders: {
+                    'Tenant': tenantName
+                }
+            });
+        }        
 
         return next.handle(req);
     }

@@ -25,7 +25,7 @@ namespace Wp.Data.Repositories
         {
             get
             {
-                return Context.Set<T>(); ;
+                return Context.Set<T>(); 
             }
         }       
 

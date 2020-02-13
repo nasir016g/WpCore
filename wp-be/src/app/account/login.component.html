@@ -3,9 +3,8 @@
 		<img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
 		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 		<select class="form-control" (change)= "onChange($event.target.value)">
-			<option>Select a tenant</option>
-			<option [selected]="tenantName == 'WpCore1'">WpCore1</option>
-			<option [selected]="tenantName == 'WpCore2'">WpCore2</option>
+			<option>Select a tenant</option>			
+			<option *ngFor="let tenant of tenants" [selected]="tenantName == tenant.tenantName"  value={{tenant.tenantName}}>{{tenant.tenantName}}</option>
 		</select>
 
 		<form (submit)="loginUser()" class="form-signin">

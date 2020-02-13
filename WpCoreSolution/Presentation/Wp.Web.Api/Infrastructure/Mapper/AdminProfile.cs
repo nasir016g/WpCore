@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Wp.Core.Domain.Expenses;
 using Wp.Core.Domain.Tenants;
 using Wp.Core.Domain.WebPages;
 using Wp.Web.Api.Models.Admin;
@@ -18,8 +19,12 @@ namespace Wp.Web.Api.Infrastructure
 
             CreateMap<Tenant, TenantModel>()
                 .ReverseMap();
-        }
 
+            CreateMap<Expense, ExpenseModel>().ReverseMap();
+            CreateMap<ExpenseAccount, ExpenseAccountModel>().ReverseMap();
+            CreateMap<ExpenseCategory, ExpenseCategoryModel>().ReverseMap();
+
+        }
 
     }
 }

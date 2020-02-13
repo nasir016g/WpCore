@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Wp.Core;
 using Wp.Core.Domain.Common;
+using Wp.Core.Domain.Expenses;
 using Wp.Core.Domain.Localization;
 using Wp.Core.Domain.Sections;
 using Wp.Core.Domain.Security;
@@ -19,6 +20,7 @@ using Wp.Data;
 using Wp.Service.Helpers;
 using Wp.Service.Security;
 using Wp.Services.Configuration;
+using Wp.Services.Expenses;
 using Wp.Services.Localization;
 
 namespace Wp.Services.Installation
@@ -35,7 +37,9 @@ namespace Wp.Services.Installation
         #region Fields
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISettingService _settingService;
-
+        private readonly IExpenseService _expenseService;
+        private readonly IExpenseCategoryService _expenseCategoryService;
+        private readonly IExpenseAccountService _expenseAccountService;
         private readonly IBaseRepository<WebPage> _webPageRepo;
         private readonly IBaseRepository<WebPageRole> _webPageRoleRepo;
         private readonly IBaseRepository<UrlRecord> _urlRecordRepo;
@@ -55,6 +59,9 @@ namespace Wp.Services.Installation
 
         public CodeFirstInstallationService(IUnitOfWork unitOfWork,            
             ISettingService settingService,  
+            IExpenseService expenseService,
+            IExpenseCategoryService expenseCategoryService,
+            IExpenseAccountService expenseAccountService,
             IBaseRepository<WebPage> webPageRepo, 
             IBaseRepository<WebPageRole> webPageRoleRepo, 
             IBaseRepository<UrlRecord> urlRecordRepo, 
@@ -73,7 +80,9 @@ namespace Wp.Services.Installation
             this._languageRepo = languageRepo;
             this._sectionRepo = sectionRepo;
             _settingService = settingService;
-
+            this._expenseService = expenseService;
+            this._expenseCategoryService = expenseCategoryService;
+            this._expenseAccountService = expenseAccountService;
             _userManager = userManager;
             _roleManager = roleManager;
             _hostingEnvironment = hostingEnvironment;
@@ -257,64 +266,60 @@ namespace Wp.Services.Installation
             await InstallUsersAndRoles();
             InstallRolesAtAPage();
             //InstallSettings();
+            InstallExpenses();
         }
 
         public void InstallExpenses()
         {
-            throw new NotImplementedException();
+            // create categories
+            if (_expenseCategoryService.GetAll().Count() == 0)
+            {
+                var categories = new List<ExpenseCategory>()
+                {
+                    new ExpenseCategory { Name = "ATM", Color = "#4E3475", Description = "ATM" },
+                    new ExpenseCategory { Name = "Bills", Color = "#D11717", Description = "Bills" },
+                    new ExpenseCategory { Name = "Car", Color = "#FFBF00", Description = "Car" },
+                    new ExpenseCategory { Name = "Clothes", Color = "#B45F04", Description = "Clothes" },
+                    new ExpenseCategory { Name = "Education", Color = "#8A0808", Description = "Education" },
+                    new ExpenseCategory { Name = "Food", Color = "#03872a", Description = "Food" },
+                    new ExpenseCategory { Name = "Go out", Color = "#5e94ff", Description = "Go out" },
+                    new ExpenseCategory { Name = "Income", Color = "#2abd42", Description = "Income" },
+                    new ExpenseCategory { Name = "Insurance", Color = "#351fff", Description = "Insurance" },
+                    new ExpenseCategory { Name = "Sports", Color = "#8da246", Description = "Sports" },
+                    new ExpenseCategory { Name = "Travel", Color = "#230180", Description = "Travel" },
+                    new ExpenseCategory { Name = "Others", Color = "#8ef9d9", Description = "Others" }
+                  };
+
+                categories.ForEach(category => _expenseCategoryService.Insert(category));
+            }
+
+            // create accounts
+            if (_expenseAccountService.GetAll().Count() == 0)
+            {
+                var accounts = new List<ExpenseAccount>()
+                {
+                    new ExpenseAccount { Name = "Bank (Nasir private)" },
+                    new ExpenseAccount { Name = "Bank (Zarghona private)" },
+                };
+
+                accounts.ForEach(account => _expenseAccountService.Insert(account));
+            }
+
+            var nasirAccount = _expenseAccountService.GetByName("Bank (Nasir private)");
+
+            Random r = new Random();
+            for (int i = 0; i < 3; i++)
+            {
+                Expense expense = new Expense
+                {
+                    Name = "expense " + i.ToString(),
+                    Value = r.Next(5, 20),
+                    Date = DateTime.Now,
+                    ExpenseCategory = _expenseCategoryService.GetAll()[i],
+                    ExpenseAccount = nasirAccount
+                };
+                _expenseService.Insert(expense);
+            }
         }
-
-        //public void InstallExpenses()
-        //{
-        //    // create categories
-        //    if (_expenseCategoryService.GetAll().Count() == 0)
-        //    {
-        //        var categories = new List<ExpenseCategory>()
-        //        {
-        //            new ExpenseCategory { Name = "ATM", Color = "#4E3475", Description = "ATM" },
-        //            new ExpenseCategory { Name = "Bills", Color = "#D11717", Description = "Bills" },
-        //            new ExpenseCategory { Name = "Car", Color = "#FFBF00", Description = "Car" },
-        //            new ExpenseCategory { Name = "Clothes", Color = "#B45F04", Description = "Clothes" },
-        //            new ExpenseCategory { Name = "Education", Color = "#8A0808", Description = "Education" },
-        //            new ExpenseCategory { Name = "Food", Color = "#03872a", Description = "Food" },
-        //            new ExpenseCategory { Name = "Go out", Color = "#5e94ff", Description = "Go out" },
-        //            new ExpenseCategory { Name = "Income", Color = "#2abd42", Description = "Income" },
-        //            new ExpenseCategory { Name = "Insurance", Color = "#351fff", Description = "Insurance" },
-        //            new ExpenseCategory { Name = "Sports", Color = "#8da246", Description = "Sports" },
-        //            new ExpenseCategory { Name = "Travel", Color = "#230180", Description = "Travel" },
-        //            new ExpenseCategory { Name = "Others", Color = "#8ef9d9", Description = "Others" }
-        //          };
-
-        //        categories.ForEach(category => _expenseCategoryService.Insert(category));
-        //    }
-
-        //    // create accounts
-        //    if (_expenseAccountService.GetAll().Count() == 0)
-        //    {
-        //        var accounts = new List<ExpenseAccount>()
-        //        {
-        //            new ExpenseAccount { Name = "Bank (Nasir private)" },
-        //            new ExpenseAccount { Name = "Bank (Zarghona private)" },
-        //        };
-
-        //        accounts.ForEach(account => _expenseAccountService.Insert(account));
-        //    }
-
-        //    var nasirAccount = _expenseAccountService.GetByName("Bank (Nasir private)");
-
-        //    Random r = new Random();
-        //    for (int i = 0; i < 3; i++)
-        //    {
-        //        Expense expense = new Expense
-        //        {
-        //            Name = "expense " + i.ToString(),
-        //            Value = r.Next(5, 20),
-        //            Date = DateTime.Now,
-        //            ExpenseCategory = _expenseCategoryService.GetAll()[i],
-        //            ExpenseAccount = nasirAccount
-        //        };
-        //        _expenseService.Insert(expense);
-        //    }            
-        //}       
     }
 }

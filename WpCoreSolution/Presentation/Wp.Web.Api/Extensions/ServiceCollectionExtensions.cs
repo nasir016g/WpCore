@@ -16,11 +16,13 @@ using System.Threading.Tasks;
 using Wp.Core;
 using Wp.Core.Caching;
 using Wp.Core.Domain.Common;
+using Wp.Core.Interfaces.Repositories;
 using Wp.Data;
 using Wp.Data.Repositories;
 using Wp.Service.Security;
 using Wp.Service.Tenants;
 using Wp.Services.Configuration;
+using Wp.Services.Expenses;
 using Wp.Services.Installation;
 using Wp.Services.Localization;
 using Wp.Services.Sections;
@@ -91,6 +93,7 @@ namespace Wp.Web.Api.Extensions
             // repositories
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped(typeof(ITenantsBaseRepository), typeof(TenantsBaseRepository));
+            services.AddScoped(typeof(IExpenseRepository), typeof(ExpenseRepository));
             //services.AddScoped<IWebPageRepository, WebPageRepository>();
             //services.AddScoped<IWebPageRoleRepository, WebPageRoleRepository>();
             //services.AddScoped<ISectionRepository, SectionRepository>();
@@ -104,6 +107,9 @@ namespace Wp.Web.Api.Extensions
             services.AddScoped<ISectionService, SectionService>();
             services.AddScoped<ISettingService, SettingService>();
             services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<IExpenseService, ExpenseService>();
+            services.AddScoped<IExpenseAccountService, ExpenseAccountService>();
+            services.AddScoped<IExpenseCategoryService, ExpenseCategoryService>();
             services.AddScoped<ILocalizedEntityService, LocalizedEntityService>();
             services.AddScoped<ICacheManager, PerRequestCacheManager>();
             services.AddScoped<IStaticCacheManager, EasyMemoryCacheManager>();

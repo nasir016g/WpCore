@@ -8,17 +8,14 @@
     <Compile Remove="Albums\**" />
     <Compile Remove="Career\**" />
     <Compile Remove="Common\**" />
-    <Compile Remove="Expenses\**" />
     <Compile Remove="ExportImport\**" />
     <EmbeddedResource Remove="Albums\**" />
     <EmbeddedResource Remove="Career\**" />
     <EmbeddedResource Remove="Common\**" />
-    <EmbeddedResource Remove="Expenses\**" />
     <EmbeddedResource Remove="ExportImport\**" />
     <None Remove="Albums\**" />
     <None Remove="Career\**" />
     <None Remove="Common\**" />
-    <None Remove="Expenses\**" />
     <None Remove="ExportImport\**" />
   </ItemGroup>
 

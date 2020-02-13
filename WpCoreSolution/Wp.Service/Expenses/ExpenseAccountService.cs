@@ -2,27 +2,27 @@
 using Wp.Core.Domain.Expenses;
 using System.Linq;
 using Wp.Data;
+using Wp.Core;
 
 namespace Wp.Services.Expenses
 {
     public class ExpenseAccountService : EntityService<ExpenseAccount>, IExpenseAccountService
     {
-        private IEntityBaseRepository<ExpenseAccount> _expenseAccountRepo;
+        private readonly IUnitOfWork unitOfWork;
+        private IBaseRepository<ExpenseAccount> expenseAccountRepo;
 
-        public ExpenseAccountService(IEntityBaseRepository<ExpenseAccount> expenseAccountRepo)
-            : base(expenseAccountRepo)
+        public ExpenseAccountService(IUnitOfWork unitOfWork,
+            IBaseRepository<ExpenseAccount> expenseAccountRepo)
+            : base(unitOfWork, expenseAccountRepo)
         {
-            this._expenseAccountRepo = expenseAccountRepo;
+            this.unitOfWork = unitOfWork;
+            this.expenseAccountRepo = expenseAccountRepo;
         }
 
-        public ExpenseAccount GetById(int id)
-        {
-            return _expenseAccountRepo.GetById(id);
-        }
 
         public ExpenseAccount GetByName(string name)
         {
-            return _expenseAccountRepo.Table.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
+            return expenseAccountRepo.Table.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
         }
     }
 }

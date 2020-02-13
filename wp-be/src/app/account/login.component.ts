@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
   tenantName: string;
   username: string;
   password: string;
-  error = '';
 
   constructor(private router: Router, 
     private auhenticationService: AuthenticationService,
@@ -41,7 +40,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['admin/webpage/list']);
         } else {
           // login failed
-          this.error = 'Username or password is incorrect';
+          this.alertService.danger('Username or password is incorrect');
         }
       });
 
@@ -49,6 +48,5 @@ export class LoginComponent implements OnInit {
 
   onChange(tenantName) {
     localStorage.setItem('tenantName', tenantName);
-    console.log(tenantName);
   }
 }

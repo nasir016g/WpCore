@@ -1,21 +1,20 @@
 
+using Wp.Core;
 using Wp.Core.Domain.Expenses;
+using Wp.Core.Interfaces.Repositories;
 using Wp.Data;
 
 namespace Wp.Services.Expenses
 {
     public class ExpenseService : EntityService<Expense>, IExpenseService
     {
-        private IEntityBaseRepository<Expense> _expenseRepo;
+        private readonly IUnitOfWork unitOfWork;
+        private IExpenseRepository _expenseRepo;
 
-        public ExpenseService(IEntityBaseRepository<Expense> expenseRepo): base(expenseRepo)
+        public ExpenseService(IUnitOfWork unitOfWork, IExpenseRepository expenseRepo): base(unitOfWork, expenseRepo)
         {
-            this._expenseRepo = expenseRepo;
-        }
-
-        public Expense GetById(int id)
-        {
-            return _expenseRepo.GetById(id);
-        }
+            this.unitOfWork = unitOfWork;
+            _expenseRepo = expenseRepo;
+        }       
     }
 }
