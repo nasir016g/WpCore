@@ -1,0 +1,23 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Value</th>
+      <th>Date</th>
+      <!-- <th>  <button class="btn btn-success btn-circle" 
+        [routerLink]="['/admin/expense/add']"          
+              title="Add New Expense">
+              <i class="fa fa-plus"></i> 
+      </button> </th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let exp of expenses">
+      <td>{{exp.id}}</td>
+      <td>{{exp.name}}</td>
+      <td>{{exp.value}}</td>
+      <td>{{exp.date}}</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,12 +1,10 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http/src/response';
 
-import {throwError as observableThrowError,  Observable } from 'rxjs';
+import {Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
 import { WebPage, BaseModel } from './webpage.model';
 import { ServiceBase } from '../../shared/services/serviceBase';
 
@@ -15,10 +13,9 @@ import { ServiceBase } from '../../shared/services/serviceBase';
   providedIn: 'root'
 })
 export class WebpageService extends ServiceBase {
-  url = environment.apiUrl + 'admin/webpage/';
 
   constructor(private http: HttpClient) {
-    super();
+    super('admin/webpage/');
   }
 
   getAll() {

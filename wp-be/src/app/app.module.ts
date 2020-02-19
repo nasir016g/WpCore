@@ -27,7 +27,7 @@ import { AccountModule } from './account/account.module';
   ],
   declarations: [
     AppComponent,
-    NavComponent,    
+    NavComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true, },

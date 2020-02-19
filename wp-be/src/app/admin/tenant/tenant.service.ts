@@ -11,9 +11,8 @@ import { ServiceBase } from '../../shared/services/serviceBase';
   providedIn: 'root'
 })
 export class TenantService extends ServiceBase {
-  url = environment.apiUrl + 'admin/tenant/';
   constructor(private http: HttpClient) {
-    super();
+    super('admin/tenant/');
   }
 
    getAll() {

@@ -8,6 +8,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./admin/expense/expense.module": [
+		"./src/app/admin/expense/expense.module.ts",
+		"admin-expense-expense-module"
+	],
 	"./admin/webpage/webpage.module": [
 		"./src/app/admin/webpage/webpage.module.ts",
 		"admin-webpage-webpage-module"
@@ -156,7 +160,7 @@ var AuthenticationService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n\t<div class=\"col-sm-4 offset-sm-4 text-center\">\r\n\t\t<img class=\"mb-4\" src=\"https://getbootstrap.com/assets/brand/bootstrap-solid.svg\" alt=\"\" width=\"72\" height=\"72\">\r\n\t\t<h1 class=\"h3 mb-3 font-weight-normal\">Please sign in</h1>\r\n\t\t<select class=\"form-control\" (change)= \"onChange($event.target.value)\">\r\n\t\t\t<option>Select a tenant</option>\r\n\t\t\t<option [selected]=\"tenantName == 'WpCore1'\">WpCore1</option>\r\n\t\t\t<option [selected]=\"tenantName == 'WpCore2'\">WpCore2</option>\r\n\t\t</select>\r\n\r\n\t\t<form (submit)=\"loginUser()\" class=\"form-signin\">\r\n\r\n\t\t\t<label for=\"username\" class=\"sr-only\">User name</label>\r\n\t\t\t<input [(ngModel)]=\"username\" name=\"username\" type=\"text\" class=\"form-control\" placeholder=\"User name\"\r\n\t\t\t\trequired autofocus>\r\n\t\t\t<label for=\"inputPassword\" class=\"sr-only\">Password</label>\r\n\t\t\t<input type=\"password\" [(ngModel)]=\"password\" name=\"password\" class=\"form-control\" placeholder=\"Password\"\r\n\t\t\t\trequired>\r\n\t\t\t<div class=\"checkbox mb-3\">\r\n\t\t\t\t<label>\r\n\t\t\t\t\t<input type=\"checkbox\" value=\"remember-me\"> Remember me\r\n\t\t\t\t</label>\r\n\t\t\t</div>\r\n\t\t\t<button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>\r\n\t\t</form>\r\n\t</div>\r\n</div>"
+module.exports = "<div class=\"row\">\r\n\t<div class=\"col-sm-4 offset-sm-4 text-center\">\r\n\t\t<img class=\"mb-4\" src=\"https://getbootstrap.com/assets/brand/bootstrap-solid.svg\" alt=\"\" width=\"72\" height=\"72\">\r\n\t\t<h1 class=\"h3 mb-3 font-weight-normal\">Please sign in</h1>\r\n\t\t<select class=\"form-control\" (change)= \"onChange($event.target.value)\">\r\n\t\t\t<option>Select a tenant</option>\t\t\t\r\n\t\t\t<option *ngFor=\"let tenant of tenants\" [selected]=\"tenantName == tenant.tenantName\"  value={{tenant.tenantName}}>{{tenant.tenantName}}</option>\r\n\t\t</select>\r\n\r\n\t\t<form (submit)=\"loginUser()\" class=\"form-signin\">\r\n\r\n\t\t\t<label for=\"username\" class=\"sr-only\">User name</label>\r\n\t\t\t<input [(ngModel)]=\"username\" name=\"username\" type=\"text\" class=\"form-control\" placeholder=\"User name\"\r\n\t\t\t\trequired autofocus>\r\n\t\t\t<label for=\"inputPassword\" class=\"sr-only\">Password</label>\r\n\t\t\t<input type=\"password\" [(ngModel)]=\"password\" name=\"password\" class=\"form-control\" placeholder=\"Password\"\r\n\t\t\t\trequired>\r\n\t\t\t<div class=\"checkbox mb-3\">\r\n\t\t\t\t<label>\r\n\t\t\t\t\t<input type=\"checkbox\" value=\"remember-me\"> Remember me\r\n\t\t\t\t</label>\r\n\t\t\t</div>\r\n\t\t\t<button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>\r\n\t\t</form>\r\n\t</div>\r\n</div>"
 
 /***/ }),
 
@@ -174,21 +178,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./authentication.service */ "./src/app/account/authentication.service.ts");
+/* harmony import */ var _admin_tenant_tenant_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../admin/tenant/tenant.service */ "./src/app/admin/tenant/tenant.service.ts");
+/* harmony import */ var ngx_alerts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-alerts */ "./node_modules/ngx-alerts/fesm5/ngx-alerts.js");
+
+
 
 
 
 
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(router, auhenticationService) {
+    function LoginComponent(router, auhenticationService, tenantService, alertService) {
         this.router = router;
         this.auhenticationService = auhenticationService;
-        this.error = '';
+        this.tenantService = tenantService;
+        this.alertService = alertService;
+        this.tenants = [];
     }
     LoginComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.tenantName = localStorage.getItem('tenantName');
+        this.tenantService.getAll().subscribe(function (data) { return _this.tenants = data; }, function (err) {
+            _this.alertService.danger(err);
+        });
     };
     LoginComponent.prototype.loginUser = function () {
         var _this = this;
+        console.log(this.tenants);
         this.auhenticationService.login(this.username, this.password)
             .subscribe(function (result) {
             if (result === true) {
@@ -197,23 +212,69 @@ var LoginComponent = /** @class */ (function () {
             }
             else {
                 // login failed
-                _this.error = 'Username or password is incorrect';
+                _this.alertService.danger('Username or password is incorrect');
             }
         });
     };
     LoginComponent.prototype.onChange = function (tenantName) {
         localStorage.setItem('tenantName', tenantName);
-        console.log(tenantName);
     };
     LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-login',
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/account/login.component.html")
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"],
+            _admin_tenant_tenant_service__WEBPACK_IMPORTED_MODULE_4__["TenantService"],
+            ngx_alerts__WEBPACK_IMPORTED_MODULE_5__["AlertService"]])
     ], LoginComponent);
     return LoginComponent;
 }());
+
+
+
+/***/ }),
+
+/***/ "./src/app/admin/tenant/tenant.service.ts":
+/*!************************************************!*\
+  !*** ./src/app/admin/tenant/tenant.service.ts ***!
+  \************************************************/
+/*! exports provided: TenantService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TenantService", function() { return TenantService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _shared_services_serviceBase__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/services/serviceBase */ "./src/app/shared/services/serviceBase.ts");
+
+
+
+
+
+var TenantService = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](TenantService, _super);
+    function TenantService(http) {
+        var _this = _super.call(this, 'admin/tenant/') || this;
+        _this.http = http;
+        return _this;
+    }
+    TenantService.prototype.getAll = function () {
+        return this.http.get(this.url)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(_super.prototype.errorHandler));
+    };
+    TenantService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], TenantService);
+    return TenantService;
+}(_shared_services_serviceBase__WEBPACK_IMPORTED_MODULE_4__["ServiceBase"]));
 
 
 
@@ -232,31 +293,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _shared_services_serviceBase__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/services/serviceBase */ "./src/app/shared/services/serviceBase.ts");
 
 
 
 
 
-
-var WebpageService = /** @class */ (function () {
+var WebpageService = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](WebpageService, _super);
     function WebpageService(http) {
-        this.http = http;
-        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].apiUrl + 'admin/webpage/';
+        var _this = _super.call(this, 'admin/webpage/') || this;
+        _this.http = http;
+        return _this;
     }
     WebpageService.prototype.getAll = function () {
         return this.http.get(this.url)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
     };
     WebpageService.prototype.getPageById = function (id) {
         return this.http.get(this.url + id)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
     };
     WebpageService.prototype.delete = function (id) {
         return this.http.delete(this.url + id)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
     };
     WebpageService.prototype.save = function (t) {
         var model = t;
@@ -265,20 +326,14 @@ var WebpageService = /** @class */ (function () {
             //edit
             return this.http.put(this.url + model.id, JSON.stringify(model), {
                 headers: headers,
-            })
-                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
+            }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
         }
         else {
             // new      
             return this.http.post(this.url, JSON.stringify(model), {
                 headers: headers,
-            })
-                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
+            }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.errorHandler));
         }
-    };
-    WebpageService.prototype.errorHandler = function (error) {
-        console.log(error);
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error || 'Internal server error');
     };
     WebpageService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -287,7 +342,7 @@ var WebpageService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], WebpageService);
     return WebpageService;
-}());
+}(_shared_services_serviceBase__WEBPACK_IMPORTED_MODULE_4__["ServiceBase"]));
 
 
 
@@ -429,6 +484,7 @@ __webpack_require__.r(__webpack_exports__);
 var ROUTES = [
     { path: 'login', component: _account_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"] },
     { path: 'admin/webpage', canActivate: [_shared_guard_auth_guard__WEBPACK_IMPORTED_MODULE_1__["AuthGuard"]], loadChildren: './admin/webpage/webpage.module#WebpageModule' },
+    { path: 'admin/expense', canActivate: [_shared_guard_auth_guard__WEBPACK_IMPORTED_MODULE_1__["AuthGuard"]], loadChildren: './admin/expense/expense.module#ExpenseModule' },
     { path: 'security', canActivate: [_shared_guard_auth_guard__WEBPACK_IMPORTED_MODULE_1__["AuthGuard"]], loadChildren: './security/security.module#SecurityModule' },
     { path: 'config', canActivate: [_shared_guard_auth_guard__WEBPACK_IMPORTED_MODULE_1__["AuthGuard"]], loadChildren: './configuration/configuration.module#ConfigurationModule' },
     // otherwise redirect to home
@@ -446,7 +502,7 @@ var AppRouting = _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].fo
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-primary fixed-top\">\r\n  <div class=\"container\">\r\n    <a class=\"navbar-brand\" [routerLink]=\"['']\">WpCore </a>\r\n\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor01\"\r\n      aria-controls=\"navbarColor01\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <!-- admin -->\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarColor01\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li class=\"nav-item active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/webpage/list']\"><i class=\"fa fa-bars\"></i> webpages</a>\r\n        </li>\r\n        <div class=\"btn-group\" dropdown>\r\n          <button id=\"button-basic\" dropdownToggle type=\"button\" class=\"btn btn-link\" aria-controls=\"dropdown-basic\">\r\n            <i class=\"fa fa-lock\"></i> Security <span class=\"caret\"></span>\r\n          </button>\r\n          <ul id=\"dropdown-basic\" *dropdownMenu class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"button-basic\">\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" [routerLink]=\"['security/roles']\">Roles</a></li>\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" [routerLink]=\"['security/users']\">Users</a></li>\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" href=\"#\">Something else here</a></li>\r\n            <li class=\"divider dropdown-divider\"></li>\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" href=\"#\">Separated link</a>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"btn-group\" dropdown>\r\n          <button id=\"button-basic\" dropdownToggle type=\"button\" class=\"btn btn-link\" aria-controls=\"dropdown-basic\">\r\n            <i class=\"fa fa-cogs\"></i> Configuration <span class=\"caret\"></span>\r\n          </button>\r\n          <ul id=\"dropdown-basic\" *dropdownMenu class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"button-basic\">\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" [routerLink]=\"['config/acl']\">Access control list</a></li>\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" [routerLink]=\"['config/install']\">Install</a></li>\r\n            <li class=\"divider dropdown-divider\"></li>\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" href=\"#\">Separated link</a>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n\r\n\r\n\r\n        <!-- <li class=\"nav-item\">\r\n          <a class=\"nav-link\" href=\"#\">About</a>\r\n        </li> -->\r\n      </ul>\r\n      <!-- <ul class=\"navbar-nav\">\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" href=\"https://github.com/nasir016g\">\r\n              <i class=\"fa fa-github\" aria-hidden=\"true\"></i>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      <form class=\"form-inline my-2 my-lg-0\">\r\n        <input class=\"form-control mr-sm-2\" type=\"text\" placeholder=\"Search\">\r\n        <button class=\"btn btn-secondary my-2 my-sm-0\" type=\"submit\">Search</button>\r\n      </form> -->\r\n    </div>\r\n\r\n    <a class=\"ml-auto\" href=\"http://localhost:9000\">Go to website</a>\r\n\r\n    <!-- login -->\r\n    <div *ngIf=\"isAuthenticated\">\r\n      <a [routerLink]=\"\" class=\"nav-link m-2\" (click)=\"logout($event)\">Logout</a>\r\n    </div>\r\n    <div *ngIf=\"!isAuthenticated\">\r\n      <a [routerLink]=\"['login']\" class=\" nav-link m-2\">Login</a>\r\n    </div>\r\n  </div>\r\n</nav>\r\n<br>"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-primary fixed-top\">\r\n  <div class=\"container\">\r\n    <a class=\"navbar-brand\" [routerLink]=\"['']\">WpCore </a>\r\n\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor01\"\r\n      aria-controls=\"navbarColor01\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <!-- admin -->\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarColor01\">\r\n      <ul class=\"navbar-nav mr-auto\">\r\n        <li class=\"nav-item active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/webpage/list']\"><i class=\"fa fa-bars\"></i> webpages</a>\r\n          <a class=\"nav-link\" [routerLink]=\"['admin/expense/list']\"><i class=\"fa fa-bars\"></i> expenses</a>\r\n        </li>\r\n        <div class=\"btn-group\" dropdown>\r\n          <button id=\"button-basic\" dropdownToggle type=\"button\" class=\"btn btn-link\" aria-controls=\"dropdown-basic\">\r\n            <i class=\"fa fa-lock\"></i> Security <span class=\"caret\"></span>\r\n          </button>\r\n          <ul id=\"dropdown-basic\" *dropdownMenu class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"button-basic\">\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" [routerLink]=\"['security/roles']\">Roles</a></li>\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" [routerLink]=\"['security/users']\">Users</a></li>\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" href=\"#\">Something else here</a></li>\r\n            <li class=\"divider dropdown-divider\"></li>\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" href=\"#\">Separated link</a>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"btn-group\" dropdown>\r\n          <button id=\"button-basic\" dropdownToggle type=\"button\" class=\"btn btn-link\" aria-controls=\"dropdown-basic\">\r\n            <i class=\"fa fa-cogs\"></i> Configuration <span class=\"caret\"></span>\r\n          </button>\r\n          <ul id=\"dropdown-basic\" *dropdownMenu class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"button-basic\">\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" [routerLink]=\"['config/acl']\">Access control list</a></li>\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" [routerLink]=\"['config/install']\">Install</a></li>\r\n            <li class=\"divider dropdown-divider\"></li>\r\n            <li role=\"menuitem\"><a class=\"dropdown-item\" href=\"#\">Separated link</a>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n\r\n\r\n\r\n        <!-- <li class=\"nav-item\">\r\n          <a class=\"nav-link\" href=\"#\">About</a>\r\n        </li> -->\r\n      </ul>\r\n      <!-- <ul class=\"navbar-nav\">\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" href=\"https://github.com/nasir016g\">\r\n              <i class=\"fa fa-github\" aria-hidden=\"true\"></i>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      <form class=\"form-inline my-2 my-lg-0\">\r\n        <input class=\"form-control mr-sm-2\" type=\"text\" placeholder=\"Search\">\r\n        <button class=\"btn btn-secondary my-2 my-sm-0\" type=\"submit\">Search</button>\r\n      </form> -->\r\n    </div>\r\n\r\n    <a class=\"ml-auto\" href=\"http://localhost:9000\">Go to website</a>\r\n\r\n    <!-- login -->\r\n    <div *ngIf=\"isAuthenticated\">\r\n      <a [routerLink]=\"\" class=\"nav-link m-2\" (click)=\"logout($event)\">Logout</a>\r\n    </div>\r\n    <div *ngIf=\"!isAuthenticated\">\r\n      <a [routerLink]=\"['login']\" class=\" nav-link m-2\">Login</a>\r\n    </div>\r\n  </div>\r\n</nav>\r\n<br>"
 
 /***/ }),
 
@@ -776,17 +832,51 @@ var TenantInterceptor = /** @class */ (function () {
     }
     TenantInterceptor.prototype.intercept = function (req, next) {
         var tenantName = localStorage.getItem('tenantName');
-        req = req.clone({
-            setHeaders: {
-                'Tenant': tenantName
-            }
-        });
+        if (tenantName) {
+            req = req.clone({
+                setHeaders: {
+                    'Tenant': tenantName
+                }
+            });
+        }
         return next.handle(req);
     };
     TenantInterceptor = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
     ], TenantInterceptor);
     return TenantInterceptor;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/services/serviceBase.ts":
+/*!************************************************!*\
+  !*** ./src/app/shared/services/serviceBase.ts ***!
+  \************************************************/
+/*! exports provided: ServiceBase */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceBase", function() { return ServiceBase; });
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+
+
+var ServiceBase = /** @class */ (function () {
+    /**
+     *
+     */
+    function ServiceBase(urlPath) {
+        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl + urlPath;
+    }
+    ServiceBase.prototype.errorHandler = function (error) {
+        console.log(error);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["throwError"])(error || 'Internal server error');
+    };
+    return ServiceBase;
 }());
 
 

@@ -9,7 +9,7 @@ using Wp.Web.Api.Extensions.Mapper;
 
 namespace Wp.Web.Api.Areas.Admin.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/admin/[controller]")]
     [ApiController]
     public class ExpenseController : ControllerBase
     {

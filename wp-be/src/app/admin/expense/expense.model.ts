@@ -4,6 +4,17 @@ export class Expense {
     description: string;
     value: number;
     date: string;
-    expenseCategoryName: string;
-    expenseAccountName: string;
+    expenseAccount: ExpenseAccount;
+    expenseCategory: ExpenseCategory;
+}
+
+export class ExpenseAccount {
+    name: string;
+    description: string;
+}
+
+export class ExpenseCategory{
+    name: string;
+    description: string;
+    color: string;
 }

@@ -15,7 +15,6 @@ export class WebPageListComponent implements OnInit {
   webpages: Array<WebPage> = [];
   deletingPage: WebPage;
   bsModalRef: BsModalRef;
-  errorMessage: any;
 
   constructor(
     private pageService: WebpageService, 

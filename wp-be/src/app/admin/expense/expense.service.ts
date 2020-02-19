@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ServiceBase } from '../../shared/services/serviceBase';
 import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { Expense } from './expense.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +10,11 @@ import { HttpClient } from '@angular/common/http';
 export class ExpenseService extends ServiceBase{
 
   constructor(private http: HttpClient) {
-    super();
+    super('admin/expense');
   }
 
   getAll() {
-    return this.http.get
+    return this.http.get<Expense[]>(this.url)
+    .pipe(catchError(this.errorHandler));
   }
 }
