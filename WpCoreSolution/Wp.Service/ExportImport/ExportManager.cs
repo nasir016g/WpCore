@@ -13,7 +13,6 @@ namespace Wp.Services.ExportImport
     {
         #region Fields
 
-        private readonly IWebHelper _webHelper;
         private readonly ILocalizationService _localizationService;
         private readonly ILanguageService _languageService;
         private readonly IWorkContext _workContext;
@@ -22,9 +21,8 @@ namespace Wp.Services.ExportImport
 
         #region Ctor
 
-        public ExportManager(IWebHelper webHelper, ILocalizationService localizationService, ILanguageService languageService, IWorkContext workContext)
+        public ExportManager(ILocalizationService localizationService, ILanguageService languageService, IWorkContext workContext)
         {
-            this._webHelper = webHelper;
             this._localizationService = localizationService;
             this._languageService = languageService;
             this._workContext = workContext;
@@ -143,7 +141,7 @@ namespace Wp.Services.ExportImport
 
         public void ExportResumeToWord(Stream stream, Resume resume)
         {
-            var wordService = new WordService(_webHelper, _localizationService, _languageService, _workContext);
+            var wordService = new ExportWordService(_localizationService, _languageService, _workContext);
             wordService.ExportResumeToWord(stream, resume);            
         } 
     }

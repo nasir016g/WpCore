@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Wp.Core;
 using Wp.Core.Domain.Career;
 using Wp.Data;
 
@@ -9,11 +10,11 @@ namespace Wp.Services.Career
 
     public class EducationService : EntityService<Education>, IEducationService
     {
-        private IEntityBaseRepository<Education> _educationRepo;
-        private IEntityBaseRepository<EducationItem> _educationItemRepo;
+        private IBaseRepository<Education> _educationRepo;
+        private IBaseRepository<EducationItem> _educationItemRepo;
 
-        public EducationService(IEntityBaseRepository<Education> educationRepo, IEntityBaseRepository<EducationItem> educationItemRepo)
-        :base(educationRepo)
+        public EducationService(IUnitOfWork unitOfWork, IBaseRepository<Education> educationRepo, IBaseRepository<EducationItem> educationItemRepo)
+        :base(unitOfWork, educationRepo)
         {
             this._educationRepo = educationRepo;
             this._educationItemRepo = educationItemRepo;
@@ -23,11 +24,6 @@ namespace Wp.Services.Career
         public IList<Education> GetAll(int ResumeId)
         {
             return _educationRepo.Table.Where(x => x.ResumeId == ResumeId).ToList();
-        }
-
-        public Education GetById(int id)
-        {
-            return _educationRepo.GetById(id);
         }
 
         #endregion
@@ -45,17 +41,18 @@ namespace Wp.Services.Career
 
         public void InsertEducationItem(EducationItem t)
         {
-            _educationItemRepo.Save(t);
+            _educationItemRepo.Add(t);
         }
 
         public void UpdateEducationItem(EducationItem t)
         {
-            _educationItemRepo.Save(t);
+            _unitOfWork.Complete();
         }
 
         public void DeleteEducationItem(EducationItem t)
         {
-            _educationItemRepo.Delete(t);
+            _educationItemRepo.Remove(t);
+            _unitOfWork.Complete();
         }
         #endregion
     }

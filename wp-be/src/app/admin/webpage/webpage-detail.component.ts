@@ -28,6 +28,18 @@ export class WebPageDetailComponent implements OnInit {
     this.buildForm(this.formBuilder);
   }
 
+  ngOnInit() {
+    if (this.model.id > 0) {
+      // edit
+      this.pageService.getPageById(this.model.id)
+        .subscribe(resp => {
+          this.model = resp;
+          this.buildForm(this.formBuilder);
+        }
+          , error => this.alertService.danger(error));
+    }
+  }
+
   private buildForm(formBuilder: FormBuilder) {
     this.form = formBuilder.group({
       id: this.model.id,
@@ -40,19 +52,7 @@ export class WebPageDetailComponent implements OnInit {
       metaDescription: [this.model.metaDescription],
       metaKeywords: [this.model.metaKeywords]
     });
-  }
-
-  ngOnInit() {
-    if (this.model.id > 0) {
-      // edit
-      this.pageService.getPageById(this.model.id)
-        .subscribe(resp => {
-          this.model = resp;
-          this.buildForm(this.formBuilder);
-        }
-          , error => this.alertService.danger(error));
-    }
-  }
+  } 
 
   cancel() {
     this.router.navigate(['admin/webpage/list']);

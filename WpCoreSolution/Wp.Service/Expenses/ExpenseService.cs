@@ -3,6 +3,8 @@ using Wp.Core;
 using Wp.Core.Domain.Expenses;
 using Wp.Core.Interfaces.Repositories;
 using Wp.Data;
+using System.Linq;
+using System;
 
 namespace Wp.Services.Expenses
 {
@@ -15,6 +17,19 @@ namespace Wp.Services.Expenses
         {
             this.unitOfWork = unitOfWork;
             _expenseRepo = expenseRepo;
-        }       
+        }
+
+        public bool ExpenseTagExists(Expense expense, int expenseTagId)
+        {
+            if (expense == null)
+                throw new ArgumentNullException(nameof(expense));
+
+          return  expense.ExpenseExpenseTagMappings.Any(x => x.ExpenseTagId == expenseTagId);
+        }
+
+        public Expense GetByNotifications(string notifications)
+        {
+           return _expenseRepo.Table.SingleOrDefault(x => x.Notifications == notifications);
+        }
     }
 }

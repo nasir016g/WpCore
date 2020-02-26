@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Wp.Core;
 using Wp.Core.Domain.Career;
 using Wp.Data;
 
@@ -7,11 +8,11 @@ namespace Wp.Services.Career
 {
     public class ExperienceService : EntityService<Experience>, IExperienceService
     {
-        private IEntityBaseRepository<Experience> _workExperienceRepo;
-        private IEntityBaseRepository<Project> _projectRepo;
+        private IBaseRepository<Experience> _workExperienceRepo;
+        private IBaseRepository<Project> _projectRepo;
 
-        public ExperienceService(IEntityBaseRepository<Experience> workExperienceRepo, IEntityBaseRepository<Project> projectRepo)
-        : base(workExperienceRepo)
+        public ExperienceService(IUnitOfWork unitOfWork, IBaseRepository<Experience> workExperienceRepo, IBaseRepository<Project> projectRepo)
+        : base(unitOfWork, workExperienceRepo)
         {
             this._workExperienceRepo = workExperienceRepo;
             this._projectRepo = projectRepo;
@@ -21,11 +22,6 @@ namespace Wp.Services.Career
         public IList<Experience> GetAll(int ResumeId)
         {
             return _workExperienceRepo.Table.Where(x => x.ResumeId == ResumeId).OrderByDescending(x => x.DisplayOrder).ToList();
-        }
-
-        public Experience GetById(int id)
-        {
-            return _workExperienceRepo.GetById(id);
         }
 
         #endregion
@@ -43,17 +39,19 @@ namespace Wp.Services.Career
 
         public void InsertProject(Project t)
         {
-            _projectRepo.Save(t);
+            _projectRepo.Add(t);
         }
 
         public void UpdateProject(Project t)
         {
-            _projectRepo.Save(t);
+            _unitOfWork.Complete();
         }
 
         public void DeleteProject(Project t)
         {
-            _projectRepo.Delete(t);
+            _projectRepo.Remove(t);
+            _unitOfWork.Complete();
+
         }
         #endregion
     }

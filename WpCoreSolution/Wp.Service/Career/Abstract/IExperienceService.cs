@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Wp.Core;
 using Wp.Core.Domain.Career;
 
 namespace Wp.Services.Career
@@ -6,7 +7,6 @@ namespace Wp.Services.Career
     public interface IExperienceService : IEntityService<Experience>
     {
         IList<Experience> GetAll(int ResumeId);
-        Experience GetById(int id);
 
         IList<Project> GetProjectsByExperienceId(int skillId);
         Project GetProjectById(int id);

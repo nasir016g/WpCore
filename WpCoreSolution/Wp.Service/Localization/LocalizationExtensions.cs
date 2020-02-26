@@ -12,21 +12,20 @@ namespace Wp.Services.Localization
 {
     public static class LocalizationExtensions
     {
-        //public static string GetLocalized<T>(this T entity, Expression<Func<T, string>> keySelector, int languageId)
-        //   where T : IEntity, ILocalizedEntity
-        //{
-        //    //var workContext = ServiceLocator.Instance.GetService<IWorkContext>();
-        //    //return GetLocalized(entity, keySelector, workContext.Current.WorkingLanguage.Id);
-        //    return GetLocalized(entity, keySelector, languageId);
-        //}
-
-        public static string GetLocalized<T>(this T entity, Expression<Func<T, string>> keySelector, int languageId, ILocalizedEntityService leService, bool returnDefaultValue = true, bool ensureTwoPublishedLanguages = true)
-            where T : IEntity, ILocalizedEntity
+        public static string GetLocalized<T>(this T entity, Expression<Func<T, string>> keySelector)
+           where T : IEntity, ILocalizedEntity
         {
-            return GetLocalized<T, string>(entity, keySelector, languageId, leService, returnDefaultValue, ensureTwoPublishedLanguages);
+            var workContext = ServiceLocator.Instance.GetService<IWorkContext>();
+            return GetLocalized(entity, keySelector, workContext.Current.WorkingLanguage.Id);
         }
 
-        public static TPropType GetLocalized<T, TPropType>(this T entity,  Expression<Func<T, TPropType>> keySelector, int languageId, ILocalizedEntityService leService, bool returnDefaultValue = true, bool ensureTwoPublishedLanguages = true)
+        public static string GetLocalized<T>(this T entity, Expression<Func<T, string>> keySelector, int languageId, bool returnDefaultValue = true, bool ensureTwoPublishedLanguages = true)
+            where T : IEntity, ILocalizedEntity
+        {
+            return GetLocalized<T, string>(entity, keySelector, languageId, returnDefaultValue, ensureTwoPublishedLanguages);
+        }
+
+        public static TPropType GetLocalized<T, TPropType>(this T entity,  Expression<Func<T, TPropType>> keySelector, int languageId, bool returnDefaultValue = true, bool ensureTwoPublishedLanguages = true)
            where T : IEntity, ILocalizedEntity
         {
             if (entity == null)
@@ -59,17 +58,17 @@ namespace Wp.Services.Localization
             {
                 //ensure that we have at least two published languages
                 bool loadLocalizedValue = true;
-                //if (ensureTwoPublishedLanguages)
-                //{
-                //    var lService = ServiceLocator.Instance.GetService<ILanguageService>(); 
-                //    var totalPublishedLanguages = lService.GetAll().Count;
-                //    loadLocalizedValue = totalPublishedLanguages >= 2;
-                //}
+                if (ensureTwoPublishedLanguages)
+                {
+                    var lService = ServiceLocator.Instance.GetService<ILanguageService>();
+                    var totalPublishedLanguages = lService.GetAll().Count;
+                    loadLocalizedValue = totalPublishedLanguages >= 2;
+                }
 
                 //localized value
                 if (loadLocalizedValue)
                 {
-                    //var leService = ServiceLocator.Instance.GetService<ILocalizedEntityService>();
+                    var leService = ServiceLocator.Instance.GetService<ILocalizedEntityService>();
                     resultStr = leService.GetLocalizedValue(languageId, entity.Id, localeKeyGroup, localeKey);
                     if (!String.IsNullOrEmpty(resultStr))
                         result = CommonHelper.To<TPropType>(resultStr);

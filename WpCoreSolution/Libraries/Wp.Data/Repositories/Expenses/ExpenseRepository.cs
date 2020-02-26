@@ -16,19 +16,22 @@ namespace Wp.Data.Repositories
 
         public override Expense GetById(int id)
         {
-            return base.GetById(id);
-        }
-
-        public override IQueryable<Expense> Table
-        {
-            get
-            {
-                var query = Context.Set<Expense>()
+            var query = Context.Set<Expense>()
                     .Include(x => x.ExpenseAccount)
                     .Include(x => x.ExpenseCategory);
-                return query;
-            }
+            return query.FirstOrDefault(x => x.Id == id);
         }
+
+        //public override IQueryable<Expense> Table
+        //{
+        //    get
+        //    {
+        //        var query = Context.Set<Expense>()
+        //            .Include(x => x.ExpenseAccount)
+        //            .Include(x => x.ExpenseCategory);
+        //        return query;
+        //    }
+        //}
 
         public WpDbContext ApplicationContext
         {

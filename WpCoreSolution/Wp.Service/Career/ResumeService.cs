@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Wp.Core;
 using Wp.Core.Domain.Career;
 using Wp.Data;
 
@@ -7,21 +8,17 @@ namespace Wp.Services.Career
 {  
     public class ResumeService : EntityService<Resume>, IResumeService
     {
-        private IEntityBaseRepository<Resume> _ResumeRepo;
+        private IBaseRepository<Resume> _resumeRepo;
 
-        public ResumeService(IEntityBaseRepository<Resume> ResumeRepo) : base(ResumeRepo)
+        public ResumeService(IUnitOfWork unitOfWork, IBaseRepository<Resume> resumeRepo) : base(unitOfWork, resumeRepo)
         {
-            this._ResumeRepo = ResumeRepo;
+            this._resumeRepo = resumeRepo;
         }
 
-        public Resume GetById(int id)
-        {
-            return _ResumeRepo.GetById(id);
-        }
-
+       
         public Resume GetByUserName(string userName)
         {
-            return _ResumeRepo.Table.Where(x => x.ApplicationUserName == userName).FirstOrDefault();
+            return _resumeRepo.Table.Where(x => x.ApplicationUserName == userName).FirstOrDefault();
         }
     }
 }

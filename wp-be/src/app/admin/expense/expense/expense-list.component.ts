@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ExpenseService } from '../expense.service';
-import { Expense } from '../expense.model';
+import { ExpenseService } from './expense.service';
+import { Expense } from '../expense.models';
 import { BsModalRef } from 'ngx-bootstrap';
 import { AlertService } from 'ngx-alerts';
 
@@ -24,6 +24,18 @@ export class ExpenseListComponent implements OnInit {
   getAll() {
     this.expenseService.getAll().subscribe(
       data => this.expenses = data,
+      err => this.alertService.danger(err)
+    )
+  }
+
+  public uploadFile(files){
+    if(files.length === 0){
+      return;
+    }
+
+    let fileToUpload = <File>files[0];
+    this.expenseService.uploadFile(fileToUpload).subscribe(
+      data => this.getAll(),
       err => this.alertService.danger(err)
     )
   }

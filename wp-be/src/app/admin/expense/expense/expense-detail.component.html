@@ -1,0 +1,99 @@
+<h1>Exp details</h1>
+<hr>
+
+<form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
+  <div class="form-group row ">
+    <label for="name" class="col-md-2 col-form-label">Name</label>
+    <div class="col-md-4">
+      <input type="text" class="form-control" formControlName="name" id="name">
+      <control-messages [control]="form.controls.name"></control-messages>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="" class="col-md-2 col-form-label">description</label>
+    <div class="col-md-4">
+      <input type="text" class="form-control" formControlName="description">
+    </div>
+    <div class="col-md-2">
+      <control-messages [control]="form.controls.description"></control-messages>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="amount" class="col-md-2 col-form-label">amount</label>
+    <div class="col-md-2">
+      <input type="number" class="form-control" formControlName="amount">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="date" class="col-md-2 col-form-label">date</label>
+    <div class="col-md-4 pt-3">
+      <input type="checkbox" class="float-left" formControlName="date">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="notifications" class="col-md-2 col-form-label">notifications</label>
+    <div class="col-md-4 pt-3">
+      <input type="text" class="form-control" formControlName="notifications">
+    </div>
+  </div>
+ 
+  <div class="form-group row">
+    <label for="isDebit" class="col-md-2 col-form-label">isDebit</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" formControlName="isDebit">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="code" class="col-md-2 col-form-label">code</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" formControlName="code">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="transactionType" class="col-md-2 col-form-label">transactionType</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" formControlName="transactionType">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="expenseTags" class="col-md-2 col-form-label">expenseTags</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" formControlName="expenseTags">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="expenseAccount" class="col-md-2 col-form-label">expenseAccount</label>
+    <div class="col-md-8">
+      <select class="form-control" (change)= "onChangeExpenseAccount($event.target.value)">
+        <option>Select a tenant</option>			
+        <option *ngFor="let account of expenseAccounts" [selected]="model.expenseAccount.name == account.name"  value={{account.name}}>{{account.name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="expenseCategory" class="col-md-2 col-form-label">expenseCategory</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" formControlName="expenseCategory">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-md-2"></div>
+    <div class="col-md-10 text-left">
+      <input type="submit" class="btn btn-primary" value="Save" />
+      <input type="button" class="btn btn-warning" value="Back to list" (click)="cancel()">
+
+    </div>
+  </div>
+</form>

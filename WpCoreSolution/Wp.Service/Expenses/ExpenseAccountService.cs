@@ -19,10 +19,16 @@ namespace Wp.Services.Expenses
             this.expenseAccountRepo = expenseAccountRepo;
         }
 
+        public ExpenseAccount GetByAccount(string account)
+        {
+            return expenseAccountRepo.Table.Where(x => x.Account == account).FirstOrDefault();
+        }
 
         public ExpenseAccount GetByName(string name)
         {
             return expenseAccountRepo.Table.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
         }
+
+
     }
 }

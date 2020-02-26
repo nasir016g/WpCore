@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Wp.Core\Wp.Core.csproj" />
-    <ProjectReference Include="..\..\Wp.Service\Wp.Service.csproj" />
+    <ProjectReference Include="..\..\Wp.Service\Wp.Services.csproj" />
   </ItemGroup>
 
 </Project>

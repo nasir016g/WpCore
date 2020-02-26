@@ -432,6 +432,12 @@ namespace Wp.Data.Migrations.WpDb
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -447,16 +453,22 @@ namespace Wp.Data.Migrations.WpDb
                     b.Property<int>("ExpenseCategoryId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsDebit")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
+                    b.Property<string>("Notifications")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransactionType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -473,6 +485,9 @@ namespace Wp.Data.Migrations.WpDb
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Account")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -516,6 +531,40 @@ namespace Wp.Data.Migrations.WpDb
                     b.HasKey("Id");
 
                     b.ToTable("ExpenseCategory");
+                });
+
+            modelBuilder.Entity("Wp.Core.Domain.Expenses.ExpenseExpenseTagMapping", b =>
+                {
+                    b.Property<int>("ExpenseId")
+                        .HasColumnName("Expense_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExpenseTagId")
+                        .HasColumnName("ExpenseTag_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExpenseId", "ExpenseTagId");
+
+                    b.HasIndex("ExpenseTagId");
+
+                    b.ToTable("Expense_ExpenseTag_Mapping");
+                });
+
+            modelBuilder.Entity("Wp.Core.Domain.Expenses.ExpenseTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(400)")
+                        .HasMaxLength(400);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExpenseTag");
                 });
 
             modelBuilder.Entity("Wp.Core.Domain.Localization.Language", b =>
@@ -1072,6 +1121,21 @@ namespace Wp.Data.Migrations.WpDb
                     b.HasOne("Wp.Core.Domain.Expenses.ExpenseCategory", "ExpenseCategory")
                         .WithMany("Expenses")
                         .HasForeignKey("ExpenseCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Wp.Core.Domain.Expenses.ExpenseExpenseTagMapping", b =>
+                {
+                    b.HasOne("Wp.Core.Domain.Expenses.Expense", "Expense")
+                        .WithMany("ExpenseExpenseTagMappings")
+                        .HasForeignKey("ExpenseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Wp.Core.Domain.Expenses.ExpenseTag", "ExpenseTag")
+                        .WithMany("ExpenseExpenseTagMappings")
+                        .HasForeignKey("ExpenseTagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

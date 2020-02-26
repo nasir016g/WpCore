@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Wp.Core;
 using Wp.Core.Domain.Career;
 
 namespace Wp.Services.Career
@@ -6,7 +7,6 @@ namespace Wp.Services.Career
     public interface IEducationService : IEntityService<Education>
     {
         IList<Education> GetAll(int ResumeId);
-        Education GetById(int id);
 
         IList<EducationItem> GetEducationItemsByEducationId(int educationId);
         EducationItem GetEducationItemById(int id);

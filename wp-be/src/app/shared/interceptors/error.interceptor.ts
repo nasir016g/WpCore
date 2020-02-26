@@ -21,9 +21,14 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
 
            // const error = err.error || err.statusText;
+           if (typeof err.error === 'string' || err.error instanceof String)  {
+            this.alertService.danger(err.error);            
+           } else {
             for (var fieldName in err.error) {
                 this.alertService.danger(err.error[fieldName]);
               }
+           }
+           
             return throwError(err);
         }))
     }

@@ -36,6 +36,7 @@ namespace Wp.Services
         public virtual void Update(T entity)
         {
             if (entity == null) throw new ArgumentNullException("entity");
+            
             _unitOfWork.Complete();
         }
 

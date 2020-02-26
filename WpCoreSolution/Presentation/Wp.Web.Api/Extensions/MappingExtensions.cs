@@ -109,7 +109,7 @@ namespace Wp.Web.Api.Extensions.Mapper
 
             foreach (var sectionEntity in entity.Sections)
             {
-                var sm = GetSectionModel(sectionEntity, languageId, leService);
+                var sm = GetSectionModel(sectionEntity, languageId);
                 sm.Id = sectionEntity.Id;
                 //sm.WebPage = sectionEntity.WebPage;
                 sm.UserHasEditRights = userHasEditRights;
@@ -119,12 +119,12 @@ namespace Wp.Web.Api.Extensions.Mapper
             return model;
         }
 
-        private static BaseReadOnlyModel GetSectionModel(Section entity, int languageId, ILocalizedEntityService leService)
+        private static BaseReadOnlyModel GetSectionModel(Section entity, int languageId)
         {
             if (entity is HtmlContentSection)
             {
                 var htmlContent = new HtmlContentSectionReadOnlyModel();
-                htmlContent.Html = ((HtmlContentSection)entity).GetLocalized(x => x.Html, languageId, leService);
+                htmlContent.Html = ((HtmlContentSection)entity).GetLocalized(x => x.Html, languageId);
                 htmlContent.Controller = "HtmlContent";
                 return htmlContent;
             }
@@ -239,6 +239,30 @@ namespace Wp.Web.Api.Extensions.Mapper
         }
 
         public static ExpenseCategory ToEntity(this ExpenseCategoryModel model, ExpenseCategory destination)
+        {
+            return model.MapTo(destination);
+        }
+
+        #endregion
+
+        #region Admin - ExpenseTag
+
+        public static IEnumerable<ExpenseTagModel> ToModels(this IEnumerable<ExpenseTag> entities)
+        {
+            return entities.MapTo<IEnumerable<ExpenseTag>, IEnumerable<ExpenseTagModel>>();
+        }
+
+        public static ExpenseTagModel ToModel(this ExpenseTag entity)
+        {
+            return entity.MapTo<ExpenseTag, ExpenseTagModel>();
+        }
+
+        public static ExpenseTag ToEntity(this ExpenseTagModel model)
+        {
+            return model.MapTo<ExpenseTagModel, ExpenseTag>();
+        }
+
+        public static ExpenseTag ToEntity(this ExpenseTagModel model, ExpenseTag destination)
         {
             return model.MapTo(destination);
         }

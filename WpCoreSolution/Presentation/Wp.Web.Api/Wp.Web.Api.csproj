@@ -21,7 +21,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" PrivateAssets="All" />
     <PackageReference Include="NSwag.AspNetCore" Version="13.1.6" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Wp.Core\Wp.Core.csproj" />
-    <ProjectReference Include="..\..\Wp.Service\Wp.Service.csproj" />
+    <ProjectReference Include="..\..\Wp.Service\Wp.Services.csproj" />
     <ProjectReference Include="..\Wp.Web.Framework\Wp.Web.Framework.csproj" />
   </ItemGroup>
 

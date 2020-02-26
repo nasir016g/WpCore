@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2041
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wp.Core", "Wp.Core\Wp.Core.csproj", "{BBD63637-3205-4129-A7DF-E531458AAEA4}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wp.Web.Api", "Presentation\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wp.Data", "Libraries\Wp.Data\Wp.Data.csproj", "{3F38FD3A-A701-4156-AFAE-0999A93924C9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wp.Service", "Wp.Service\Wp.Service.csproj", "{9E61E367-9975-40D0-9045-33E50AE60FED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wp.Services", "Wp.Service\Wp.Services.csproj", "{9E61E367-9975-40D0-9045-33E50AE60FED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wp.Web.Framework", "Presentation\Wp.Web.Framework\Wp.Web.Framework.csproj", "{7D1A9891-DB95-43EA-B345-67EE18F67DF8}"
 EndProject

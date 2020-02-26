@@ -21,8 +21,10 @@ using Wp.Data;
 using Wp.Data.Repositories;
 using Wp.Service.Security;
 using Wp.Service.Tenants;
+using Wp.Services.Career;
 using Wp.Services.Configuration;
 using Wp.Services.Expenses;
+using Wp.Services.ExportImport;
 using Wp.Services.Installation;
 using Wp.Services.Localization;
 using Wp.Services.Sections;
@@ -103,13 +105,29 @@ namespace Wp.Web.Api.Extensions
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
+           
             services.AddScoped<IWebPageService, WebPageService>();
             services.AddScoped<ISectionService, SectionService>();
             services.AddScoped<ISettingService, SettingService>();
             services.AddScoped<ILanguageService, LanguageService>();
+            //services.AddScoped<IIdentityService, IIdentityService>();
+
+            // career
+            services.AddScoped<IResumeService, ResumeService>();
+            services.AddScoped<IEducationService, EducationService>();
+            services.AddScoped<IExperienceService, ExperienceService>();
+            services.AddScoped<ISkillService, SkillService>();
+
+            // expense services
             services.AddScoped<IExpenseService, ExpenseService>();
             services.AddScoped<IExpenseAccountService, ExpenseAccountService>();
             services.AddScoped<IExpenseCategoryService, ExpenseCategoryService>();
+            services.AddScoped<IExpenseTagService, ExpenseTagService>();
+
+            // export/import services
+            services.AddScoped<IImportManager, ImportManager>();
+            services.AddScoped<IImportExcelService, ImportExcelService>();
+
             services.AddScoped<ILocalizedEntityService, LocalizedEntityService>();
             services.AddScoped<ICacheManager, PerRequestCacheManager>();
             services.AddScoped<IStaticCacheManager, EasyMemoryCacheManager>();

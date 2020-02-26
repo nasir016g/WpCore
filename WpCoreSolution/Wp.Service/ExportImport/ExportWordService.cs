@@ -1,6 +1,5 @@
-﻿using Novacode;
-using System;
-using System.Drawing;
+﻿using System;
+//using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -8,14 +7,15 @@ using Wp.Core;
 using Wp.Core.Common;
 using Wp.Core.Domain.Career;
 using Wp.Services.Localization;
+using Xceed.Document.NET;
+using Xceed.Words.NET;
 
 namespace Wp.Services.ExportImport
 {
-    public class WordService
+    public class ExportWordService
     {
         #region Fields
 
-        private readonly IWebHelper _webHelper;
         private readonly ILocalizationService _localizationService;
         private readonly ILanguageService _languageService;
         private readonly IWorkContext _workContext;
@@ -24,23 +24,22 @@ namespace Wp.Services.ExportImport
 
         #region Ctor
 
-        public WordService(IWebHelper webHelper, ILocalizationService localizationService, ILanguageService languageService, IWorkContext workContext)
+        public ExportWordService(ILocalizationService localizationService, ILanguageService languageService, IWorkContext workContext)
         {
-            this._webHelper = webHelper;
-            this._localizationService = localizationService;
-            this._languageService = languageService;
-            this._workContext = workContext;
+            _localizationService = localizationService;
+            _languageService = languageService;
+            _workContext = workContext;
         }
 
         #endregion
 
         #region Properties        
 
-        private FontFamily TimesRoman
+        private Font TimesRoman
         {
             get
             {
-                return new FontFamily("Times New Roman");                
+                return new Font("Times New Roman");                
             }
         }
 
@@ -48,7 +47,7 @@ namespace Wp.Services.ExportImport
         {
             get
             {
-                return new Novacode.Formatting { FontFamily = TimesRoman, FontColor = Color.Black, Bold = true, Size = 16D };                
+                return new Formatting { FontFamily = TimesRoman, FontColor = System.Drawing.Color.Black, Bold = true, Size = 16D };                
             }
         }
 
@@ -56,7 +55,7 @@ namespace Wp.Services.ExportImport
         {
             get
             {
-                return new Novacode.Formatting { FontFamily = TimesRoman, FontColor = Color.Black, Bold = true, Size = 14D };
+                return new Formatting { FontFamily = TimesRoman, FontColor = System.Drawing.Color.Black, Bold = true, Size = 14D };
             }
         }
 
@@ -64,7 +63,7 @@ namespace Wp.Services.ExportImport
         {
             get
             {
-                return new Novacode.Formatting { FontFamily = TimesRoman, FontColor = Color.Black, Bold = true, Italic = true, Size = 12D };
+                return new Formatting { FontFamily = TimesRoman, FontColor = System.Drawing.Color.Black, Bold = true, Italic = true, Size = 12D };
             }
         }
 
@@ -72,7 +71,7 @@ namespace Wp.Services.ExportImport
         {
             get
             {
-                return new Novacode.Formatting { FontFamily = new FontFamily("Calibri"), Size = 10D };
+                return new Formatting { FontFamily = new Font("Calibri"), Size = 10D };
             }
         }
 

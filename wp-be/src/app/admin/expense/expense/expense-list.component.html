@@ -1,10 +1,24 @@
+<div class="row" style="margin-bottom:15px;">
+  <div class="col-md-3">
+    <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+    <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+  </div>
+</div>
+
 <table class="table table-bordered">
   <thead>
     <tr>
       <th>ID</th>
       <th>Name</th>
-      <th>Value</th>
+      <th>Amount</th>
       <th>Date</th>
+      <th>Notifications</th>
+      <th>Is Debit</th>
+      <th>Code</th>
+      <th>TransactionType</th>
+      <!-- <th>Account</th>
+      <th>Category</th> -->
+      <th></th>
       <!-- <th>  <button class="btn btn-success btn-circle" 
         [routerLink]="['/admin/expense/add']"          
               title="Add New Expense">
@@ -16,8 +30,19 @@
     <tr *ngFor="let exp of expenses">
       <td>{{exp.id}}</td>
       <td>{{exp.name}}</td>
-      <td>{{exp.value}}</td>
+      <td>{{exp.amount}}</td>
       <td>{{exp.date}}</td>
+      <td>{{exp.notifications}}</td>
+      <td>{{exp.isDebit}}</td>
+      <td>{{exp.code}}</td>
+      <td>{{exp.transactionType}}</td>
+      <!-- <td>{{exp.expenseAccount.name}}</td>
+      <td>{{exp.expenseCategory.name}}</td> -->
+      <td style="width: 70px;">               
+        <a [routerLink]="['/admin/expense/edit', exp.id]"> <i class="fa fa-edit pointer"></i></a>                  
+       <i class="fa fa-trash pointer"    
+         (click)="delete(exp)" title="Delete"></i>
+ </td>
     </tr>
   </tbody>
 </table>

@@ -298,28 +298,28 @@ namespace Wp.Services.Installation
             {
                 var accounts = new List<ExpenseAccount>()
                 {
-                    new ExpenseAccount { Name = "Bank (Nasir private)" },
+                    new ExpenseAccount { Name = "Bank (Nasir private)", Account = "NL13INGB0007076421" },
                     new ExpenseAccount { Name = "Bank (Zarghona private)" },
                 };
 
                 accounts.ForEach(account => _expenseAccountService.Insert(account));
             }
 
-            var nasirAccount = _expenseAccountService.GetByName("Bank (Nasir private)");
+            //var nasirAccount = _expenseAccountService.GetByName("Bank (Nasir private)");
 
-            Random r = new Random();
-            for (int i = 0; i < 3; i++)
-            {
-                Expense expense = new Expense
-                {
-                    Name = "expense " + i.ToString(),
-                    Value = r.Next(5, 20),
-                    Date = DateTime.Now,
-                    ExpenseCategory = _expenseCategoryService.GetAll()[i],
-                    ExpenseAccount = nasirAccount
-                };
-                _expenseService.Insert(expense);
-            }
+            //Random r = new Random();
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    Expense expense = new Expense
+            //    {
+            //        Name = "expense " + i.ToString(),
+            //        Amount = r.Next(5, 20),
+            //        Date = DateTime.Now,
+            //        ExpenseCategory = _expenseCategoryService.GetAll()[i],
+            //        ExpenseAccount = nasirAccount
+            //    };
+            //    _expenseService.Insert(expense);
+            //}
         }
     }
 }

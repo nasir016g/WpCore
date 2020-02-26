@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Wp.Core;
 using Wp.Core.Domain.Career;
 using Wp.Data;
 
@@ -9,12 +10,13 @@ namespace Wp.Services.Career
 
     public class SkillService : EntityService<Skill>, ISkillService
     {
-        private IEntityBaseRepository<Skill> _skillRepo;
-        private IEntityBaseRepository<SkillItem> _skillItemRepo;
+        private IBaseRepository<Skill> _skillRepo;
+        private IBaseRepository<SkillItem> _skillItemRepo;
 
-        public SkillService(IEntityBaseRepository<Skill> skillRepo, IEntityBaseRepository<SkillItem> skillItemRepo)
-        :base(skillRepo)
+        public SkillService(IUnitOfWork unitOfWork, IBaseRepository<Skill> skillRepo, IBaseRepository<SkillItem> skillItemRepo)
+        :base(unitOfWork, skillRepo)
         {
+            _unitOfWork = unitOfWork;
             this._skillRepo = skillRepo;
             this._skillItemRepo = skillItemRepo;
         }
@@ -23,12 +25,7 @@ namespace Wp.Services.Career
         public IList<Skill> GetAll(int ResumeId)
         {
             return _skillRepo.Table.Where(x => x.ResumeId == ResumeId).ToList();
-        }
-
-        public Skill GetById(int id)
-        {
-            return _skillRepo.GetById(id);
-        }
+        }       
 
         #endregion
 
@@ -46,17 +43,18 @@ namespace Wp.Services.Career
 
         public void InsertSkillItem(SkillItem t)
         {
-            _skillItemRepo.Save(t);
+            _skillItemRepo.Add(t);
         }
 
         public void UpdateSkillItem(SkillItem t)
         {
-            _skillItemRepo.Save(t);
+            _unitOfWork.Complete();
         }
 
         public void DeleteSkillItem(SkillItem t)
         {
-            _skillItemRepo.Delete(t);
+            _skillItemRepo.Remove(t);
+            _unitOfWork.Complete();
         }
 
         #endregion

@@ -1,9 +1,15 @@
+
 export class Expense {
     id: number;
     name: string;
     description: string;
-    value: number;
+    amount: number;
     date: string;
+    notifications: string;
+    isDebit: boolean;
+    code: string;
+    transactionType: string;
+    expenseTags: string;
     expenseAccount: ExpenseAccount;
     expenseCategory: ExpenseCategory;
 }
@@ -13,8 +19,9 @@ export class ExpenseAccount {
     description: string;
 }
 
-export class ExpenseCategory{
+export class ExpenseCategory {
     name: string;
     description: string;
     color: string;
 }
+

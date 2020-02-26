@@ -20,7 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Mappings\Expenses\ExpenseExpenseTagMap.cs" />
     <Compile Include="Mappings\Expenses\ExpenseMap.cs" />
+    <Compile Include="Mappings\Expenses\ExpenseTagMap.cs" />
   </ItemGroup>
 
   <ItemGroup>

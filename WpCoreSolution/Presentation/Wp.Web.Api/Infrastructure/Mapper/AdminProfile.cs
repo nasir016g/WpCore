@@ -20,9 +20,13 @@ namespace Wp.Web.Api.Infrastructure
             CreateMap<Tenant, TenantModel>()
                 .ReverseMap();
 
-            CreateMap<Expense, ExpenseModel>().ReverseMap();
+            CreateMap<Expense, ExpenseModel>()
+                .ReverseMap()
+                .ForMember(dest => dest.ExpenseAccount, options => options.Ignore());
             CreateMap<ExpenseAccount, ExpenseAccountModel>().ReverseMap();
             CreateMap<ExpenseCategory, ExpenseCategoryModel>().ReverseMap();
+            CreateMap<ExpenseTag, ExpenseTagModel>().ReverseMap();
+               
 
         }
 

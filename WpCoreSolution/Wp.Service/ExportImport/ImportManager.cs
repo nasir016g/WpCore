@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Wp.Core.Domain.Career;
 using Wp.Core.Security;
+using Wp.Service.Security;
 using Wp.Services.Career;
 using Wp.Services.Localization;
-using Wp.Services.Security.Identities;
 
 namespace Wp.Services.ExportImport
 {
@@ -18,25 +19,28 @@ namespace Wp.Services.ExportImport
         private readonly IEducationService _educationService;
         private readonly ISkillService _skillService;
         private readonly IExperienceService _workExperienceService;
+        private readonly IImportExcelService _importExpenseExcelService;
         private readonly ILanguageService _languageService;
-        private readonly IIdentityService _identityService;
+        //private readonly IIdentityService _identityService;
         private readonly ILocalizedEntityService _localizedEntityService;
 
         public ImportManager(IResumeService resService,
             IEducationService educationService,
             ISkillService skillService,
             IExperienceService werkExperienceService,
+            IImportExcelService importExpenseExcelService,
             ILanguageService languageService,
-            IIdentityService identityService,
+            //IIdentityService identityService,
             ILocalizedEntityService localizedEntityService)
         {
-            this._resService = resService;
-            this._educationService = educationService;
-            this._skillService = skillService;
-            this._workExperienceService = werkExperienceService;
-            this._languageService = languageService;
-            this._identityService = identityService;
-            this._localizedEntityService = localizedEntityService;
+            _resService = resService;
+            _educationService = educationService;
+            _skillService = skillService;
+            _workExperienceService = werkExperienceService;
+            _importExpenseExcelService = importExpenseExcelService;
+            _languageService = languageService;
+            //_identityService = identityService;
+            _localizedEntityService = localizedEntityService;
         }
 
         private string GetValue(XElement xElement)
@@ -60,23 +64,6 @@ namespace Wp.Services.ExportImport
 
             return value;
         }
-
-        //private string GetValue(XElement xElement)
-        //{
-        //    string value;
-
-        //    if (xElement == null)
-        //    {
-        //        return string.Empty;
-        //    }
-
-        //    if (xElement.HasElements)
-        //        value = xElement.Element("Standard").Value;
-        //    else
-        //        value = xElement.Value;
-
-        //    return value;
-        //}       
 
         #region Import Educations
 
@@ -425,6 +412,11 @@ namespace Wp.Services.ExportImport
             ImportExperience(_xDoc.Descendants("Experience"), resume);
 
             return resume;
+        }
+
+        public void ImportExpensesFromXlsx(Stream stream)
+        {
+            _importExpenseExcelService.ImportExpensesFromXlsx(stream);
         }
     }
 }

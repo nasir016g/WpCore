@@ -24,10 +24,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() { 
     this.tenantName = localStorage.getItem('tenantName');
     this.tenantService.getAll().subscribe(
-      data => this.tenants = data,      
-      err => {
-        this.alertService.danger(err);
-      }
+      rez => this.tenants = rez,      
+      err => { this.alertService.danger(err); }
     );
   }
 

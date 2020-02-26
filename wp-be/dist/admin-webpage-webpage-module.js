@@ -64,6 +64,17 @@ var WebPageDetailComponent = /** @class */ (function () {
         }
         this.buildForm(this.formBuilder);
     }
+    WebPageDetailComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        if (this.model.id > 0) {
+            // edit
+            this.pageService.getPageById(this.model.id)
+                .subscribe(function (resp) {
+                _this.model = resp;
+                _this.buildForm(_this.formBuilder);
+            }, function (error) { return _this.alertService.danger(error); });
+        }
+    };
     WebPageDetailComponent.prototype.buildForm = function (formBuilder) {
         this.form = formBuilder.group({
             id: this.model.id,
@@ -76,17 +87,6 @@ var WebPageDetailComponent = /** @class */ (function () {
             metaDescription: [this.model.metaDescription],
             metaKeywords: [this.model.metaKeywords]
         });
-    };
-    WebPageDetailComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        if (this.model.id > 0) {
-            // edit
-            this.pageService.getPageById(this.model.id)
-                .subscribe(function (resp) {
-                _this.model = resp;
-                _this.buildForm(_this.formBuilder);
-            }, function (error) { return _this.alertService.danger(error); });
-        }
     };
     WebPageDetailComponent.prototype.cancel = function () {
         this.router.navigate(['admin/webpage/list']);
