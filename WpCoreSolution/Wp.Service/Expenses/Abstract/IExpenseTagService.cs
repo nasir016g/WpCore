@@ -11,7 +11,6 @@ namespace Wp.Services.Expenses
         IList<ExpenseTag> GetAllExpenseTagsByExpenseId(int expenseId);
 
         ExpenseTag GetExpenseTagByName(string name);
-        string[] ParseExpenseTags(string productTags);
         void UpdateExpenseTags(Expense expense, string[] expenseTags);
     }
 }

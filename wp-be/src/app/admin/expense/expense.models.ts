@@ -4,11 +4,7 @@ export class Expense {
     name: string;
     description: string;
     amount: number;
-    date: string;
-    notifications: string;
-    isDebit: boolean;
-    code: string;
-    transactionType: string;
+    date: string;    
     expenseTags: string;
     expenseAccount: ExpenseAccount;
     expenseCategory: ExpenseCategory;
@@ -23,5 +19,22 @@ export class ExpenseCategory {
     name: string;
     description: string;
     color: string;
+}
+
+export class ExpenseTag {
+    id: number;
+    name: string;
+}
+
+export class ExpenseSearchModel {
+    id: number;
+    name: string;
+    description: string;
+    amount: number;
+    dateFrom: string; 
+    dateTo: string;      
+    expenseTags: string;
+    expenseAccount: ExpenseAccount;
+    expenseCategory: ExpenseCategory;
 }
 

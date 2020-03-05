@@ -32,6 +32,8 @@ namespace Wp.Services.Expenses
             return expenseTags;
         }
 
+        
+
         public ExpenseTag GetExpenseTagByName(string name)
         {
             return _ExpenseTagRepository.Table.FirstOrDefault(x => x.Name == name);
@@ -90,20 +92,6 @@ namespace Wp.Services.Expenses
                     _expenseService.Update(expense);
                 }
             }
-        }
-
-        public string[] ParseExpenseTags(string expenseTags)
-        {
-            var result = new List<string>();
-            if (string.IsNullOrWhiteSpace(expenseTags))
-                return result.ToArray();
-
-            var values = expenseTags.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var val in values)
-                if (!string.IsNullOrEmpty(val.Trim()))
-                    result.Add(val.Trim());
-
-            return result.ToArray();
-        }
+        }       
     }
 }

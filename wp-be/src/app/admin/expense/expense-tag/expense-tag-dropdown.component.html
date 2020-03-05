@@ -1,0 +1,11 @@
+<div class="form-group row" [formGroup]="parentForm">
+  <label  class="col-md-2 col-form-label">Tags</label>
+  <div class="col-md-8">
+    <angular2-multiselect [data]="tags" [settings]="dropdownSettings"
+      (onSelect)="onItemSelect($event)" 
+      (onDeSelect)="OnItemDeSelect($event)" 
+      (onSelectAll)="onSelectAll($event)"
+      (onDeSelectAll)="onDeSelectAll($event)"
+      formControlName="expenseTags"></angular2-multiselect>
+  </div>
+</div>

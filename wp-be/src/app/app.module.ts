@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AlertModule } from 'ngx-alerts';
 import { AppComponent } from './app.component';
@@ -9,7 +9,6 @@ import { AppRouting } from './app.routing';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TenantInterceptor } from './shared/interceptors/tenant.interceptor';
-import { ModalModule, CollapseModule } from 'ngx-bootstrap';
 import { AuthorizationInterceptor } from './shared/interceptors/authorization.interceptor';
 import { AccountModule } from './account/account.module';
 
@@ -17,12 +16,9 @@ import { AccountModule } from './account/account.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,    
     AppRouting,
     AccountModule,
     AlertModule.forRoot({ maxMessages: 5, timeout: 5000 }),
-    ModalModule.forRoot(),
-    CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
   ],
   declarations: [

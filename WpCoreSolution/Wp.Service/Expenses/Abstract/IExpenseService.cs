@@ -1,11 +1,14 @@
-﻿using Wp.Core;
+﻿using System;
+using Wp.Core;
 using Wp.Core.Domain.Expenses;
+using Wp.Services.Models;
 
 namespace Wp.Services.Expenses
 {
     public interface IExpenseService : IEntityService<Expense>
     {
-        Expense GetByNotifications(string notifications);
+        IPagedList<Expense> GetAll(ExpenseSearchModel searchModel);
+        Expense GetByDescription(string description, DateTime dateTime);
         bool ExpenseTagExists(Expense expense, int expenseTagId);
     }
 }

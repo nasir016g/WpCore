@@ -1,19 +1,25 @@
 import { NgModule } from '@angular/core';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { ControlMessagesComponent } from './components/control-messages.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { TabsModule, TooltipModule } from 'ngx-bootstrap';
+import { TabsModule, TooltipModule, CollapseModule, ModalModule } from 'ngx-bootstrap';
 import { ConfirmModalComponent } from './components/modals/confirm-modal.component';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @NgModule({
     imports: [
         CommonModule,
+        HttpClientModule,
+        AngularMultiSelectModule,
         TabsModule.forRoot(),  // must include here (admin)],
         TooltipModule.forRoot(), // must include here (admin)
+        CollapseModule.forRoot(),
+        ModalModule.forRoot(),
     ],
     declarations: [
         ControlMessagesComponent, 
-        ConfirmModalComponent
+        ConfirmModalComponent, 
     ],
     entryComponents: [
         ConfirmModalComponent
@@ -21,10 +27,14 @@ import { ConfirmModalComponent } from './components/modals/confirm-modal.compone
     exports: [
         CommonModule,
         FormsModule,
+        HttpClientModule,
+        AngularMultiSelectModule,
         ReactiveFormsModule,
         ControlMessagesComponent,
         TabsModule,
         TooltipModule,
+        CollapseModule,
+        ModalModule
     ]
 })
 export class SharedModule { }

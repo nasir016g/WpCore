@@ -197,9 +197,7 @@ var LoginComponent = /** @class */ (function () {
     LoginComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.tenantName = localStorage.getItem('tenantName');
-        this.tenantService.getAll().subscribe(function (data) { return _this.tenants = data; }, function (err) {
-            _this.alertService.danger(err);
-        });
+        this.tenantService.getAll().subscribe(function (rez) { return _this.tenants = rez; }, function (err) { _this.alertService.danger(err); });
     };
     LoginComponent.prototype.loginUser = function () {
         var _this = this;
@@ -355,7 +353,7 @@ var WebpageService = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\r\n  <h1>\r\n    <!-- To show this line of text remove fixed-top from nav component -->\r\n    Welcome to {{title}}!\r\n  </h1>\r\n\r\n  <ngx-alerts></ngx-alerts>\r\n  <app-nav></app-nav>\r\n  <div class=\"container\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n  <nav class=\"navbar fixed-bottom navbar-expand navbar-light bg-light\">\r\n    <div class=\"navbar-text m-auto\">\r\n      Made by Nasir\r\n    </div>\r\n  </nav>\r\n</div>"
+module.exports = "<div style=\"text-align:center\">\r\n  <h1>\r\n    <!-- To show this line of text remove fixed-top from nav component -->\r\n    Welcome to {{title}}!\r\n  </h1>\r\n\r\n  <ngx-alerts></ngx-alerts>\r\n  <app-nav></app-nav>\r\n  <div class=\"container\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n \r\n\r\n  <!-- Footer -->\r\n<footer class=\"page-footer font-small blue bg-light\">\r\n\r\n  <!-- Copyright -->\r\n  <div class=\"footer-copyright text-center py-3\">Made by Nasir\r\n  </div>\r\n  <!-- Copyright -->\r\n\r\n</footer>\r\n<!-- Footer -->\r\n</div>"
 
 /***/ }),
 
@@ -412,10 +410,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_interceptors_error_interceptor__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./shared/interceptors/error.interceptor */ "./src/app/shared/interceptors/error.interceptor.ts");
 /* harmony import */ var ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-bootstrap/dropdown */ "./node_modules/ngx-bootstrap/dropdown/fesm5/ngx-bootstrap-dropdown.js");
 /* harmony import */ var _shared_interceptors_tenant_interceptor__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./shared/interceptors/tenant.interceptor */ "./src/app/shared/interceptors/tenant.interceptor.ts");
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _shared_interceptors_authorization_interceptor__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./shared/interceptors/authorization.interceptor */ "./src/app/shared/interceptors/authorization.interceptor.ts");
-/* harmony import */ var _account_account_module__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./account/account.module */ "./src/app/account/account.module.ts");
-
+/* harmony import */ var _shared_interceptors_authorization_interceptor__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./shared/interceptors/authorization.interceptor */ "./src/app/shared/interceptors/authorization.interceptor.ts");
+/* harmony import */ var _account_account_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./account/account.module */ "./src/app/account/account.module.ts");
 
 
 
@@ -438,12 +434,9 @@ var AppModule = /** @class */ (function () {
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__["BrowserAnimationsModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
                 _app_routing__WEBPACK_IMPORTED_MODULE_8__["AppRouting"],
-                _account_account_module__WEBPACK_IMPORTED_MODULE_14__["AccountModule"],
+                _account_account_module__WEBPACK_IMPORTED_MODULE_13__["AccountModule"],
                 ngx_alerts__WEBPACK_IMPORTED_MODULE_5__["AlertModule"].forRoot({ maxMessages: 5, timeout: 5000 }),
-                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_12__["ModalModule"].forRoot(),
-                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_12__["CollapseModule"].forRoot(),
                 ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_10__["BsDropdownModule"].forRoot(),
             ],
             declarations: [
@@ -453,7 +446,7 @@ var AppModule = /** @class */ (function () {
             providers: [
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"], useClass: _shared_interceptors_error_interceptor__WEBPACK_IMPORTED_MODULE_9__["ErrorInterceptor"], multi: true, },
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"], useClass: _shared_interceptors_tenant_interceptor__WEBPACK_IMPORTED_MODULE_11__["TenantInterceptor"], multi: true, },
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"], useClass: _shared_interceptors_authorization_interceptor__WEBPACK_IMPORTED_MODULE_13__["AuthorizationInterceptor"], multi: true, }
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"], useClass: _shared_interceptors_authorization_interceptor__WEBPACK_IMPORTED_MODULE_12__["AuthorizationInterceptor"], multi: true, }
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
         })
@@ -948,11 +941,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedModule", function() { return SharedModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _components_control_messages_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/control-messages.component */ "./src/app/shared/components/control-messages.component.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/modals/confirm-modal.component */ "./src/app/shared/components/modals/confirm-modal.component.ts");
+/* harmony import */ var angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! angular2-multiselect-dropdown */ "./node_modules/angular2-multiselect-dropdown/fesm5/angular2-multiselect-dropdown.js");
+/* harmony import */ var _components_control_messages_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/control-messages.component */ "./src/app/shared/components/control-messages.component.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/modals/confirm-modal.component */ "./src/app/shared/components/modals/confirm-modal.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
 
 
 
@@ -966,24 +963,32 @@ var SharedModule = /** @class */ (function () {
     SharedModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [
-                _angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"],
-                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["TabsModule"].forRoot(),
-                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["TooltipModule"].forRoot(),
+                _angular_common__WEBPACK_IMPORTED_MODULE_4__["CommonModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClientModule"],
+                angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_2__["AngularMultiSelectModule"],
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["TabsModule"].forRoot(),
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["TooltipModule"].forRoot(),
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["CollapseModule"].forRoot(),
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["ModalModule"].forRoot(),
             ],
             declarations: [
-                _components_control_messages_component__WEBPACK_IMPORTED_MODULE_2__["ControlMessagesComponent"],
-                _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmModalComponent"]
+                _components_control_messages_component__WEBPACK_IMPORTED_MODULE_3__["ControlMessagesComponent"],
+                _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_7__["ConfirmModalComponent"]
             ],
             entryComponents: [
-                _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmModalComponent"]
+                _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_7__["ConfirmModalComponent"]
             ],
             exports: [
-                _angular_common__WEBPACK_IMPORTED_MODULE_3__["CommonModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
-                _components_control_messages_component__WEBPACK_IMPORTED_MODULE_2__["ControlMessagesComponent"],
-                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["TabsModule"],
-                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["TooltipModule"],
+                _angular_common__WEBPACK_IMPORTED_MODULE_4__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClientModule"],
+                angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_2__["AngularMultiSelectModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"],
+                _components_control_messages_component__WEBPACK_IMPORTED_MODULE_3__["ControlMessagesComponent"],
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["TabsModule"],
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["TooltipModule"],
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["CollapseModule"],
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["ModalModule"]
             ]
         })
     ], SharedModule);

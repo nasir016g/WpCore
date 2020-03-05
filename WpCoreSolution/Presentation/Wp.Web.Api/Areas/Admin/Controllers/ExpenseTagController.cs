@@ -10,7 +10,7 @@ using Wp.Web.Api.Models.Admin;
 
 namespace Wp.Web.Api.Areas.Admin.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/admin/[controller]")]
     [ApiController]
     public class ExpenseTagController : ControllerBase
     {
@@ -20,6 +20,9 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
         {
             _expenseTagService = expenseTagService;
         }
+
+
+
         // GET: api/ExpenseTag
         [HttpGet]
         public ObjectResult Get()

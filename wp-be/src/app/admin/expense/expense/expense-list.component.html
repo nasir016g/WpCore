@@ -1,48 +1,131 @@
-<div class="row" style="margin-bottom:15px;">
-  <div class="col-md-3">
-    <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
-    <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+<div class="row">
+  <div class="col-md-12">
+    <div class="row" style="margin-bottom:15px;">
+      <div class="col-md-12 text-right">
+        <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+        <button type="button" class="btn btn-success" (click)="file.click()">Upload File</button>
+      </div>
+    </div>
+
+    <div class="card card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div style="word-spacing:1em; font-weight: bold; font-size: 20px;" (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">
+            <i class="float-left fa fa-search"> Search</i>
+            <i class="float-right fa" [ngClass]="{'fa-angle-down': isCollapsed, 'fa-angle-up': !isCollapsed}"></i>
+          </div>
+        </div>
+      </div>
+
+      <div id="collapseBasic" [collapse]="isCollapsed" class="collapse" class="row">
+        <form [formGroup]="searchForm" novalidate (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row ">
+                <label for="name" class="col-md-4 col-form-label">Expense name</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" formControlName="name" id="name">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="description" class="col-md-4 col-form-label">Description</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" formControlName="description">
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-6">
+              <app-expense-tag-dropdown [parentForm]="searchForm"></app-expense-tag-dropdown>
+              <app-expense-category-dropdown [parentForm]="searchForm" [single]="false"></app-expense-category-dropdown>
+            </div>
+          </div>
+        
+          <!-- 
+  <div class="form-group row">
+    <label for="amount" class="col-md-2 col-form-label">Amount</label>
+    <div class="col-md-2">
+      <input type="number" class="form-control" formControlName="amount">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="date" class="col-md-2 col-form-label">Date</label>
+    <div class="col-md-4 pt-3">
+      <input type="checkbox" class="float-left" formControlName="date">
+    </div>
+  </div> 
+
+  <div class="form-group row">
+    <label class="col-md-2 col-form-label">Tags</label>
+    <div class="col-md-8">
+      <angular2-multiselect [data]="tags" [(ngModel)]="selectedTags" [settings]="dropdownSettings"
+        (onSelect)="onItemSelect($event)" 
+        (onDeSelect)="OnItemDeSelect($event)" 
+        (onSelectAll)="onSelectAll($event)"
+        (onDeSelectAll)="onDeSelectAll($event)"
+        formControlName="expenseTags"></angular2-multiselect>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="expenseAccount" class="col-md-2 col-form-label">Account</label>
+    <div *ngIf="model.expenseAccount" class="col-md-8">
+      <select class="form-control" (change)="onChangeExpenseAccount($event.target.value)">
+        <option *ngFor="let account of expenseAccounts" [selected]="model.expenseAccount.name == account.name"
+          value={{account.name}}>{{account.name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="expenseCategory" class="col-md-2 col-form-label">Category</label>
+    <div *ngIf="model.expenseCategory" class="col-md-8">
+      <select class="form-control" (change)="onChangeExpenseCategory($event.target.value)">
+        <option *ngFor="let category of expenseCategories" [selected]="model.expenseCategory.name == category.name"
+          value={{category.name}}>{{category.name}}</option>
+      </select>
+    </div>
+  </div>   -->
+
+          <div class="form-group row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6  text-left">
+              <button type="submit" class="btn btn-primary"><i class="float-left fa fa-search"> Search</i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <table class="table table-sm table-bordered" style="table-layout: fixed;">
+      <thead>
+        <tr class="d-flex">
+          <th class="col-1">ID</th>
+          <th class="col-2">Name</th>
+          <th class="col-1">Amount</th>
+          <th class="col-1">Date</th>
+          <th class="col-4">Description</th>
+          <th class="col-1">Account</th>
+          <th class="col-1">Category</th>
+          <th class="col-1"> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let exp of expenses" class="d-flex">
+          <td class="col-1">{{exp.id}}</td>
+          <td class="col-2">{{exp.name}}</td>
+          <td class="col-1">{{exp.amount}}€</td>
+          <td class="col-1">{{exp.date}}</td>
+          <td class="col-4 text-left" style="word-wrap:break-word;">{{exp.description}}</td>
+          <td class="col-1">{{exp.expenseAccount.name}}</td>
+          <td class="col-1">{{exp.expenseCategory.name}}</td>
+          <td class="col-1">
+            <a [routerLink]="['/admin/expense/edit', exp.id]"> <i class="fa fa-edit pointer"></i></a>
+            <i class="fa fa-trash pointer" (click)="delete(exp)" title="Delete"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
-
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Amount</th>
-      <th>Date</th>
-      <th>Notifications</th>
-      <th>Is Debit</th>
-      <th>Code</th>
-      <th>TransactionType</th>
-      <!-- <th>Account</th>
-      <th>Category</th> -->
-      <th></th>
-      <!-- <th>  <button class="btn btn-success btn-circle" 
-        [routerLink]="['/admin/expense/add']"          
-              title="Add New Expense">
-              <i class="fa fa-plus"></i> 
-      </button> </th> -->
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let exp of expenses">
-      <td>{{exp.id}}</td>
-      <td>{{exp.name}}</td>
-      <td>{{exp.amount}}</td>
-      <td>{{exp.date}}</td>
-      <td>{{exp.notifications}}</td>
-      <td>{{exp.isDebit}}</td>
-      <td>{{exp.code}}</td>
-      <td>{{exp.transactionType}}</td>
-      <!-- <td>{{exp.expenseAccount.name}}</td>
-      <td>{{exp.expenseCategory.name}}</td> -->
-      <td style="width: 70px;">               
-        <a [routerLink]="['/admin/expense/edit', exp.id]"> <i class="fa fa-edit pointer"></i></a>                  
-       <i class="fa fa-trash pointer"    
-         (click)="delete(exp)" title="Delete"></i>
- </td>
-    </tr>
-  </tbody>
-</table>

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 using Wp.Services.Expenses;
 using Wp.Services.ExportImport;
+using Wp.Services.Models;
 using Wp.Web.Api.Extensions.Mapper;
+using Wp.Web.Api.Models;
 using Wp.Web.Api.Models.Admin;
 
 namespace Wp.Web.Api.Areas.Admin.Controllers
@@ -44,8 +44,24 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
         public IActionResult Get()
         {
             var entities = _expenseService.GetAll();
-            var models = entities.ToModels();
+            var models = entities.ToModels();            
             return Ok(models);
+        }
+
+
+
+        [HttpPost("search")]
+        public IActionResult Search([FromBody]ExpenseSearchModel searchModel)
+        {
+            var pagedList = _expenseService.GetAll(searchModel);
+
+            var searchResultModel = new SearchResultModel<ExpenseModel>()
+            {
+                Data = pagedList.ToModels(),
+                TotalRecords = pagedList.TotalRecords
+            };
+
+            return Ok(searchResultModel);
         }
 
         // GET: api/Expense/5
@@ -85,11 +101,15 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
             entity = model.ToEntity(entity);
 
             var expenseAccount = _expenseAccountService.GetByName(model.ExpenseAccount.Name);
-
             entity.ExpenseAccount = expenseAccount;
             entity.ExpenseAccountId = expenseAccount.Id;
+
+            var expenseCategory = _expenseCategoryService.GetByName(model.ExpenseCategory.Name);
+            entity.ExpenseCategory = expenseCategory;
+            entity.ExpenseCategoryId = expenseCategory.Id;
+
             _expenseService.Update(entity);
-            _expenseTagService.UpdateExpenseTags(entity, _expenseTagService.ParseExpenseTags(model.ExpenseTags));
+            _expenseTagService.UpdateExpenseTags(entity, model.ExpenseTags.ParseExpenseTags());
             return NoContent();
         }
 

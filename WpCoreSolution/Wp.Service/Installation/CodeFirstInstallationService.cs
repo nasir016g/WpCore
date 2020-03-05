@@ -57,18 +57,18 @@ namespace Wp.Services.Installation
 
         #region Ctor
 
-        public CodeFirstInstallationService(IUnitOfWork unitOfWork,            
-            ISettingService settingService,  
+        public CodeFirstInstallationService(IUnitOfWork unitOfWork,
+            ISettingService settingService,
             IExpenseService expenseService,
             IExpenseCategoryService expenseCategoryService,
             IExpenseAccountService expenseAccountService,
-            IBaseRepository<WebPage> webPageRepo, 
-            IBaseRepository<WebPageRole> webPageRoleRepo, 
-            IBaseRepository<UrlRecord> urlRecordRepo, 
-            IBaseRepository<Language> languageRepo, 
+            IBaseRepository<WebPage> webPageRepo,
+            IBaseRepository<WebPageRole> webPageRoleRepo,
+            IBaseRepository<UrlRecord> urlRecordRepo,
+            IBaseRepository<Language> languageRepo,
             IBaseRepository<Section> sectionRepo,
-            UserManager<ApplicationUser> userManager, 
-            RoleManager<IdentityRole> roleManager, 
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             IHostingEnvironment hostingEnvironment,
             ITenantService tenantService,
             IClaimProvider claimProvider)
@@ -89,7 +89,7 @@ namespace Wp.Services.Installation
 
             _tenantService = tenantService;
             _claimProvider = claimProvider;
-           
+
         }
 
         #endregion
@@ -98,7 +98,7 @@ namespace Wp.Services.Installation
 
         private void InstallWebPages()
         {
-           
+
             var sections = new List<Section>
             {
                 new HtmlContentSection { Html = "test html section" }
@@ -133,14 +133,14 @@ namespace Wp.Services.Installation
 
         private void InstallLanguages()
         {
-            if(_languageRepo.Table.Count() == 0)
-            { 
+            if (_languageRepo.Table.Count() == 0)
+            {
                 var languages = new List<Language>()
                 {
                     new Language { Name = "English", LanguageCulture = "en-Us", UniqueSeoCode = "en", FlagImageFileName = "us.png", Published = true },
                     new Language { Name = "Nederlands", LanguageCulture = "nl-NL", UniqueSeoCode = "nl", FlagImageFileName = "nl.png", Published = true }
                 };
-            
+
                 languages.ForEach(l => _languageRepo.Add(l));
                 //_unitOfWork.Complete();
 
@@ -161,17 +161,17 @@ namespace Wp.Services.Installation
                     var localizationService = ServiceLocator.Instance.GetService<ILocalizationService>();
                     localizationService.ImportResourcesFromXml(language, xmlText);
                 }
-            }           
+            }
         }
 
         private async Task InstallUsersAndRoles()
         {
             // Add Users and Roles
-           
+
             //Create Role Administrators if it does not exist
-           var admin = _roleManager.FindByNameAsync(SystemRoleNames.Administrators);
+            var admin = _roleManager.FindByNameAsync(SystemRoleNames.Administrators);
             if (admin != null)
-               await _roleManager.CreateAsync(new IdentityRole(SystemRoleNames.Administrators));
+                await _roleManager.CreateAsync(new IdentityRole(SystemRoleNames.Administrators));
 
             //Create Role Users if it does not exist
             var fUser = _roleManager.FindByNameAsync(SystemRoleNames.Users);
@@ -187,7 +187,7 @@ namespace Wp.Services.Installation
                 // Add User test to Role Administrators
                 if (userResult.Succeeded)
                 {
-                   await _userManager.AddToRoleAsync(user, SystemRoleNames.Administrators);
+                    await _userManager.AddToRoleAsync(user, SystemRoleNames.Administrators);
                 }
                 else
                 {
@@ -199,34 +199,34 @@ namespace Wp.Services.Installation
             var defaultClaims = _claimProvider.GetDefaultClaims().ToList();
             foreach (var dc in defaultClaims)
             {
-               var role = _roleManager.Roles.FirstOrDefault(x => x.Name == dc.RoleName);
-                if(role == null)
+                var role = _roleManager.Roles.FirstOrDefault(x => x.Name == dc.RoleName);
+                if (role == null)
                 {
-                  await _roleManager.CreateAsync(new IdentityRole(dc.RoleName));
-                  role = _roleManager.Roles.FirstOrDefault(x => x.Name == dc.RoleName);
+                    await _roleManager.CreateAsync(new IdentityRole(dc.RoleName));
+                    role = _roleManager.Roles.FirstOrDefault(x => x.Name == dc.RoleName);
                 }
                 foreach (var cr in dc.ClaimRecords)
                 {
-                   await _roleManager.AddClaimAsync(role, new System.Security.Claims.Claim(cr.ClaimType, cr.ClaimValue));
+                    await _roleManager.AddClaimAsync(role, new System.Security.Claims.Claim(cr.ClaimType, cr.ClaimValue));
                 }
-                
+
             }
         }
 
         private void InstallRolesAtAPage()
         {
-             _unitOfWork.Complete();
-           var firstPage = _webPageRepo.Table.First();
+            _unitOfWork.Complete();
+            var firstPage = _webPageRepo.Table.First();
             var roles = _roleManager.Roles;
 
             List<WebPageRole> wrList = new List<WebPageRole>();
-            foreach(var role in roles)
+            foreach (var role in roles)
             {
                 WebPageRole pr = new WebPageRole();
                 pr.WebPage = firstPage;
                 pr.Name = role.Name;
 
-                wrList.Add(pr);              
+                wrList.Add(pr);
 
             }
             _webPageRoleRepo.AddRange(wrList);
@@ -236,21 +236,21 @@ namespace Wp.Services.Installation
 
         private void InstallSettings()
         {
-            if(_settingService.GetAll().Count() == 0)
-            {            
+            if (_settingService.GetAll().Count() == 0)
+            {
                 _settingService.SaveSetting(new WebsiteSettings()
                 {
-                   WebsiteName = "Default",
-                   Theme = "Grey",
+                    WebsiteName = "Default",
+                    Theme = "Grey",
                 });
 
                 _settingService.SaveSetting(new LocalizationSettings()
-                    {
-                        DefaultAdminLanguageId = _languageRepo.Table.Single(x => x.Name == "English").Id,
-                        UseImagesForLanguageSelection = false,
-                    });
+                {
+                    DefaultAdminLanguageId = _languageRepo.Table.Single(x => x.Name == "English").Id,
+                    UseImagesForLanguageSelection = false,
+                });
             }
-        }      
+        }
 
         #endregion
 
@@ -277,16 +277,22 @@ namespace Wp.Services.Installation
                 var categories = new List<ExpenseCategory>()
                 {
                     new ExpenseCategory { Name = "ATM", Color = "#4E3475", Description = "ATM" },
-                    new ExpenseCategory { Name = "Bills", Color = "#D11717", Description = "Bills" },
-                    new ExpenseCategory { Name = "Car", Color = "#FFBF00", Description = "Car" },
+                    new ExpenseCategory { Name = "Car", Color = "#FFBF00", Description = "Cars gas, tax and etc." },
                     new ExpenseCategory { Name = "Clothes", Color = "#B45F04", Description = "Clothes" },
+                    new ExpenseCategory { Name = "CreditAccount", Color = "#230180", Description = "CreditAccount" },
                     new ExpenseCategory { Name = "Education", Color = "#8A0808", Description = "Education" },
-                    new ExpenseCategory { Name = "Food", Color = "#03872a", Description = "Food" },
+                    new ExpenseCategory { Name = "Electronics", Color = "#D11717", Description = "Cell phones, computers, tv and etc." },
                     new ExpenseCategory { Name = "Go out", Color = "#5e94ff", Description = "Go out" },
+                    new ExpenseCategory { Name = "Groceries", Color = "#03872a", Description = "Includes super markets, kruidvat and etc." },
+                    new ExpenseCategory { Name = "Health (Insurance)", Color = "#351fff", Description = "Insurance, deductible etc." },
+                    new ExpenseCategory { Name = "Household Goods", Color = "#D11717", Description = "Household Goods" },
                     new ExpenseCategory { Name = "Income", Color = "#2abd42", Description = "Income" },
-                    new ExpenseCategory { Name = "Insurance", Color = "#351fff", Description = "Insurance" },
+                    new ExpenseCategory { Name = "Insurance", Color = "#351fff", Description = "Car, house, legal, insurances" },
+                    new ExpenseCategory { Name = "Martgage", Color = "#D11717", Description = "Mortgage" },
+                    new ExpenseCategory { Name = "Public Transport", Color = "#FFBF00", Description = "Public Transport" },
                     new ExpenseCategory { Name = "Sports", Color = "#8da246", Description = "Sports" },
                     new ExpenseCategory { Name = "Travel", Color = "#230180", Description = "Travel" },
+                    new ExpenseCategory { Name = "Utilities", Color = "#D11717", Description = "Includes gas, electricity, water, cellphone, internet and tv, netflix, spotify and etc." },
                     new ExpenseCategory { Name = "Others", Color = "#8ef9d9", Description = "Others" }
                   };
 
@@ -298,7 +304,8 @@ namespace Wp.Services.Installation
             {
                 var accounts = new List<ExpenseAccount>()
                 {
-                    new ExpenseAccount { Name = "Bank (Nasir private)", Account = "NL13INGB0007076421" },
+                    new ExpenseAccount { Name = "Bank (Nasir Ing private)", Account = "NL13INGB0007076421" },
+                     new ExpenseAccount { Name = "Bank (Nasir Abn amro private)", Account = "410656062" },
                     new ExpenseAccount { Name = "Bank (Zarghona private)" },
                 };
 

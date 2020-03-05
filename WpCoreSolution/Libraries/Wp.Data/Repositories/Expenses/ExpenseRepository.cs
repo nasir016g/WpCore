@@ -18,20 +18,21 @@ namespace Wp.Data.Repositories
         {
             var query = Context.Set<Expense>()
                     .Include(x => x.ExpenseAccount)
-                    .Include(x => x.ExpenseCategory);
+                    .Include(x => x.ExpenseCategory)
+                    .Include(x => x.ExpenseExpenseTagMappings);
             return query.FirstOrDefault(x => x.Id == id);
         }
 
-        //public override IQueryable<Expense> Table
-        //{
-        //    get
-        //    {
-        //        var query = Context.Set<Expense>()
-        //            .Include(x => x.ExpenseAccount)
-        //            .Include(x => x.ExpenseCategory);
-        //        return query;
-        //    }
-        //}
+        public override IQueryable<Expense> Table
+        {
+            get
+            {
+                var query = Context.Set<Expense>()
+                    .Include(x => x.ExpenseAccount)
+                    .Include(x => x.ExpenseCategory);
+                return query;
+            }
+        }
 
         public WpDbContext ApplicationContext
         {

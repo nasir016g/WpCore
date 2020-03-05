@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ServiceBase } from '../../../shared/services/serviceBase';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { Expense } from '../expense.models';
+import { Expense, ExpenseSearchModel } from '../expense.models';
 import { Observable } from 'rxjs';
 import { BaseModel } from '../../webpage/webpage.model';
 
@@ -18,6 +18,13 @@ export class ExpenseService extends ServiceBase {
   getAll() {
     return this.http.get<Expense[]>(this.url)
       .pipe(catchError(this.errorHandler));
+  }
+
+  search(searchModel: ExpenseSearchModel) {
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.http.post<any>(this.url + "search/", JSON.stringify(searchModel), {
+      headers: headers,
+    }).pipe(catchError(this.errorHandler))  
   }
 
   uploadFile(fileToUpload: File) {

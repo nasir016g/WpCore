@@ -11,11 +11,6 @@ namespace Wp.Core.Domain.Expenses
         public string Description { get; set; }
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
-        public string Notifications { get; set; }
-        public bool IsDebit { get; set; }
-        public string Code { get; set; }
-        public string TransactionType { get; set; }
-
         public int ExpenseCategoryId { get; set; }
         public virtual ExpenseCategory ExpenseCategory { get; set; }
 

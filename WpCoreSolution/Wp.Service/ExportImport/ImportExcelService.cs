@@ -7,6 +7,7 @@ using System.Text;
 using Wp.Core.Domain.Expenses;
 using Wp.Services.Expenses;
 using Wp.Services.ExportImport.Help;
+using Wp.Core.Common;
 
 namespace Wp.Services.ExportImport
 {
@@ -15,12 +16,121 @@ namespace Wp.Services.ExportImport
         private readonly IExpenseService _expenseService;
         private readonly IExpenseAccountService _expenseAccountService;
         private readonly IExpenseCategoryService _expenseCategoryService;
+        private readonly IExpenseTagService _expenseTagService;
 
-        public ImportExcelService(IExpenseService expenseService, IExpenseAccountService expenseAccountService, IExpenseCategoryService expenseCategoryService)
+        public ImportExcelService(IExpenseService expenseService, IExpenseAccountService expenseAccountService, IExpenseCategoryService expenseCategoryService, IExpenseTagService expenseTagService)
         {
             _expenseService = expenseService;
             _expenseAccountService = expenseAccountService;
             _expenseCategoryService = expenseCategoryService;
+            _expenseTagService = expenseTagService;
+        }
+
+        private ExpenseCategory GetExpenseCategoryByName(string name = "")
+        {
+            //Household goods wikipedia
+            ExpenseCategory expenseCategory = _expenseCategoryService.GetAll().First(x => x.Name == "Others");
+
+            if (name == null)
+                return expenseCategory;
+
+            if (name.Contains("SHELL", StringComparison.InvariantCultureIgnoreCase)
+                || name.Contains("37-RDJ-5", StringComparison.InvariantCultureIgnoreCase)
+                || name.Contains("16-SJD-2", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Car");
+            }
+            else if (name.Contains("Zalando", StringComparison.InvariantCultureIgnoreCase)
+               || name.Contains("PRIMARK", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Clothes");
+            }
+            else if (name.Contains("ICS-klantnummer 68037960017", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "CreditAccount");
+            }
+            else if (name.Contains("ALBERT")
+                || name.Contains("AH")
+                || name.Contains("Kruidvat", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Groceries");
+            }
+            else if (name.Contains("UNIVE ZORG", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Health (Insurance)");
+            }
+            else if (name.Contains("Intratuin", StringComparison.InvariantCultureIgnoreCase)
+               || name.Contains("Coolblue", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Household Goods");
+            }
+            else if (name.Contains("UNIVE", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Insurance");
+            }
+            else if (name.Contains("UNIVE", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Insurance");
+            }
+            else if (name.Contains("ov", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Public Transport");
+            }
+            else if (name.Contains("BEN NEDERLAND", StringComparison.InvariantCultureIgnoreCase)
+                || name.Contains("ESSENT", StringComparison.InvariantCultureIgnoreCase)
+                || name.Contains("VITENS", StringComparison.InvariantCultureIgnoreCase)
+                || name.Contains("NETFLIX", StringComparison.InvariantCultureIgnoreCase)
+                || name.Contains("Telfort Thuis", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Utilities");
+            }           
+
+            return expenseCategory;
+        }
+
+        private string[] GetExpenseTagsByName(string name)
+        {
+            var result = new List<string>();
+            if (name.Contains("BEN NEDERLAND", StringComparison.InvariantCultureIgnoreCase))
+            {
+                result.Add("cell-phone");
+            }
+            else if (name.Contains("SHELL", StringComparison.InvariantCultureIgnoreCase))
+            {
+                result.Add("car-gas");
+            }
+            else if (name.Contains("ESSENT", StringComparison.InvariantCultureIgnoreCase))
+            {
+                result.Add("gas-electricity");
+            }
+            else if (name.Contains("VITENS", StringComparison.InvariantCultureIgnoreCase))
+            {
+                result.Add("water");
+            }
+            else if (name.Contains("37-RDJ-5", StringComparison.InvariantCultureIgnoreCase)
+                || name.Contains("16-SJD-2", StringComparison.InvariantCultureIgnoreCase))
+            {
+                result.Add("tax");
+            }
+            else if (name.Contains("BasisPakket", StringComparison.InvariantCultureIgnoreCase)
+                || name.Contains("BetaalGemak", StringComparison.InvariantCultureIgnoreCase))
+            {
+                result.Add("bank-costs");
+            }
+            else if (name.Contains("H Ahmadi", StringComparison.InvariantCultureIgnoreCase))
+            {
+                result.Add("hiela");
+            }
+            else if (name.Contains("S Ahmadi", StringComparison.InvariantCultureIgnoreCase))
+            {
+                result.Add("sweley");
+            }
+            else if (name.Contains("ALBERT") || name.Contains("AH"))
+            {
+                result.Add("albert-heijn");
+            }
+
+            return result.ToArray();
         }
 
         public static IList<PropertyByName<T>> GetPropertiesByExcelCells<T>(ExcelWorksheet worksheet)
@@ -77,7 +187,18 @@ namespace Wp.Services.ExportImport
 
                     manager.ReadFromXlsx(worksheet, iRow);
 
-                    var expense = _expenseService.GetByNotifications(manager.GetProperty("Notifications").StringValue);
+
+
+                    string descriptionName = "Notifications";
+                    string dateName = "Date";
+                    if (!manager.GetProperties.Any(x => x.PropertyName == "Notifications"))
+                    {
+                        descriptionName = "Omschrijving";
+                        dateName = "Transactiedatum";
+                    }
+
+
+                    var expense = _expenseService.GetByDescription(manager.GetProperty(descriptionName).StringValue, manager.GetProperty(dateName).DateTime);
 
                     var isNew = expense == null;
 
@@ -87,40 +208,61 @@ namespace Wp.Services.ExportImport
                     {
                         expense.CreatedOn = DateTime.Now;
                         expense.UpdatedOn = DateTime.Now;
-                        expense.ExpenseCategory = expenseCategory;
+
 
                         foreach (var property in manager.GetProperties)
                         {
                             switch (property.PropertyName)
                             {
-                                case "Date":
+                                case "Date": //ing
+                                case "Transactiedatum": //abn 
                                     expense.Date = property.DateTime;
                                     break;
-                                case "Name / Description":
+                                case "Name / Description": //ing
                                     expense.Name = property.StringValue;
                                     break;
-                                case "Account":
+                                case "Account": //ing
+                                case "Rekeningnummer": //abn 
                                     expense.ExpenseAccount = _expenseAccountService.GetByAccount(property.StringValue);
                                     break;
-                                case "Code":
-                                    expense.Code = property.StringValue;
-                                    break;
-                                case "Debit/credit":
-                                    expense.IsDebit = property.StringValue == "Debit";
-                                    break;
-                                case "Amount (EUR)":
+                                case "Amount (EUR)": //ing                                    
                                     expense.Amount = property.DecimalValueCommaDecimalSeparator;
+                                    if (manager.GetProperty("Debit/credit").StringValue == "Debit")
+                                    {
+                                        expense.Amount *= -1;
+                                    }
                                     break;
-                                case "Transaction type":
-                                    expense.TransactionType = property.StringValue;
+                                case "Transactiebedrag": //abn                                   
+                                    expense.Amount = property.DecimalValue;
                                     break;
-                                case "Notifications":
-                                    expense.Notifications = property.StringValue;
+                                case "Notifications": //ing
+                                    expense.Description = property.StringValue;
+                                    break;
+                                case "Omschrijving": //abn
+                                    expense.Description = property.StringValue;
+                                    if (expense.Description.Contains("Naam:"))
+                                    {
+                                        expense.Name = expense.Description.GetBetween("Naam:", "  ");
+                                    }
+                                    else if (expense.Description.Contains("NAME/"))
+                                    {
+                                        expense.Name = expense.Description.GetBetween("NAME/", "/");
+                                    }
+                                    else
+                                    {
+                                        if (expense.Description.Length > 50)
+                                            expense.Name = expense.Description.Substring(0, 50);
+                                        else
+                                            expense.Name = expense.Description;
+                                    }
                                     break;
                             }
                         }
 
+                        expense.ExpenseCategory = GetExpenseCategoryByName(expense.Name + expense.Description);
+
                         _expenseService.Insert(expense);
+                        _expenseTagService.UpdateExpenseTags(expense, GetExpenseTagsByName(expense.Name + expense.Description));
 
                     }
                     iRow++;
