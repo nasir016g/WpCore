@@ -4,6 +4,7 @@ import { ControlMessagesComponent } from './components/control-messages.componen
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TabsModule, TooltipModule, CollapseModule, ModalModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ConfirmModalComponent } from './components/modals/confirm-modal.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
@@ -16,6 +17,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
         TooltipModule.forRoot(), // must include here (admin)
         CollapseModule.forRoot(),
         ModalModule.forRoot(),
+        BsDatepickerModule.forRoot(),
     ],
     declarations: [
         ControlMessagesComponent, 
@@ -34,7 +36,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
         TabsModule,
         TooltipModule,
         CollapseModule,
-        ModalModule
+        ModalModule,
+        BsDatepickerModule
     ]
 })
 export class SharedModule { }

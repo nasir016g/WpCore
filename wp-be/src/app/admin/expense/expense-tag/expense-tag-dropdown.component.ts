@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ExpenseTagService } from './expense-tag.service';
-import { FormControl, FormGroup } from '@angular/forms';
-import { EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-expense-tag-dropdown',
@@ -40,13 +39,13 @@ export class ExpenseTagDropdownComponent implements OnInit {
   ngOnInit() {
   }
 
-  onItemSelect(item: any) {   
+  onItemSelect() {   
   }
-  OnItemDeSelect(item: any) {    
+  OnItemDeSelect() {    
   }
-  onSelectAll(items: any) {
+  onSelectAll() {
   }
-  onDeSelectAll(items: any) {
+  onDeSelectAll() {
   }
 
 }

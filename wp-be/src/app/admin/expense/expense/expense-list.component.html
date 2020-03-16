@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col-md-12">
     <div class="row" style="margin-bottom:15px;">
@@ -33,15 +34,30 @@
                 <div class="col-md-8">
                   <input type="text" class="form-control" formControlName="description">
                 </div>
-
               </div>
+              <div class="form-group row">
+                <label for="dateFrom" class="col-md-4 col-form-label">From</label>
+                <div class="col-md-8">
+                  <input type="text" placeholder="Date from" class="form-control" bsDatepicker
+                    formControlName="dateFrom">
+                  <!-- <pre *ngIf="searchForm.value.dateFrom" class="code-preview">{{searchForm.value.dateFrom | date}}</pre> -->
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="dateFrom" class="col-md-4 col-form-label">To</label>
+                <div class="col-md-8">
+                  <input type="text" placeholder="Date to" class="form-control" bsDatepicker formControlName="dateTo">
+                </div>
+              </div>
+              
             </div>
             <div class="col-md-6">
               <app-expense-tag-dropdown [parentForm]="searchForm"></app-expense-tag-dropdown>
+              <app-expense-account-dropdown [parentForm]="searchForm" [single]="false"></app-expense-account-dropdown>
               <app-expense-category-dropdown [parentForm]="searchForm" [single]="false"></app-expense-category-dropdown>
             </div>
           </div>
-        
+
           <!-- 
   <div class="form-group row">
     <label for="amount" class="col-md-2 col-form-label">Amount</label>
@@ -92,10 +108,33 @@
           <div class="form-group row">
             <div class="col-md-6"></div>
             <div class="col-md-6  text-left">
-              <button type="submit" class="btn btn-primary"><i class="float-left fa fa-search"> Search</i></button>
+              <div class="btn-toolbar">
+                <div class="btn-group mr-2">
+                  <button type="submit" class="btn btn-primary"><i class="float-left fa fa-search"> Search</i></button>
+                </div>
+                <div class="btn-group mr-2">
+                  <button type="button" class="btn btn-secondary" (click)="onClear()"><i
+                      class="float-left fa fa-eraser">Clear</i></button>
+                </div>
+              </div>
             </div>
           </div>
         </form>
+      </div>
+    </div>
+
+    <div class="row font-weight-bold">
+      <div class="col-md-3 text-left text-success">
+        Income: {{ getSumPositive() | number : '1.2-2'}}
+      </div>
+      <div class="col-md-3 text-left text-danger">
+        Outgoings: {{ getSumNegative() | number : '1.2-2'}}
+      </div>
+      <div class="col-md-4 text-left">
+        Total ( surplus / deficit ): {{ getTotalAmout() | number : '1.2-2'}}
+      </div>
+      <div class="col-md-2 text-right">
+        Results: {{expenses?.length }}
       </div>
     </div>
     <table class="table table-sm table-bordered" style="table-layout: fixed;">
@@ -105,9 +144,10 @@
           <th class="col-2">Name</th>
           <th class="col-1">Amount</th>
           <th class="col-1">Date</th>
-          <th class="col-4">Description</th>
+          <th class="col-3">Description</th>
           <th class="col-1">Account</th>
           <th class="col-1">Category</th>
+          <th class="col-1">Tags</th>
           <th class="col-1"> </th>
         </tr>
       </thead>
@@ -117,9 +157,10 @@
           <td class="col-2">{{exp.name}}</td>
           <td class="col-1">{{exp.amount}}€</td>
           <td class="col-1">{{exp.date}}</td>
-          <td class="col-4 text-left" style="word-wrap:break-word;">{{exp.description}}</td>
+          <td class="col-3 text-left" style="word-wrap:break-word;">{{exp.description}}</td>
           <td class="col-1">{{exp.expenseAccount.name}}</td>
           <td class="col-1">{{exp.expenseCategory.name}}</td>
+          <td class="col-1">{{exp.expenseTags}}</td>
           <td class="col-1">
             <a [routerLink]="['/admin/expense/edit', exp.id]"> <i class="fa fa-edit pointer"></i></a>
             <i class="fa fa-trash pointer" (click)="delete(exp)" title="Delete"></i>

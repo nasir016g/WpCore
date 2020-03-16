@@ -31,10 +31,10 @@ export class ExpenseSearchModel {
     name: string;
     description: string;
     amount: number;
-    dateFrom: string; 
-    dateTo: string;      
-    expenseTags: string;
-    expenseAccount: ExpenseAccount;
-    expenseCategory: ExpenseCategory;
+    dateFrom: Date; 
+    dateTo: Date;      
+    expenseTags: any[] = [];
+    expenseAccounts: any[] = [];
+    expenseCategories: any[] = [];
 }
 

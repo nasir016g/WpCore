@@ -1,15 +1,6 @@
-<!-- <div class="form-group row">
-  <label for="expenseCategory" class="col-md-2 col-form-label">Category</label>
-  <div *ngIf="model.expenseCategory" class="col-md-8">
-    <select class="form-control" (change)="onChangeExpenseCategory($event.target.value)">
-      <option *ngFor="let category of expenseCategories" [selected]="model.expenseCategory.name == category.name"
-        value={{category.name}}>{{category.name}}</option>
-    </select>
-  </div>
-</div>  -->
 
 <div class="form-group row" [formGroup]="parentForm">
-  <label  class="col-md-2 col-form-label">Categories</label>
+  <label  class="col-md-4 col-form-label">Categories</label>
   <div class="col-md-8">
     <angular2-multiselect [data]="categories" [settings]="dropdownSettings"
       (onSelect)="onItemSelect($event)" 

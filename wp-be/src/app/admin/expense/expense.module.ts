@@ -8,9 +8,10 @@ import { ExpenseCategoryComponent } from './expense-category/expense-category.co
 import { ExpenseTagComponent } from './expense-tag/expense-tag.component';
 import { ExpenseTagDropdownComponent } from './expense-tag/expense-tag-dropdown.component';
 import { ExpenseCategoryDropdownComponent } from './expense-category/expense-category-dropdown.component';
+import { ExpenseAccountDropdownComponent } from './expense-account/expense-account-dropdown.component';
 
 @NgModule({
-  declarations: [ExpenseListComponent, ExpenseDetailComponent, ExpenseAccountComponent, ExpenseCategoryComponent, ExpenseTagComponent, ExpenseTagDropdownComponent, ExpenseCategoryDropdownComponent],
+  declarations: [ExpenseListComponent, ExpenseDetailComponent, ExpenseAccountComponent, ExpenseCategoryComponent, ExpenseTagComponent, ExpenseTagDropdownComponent, ExpenseCategoryDropdownComponent, ExpenseAccountDropdownComponent],
   imports: [
     SharedModule,
     ExpenseRoutingModule

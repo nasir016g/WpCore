@@ -44,20 +44,23 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
         public IActionResult Get()
         {
             var entities = _expenseService.GetAll();
-            var models = entities.ToModels();            
+            var models = entities.ToModels();
             return Ok(models);
         }
-
-
 
         [HttpPost("search")]
         public IActionResult Search([FromBody]ExpenseSearchModel searchModel)
         {
             var pagedList = _expenseService.GetAll(searchModel);
+            var models = pagedList.ToModels();
+            foreach (var m in models)
+            {
+                PrepareModel(m);
+            }
 
             var searchResultModel = new SearchResultModel<ExpenseModel>()
             {
-                Data = pagedList.ToModels(),
+                Data = models,
                 TotalRecords = pagedList.TotalRecords
             };
 
@@ -124,7 +127,7 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
         [HttpPost("{importexcelfile}", Name = "ImportFromXlsx")]
         public virtual IActionResult ImportFromXlsx(IFormFile importexcelfile)
         {
-           
+
             try
             {
                 if (importexcelfile != null && importexcelfile.Length > 0)

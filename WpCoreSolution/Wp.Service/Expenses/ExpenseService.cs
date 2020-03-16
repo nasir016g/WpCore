@@ -46,23 +46,42 @@ namespace Wp.Services.Expenses
             {
                 query = query.Where(x => x.Description.ToLower().Contains(search.Description.ToLower()));
             }
-
-            if(!string.IsNullOrEmpty(search.ExpenseTags))
+            if (search.DateFrom.HasValue)
             {
-              var ets = search.ExpenseTags.ParseExpenseTags();
+                DateTime localDate = search.DateFrom.Value.ToLocalTime();
+                query = query.Where(x => x.Date.Date >= localDate.Date);
+            }
+
+            if (search.DateTo.HasValue)
+            {
+                DateTime localDate = search.DateTo.Value.ToLocalTime();
+                query = query.Where(x => x.Date.Date <= localDate.Date);
+            }
+
+            //if(!string.IsNullOrEmpty(search.ExpenseTags))
+            //{
+            //  var ets = search.ExpenseTags.ParseExpenseTags();
+            if (search.ExpenseTags != null && search.ExpenseTags.Count() > 0)
+            { 
                 query = from e in query
                         join et in _expenseExpenseTagRepository.Table on e.Id equals et.ExpenseId
-                        where ets.Contains(et.ExpenseTag.Name)
+                        where search.ExpenseTags.Contains(et.ExpenseTag.Name)
                         select e;
             }
 
-            if(search.ExpenseCategories.Count() > 0)
+            if (search.ExpenseAccounts != null && search.ExpenseAccounts.Count() > 0)
+            {
+                query = from e in query
+                        where search.ExpenseAccounts.Contains(e.ExpenseAccount.Name)
+                        select e;
+            }
+
+            if (search.ExpenseCategories != null && search.ExpenseCategories.Count() > 0)
             {
                 query = from e in query
                         where search.ExpenseCategories.Contains(e.ExpenseCategory.Name)
                         select e;
-            }
-           
+            }           
 
             if (search.SortField != null)
             {

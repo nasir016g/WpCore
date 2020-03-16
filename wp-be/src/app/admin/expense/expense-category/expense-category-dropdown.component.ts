@@ -10,17 +10,13 @@ import { FormGroup } from '@angular/forms';
 })
 export class ExpenseCategoryDropdownComponent implements OnInit {
 
-  //expenseCategories: Array<ExpenseCategory> = [];
-  //@Input() public model: Expense;
-
   @Input() public parentForm: FormGroup;
   @Input() single: boolean;
 
   categories = [];
   dropdownSettings = {}; 
 
-  constructor(private expenseCategoryService: ExpenseCategoryService) {
-    
+  constructor(private expenseCategoryService: ExpenseCategoryService) {  
    }
 
   ngOnInit() {
@@ -39,10 +35,6 @@ export class ExpenseCategoryDropdownComponent implements OnInit {
     this.expenseCategoryService.getAll().subscribe(
       rez => this.categories = rez);
   }
-
-  // onChangeExpenseCategory(name: string) {
-  //   this.model.expenseCategory.name = name;
-  // }
 
   onItemSelect(item: any) {   
   }

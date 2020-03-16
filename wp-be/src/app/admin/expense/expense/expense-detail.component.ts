@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Expense, ExpenseAccount, ExpenseCategory, ExpenseTag } from '../expense.models';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Expense, ExpenseAccount } from '../expense.models';
 import { ExpenseService } from './expense.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'ngx-alerts';
 import { ExpenseAccountService } from '../expense-account/expense-account.service';
-import { ExpenseCategoryService } from '../expense-category/expense-category.service';
-import { ExpenseTagService } from '../expense-tag/expense-tag.service';
 
 @Component({
   selector: 'app-expense-detail',
@@ -15,15 +13,13 @@ import { ExpenseTagService } from '../expense-tag/expense-tag.service';
 export class ExpenseDetailComponent implements OnInit {
   form: FormGroup;
   model: Expense = new Expense();
-  expenseAccounts: Array<ExpenseAccount> = [];
- // expenseCategories: Array<ExpenseCategory> = [];
+  //expenseAccounts: Array<ExpenseAccount> = [];
 
   constructor(private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private alertService: AlertService,
-    private expenseService: ExpenseService,
-    private expenseAccountService: ExpenseAccountService) {
+    private expenseService: ExpenseService) {
 
     if (this.activatedRoute.snapshot.params['id']) {
       this.model.id = parseInt(this.activatedRoute.snapshot.params['id']);
@@ -41,10 +37,7 @@ export class ExpenseDetailComponent implements OnInit {
           this.buildForm(this.formBuilder);
         }
           , error => this.alertService.danger(error));
-    }
-    this.expenseAccountService.getAll().subscribe(
-      rez => this.expenseAccounts = rez);    
-
+    } 
   }
 
   private buildForm(formBuilder: FormBuilder) {
@@ -53,6 +46,11 @@ export class ExpenseDetailComponent implements OnInit {
       expenseTags = this.model.expenseTags.split(", ").map(x => {
         return { "name": x };
       });
+    } 
+    
+    var expenseAccounts = [];
+    if(this.model.expenseAccount){
+      expenseAccounts = [{"name": this.model.expenseAccount.name}]
     } 
     
     var expenseCategories = [];
@@ -67,11 +65,8 @@ export class ExpenseDetailComponent implements OnInit {
       amount: this.model.amount,
       date: this.model.date,
       expenseTags: [expenseTags], // this.model.expenseTags,
-      expenseAccount: this.model.expenseAccount,
+      expenseAccounts: [expenseAccounts],
       expenseCategories: [expenseCategories],
-      //expenseCategory: this.model.expenseCategory,
-      // expenseCategories: 
-
     });
   }
 
@@ -82,6 +77,7 @@ export class ExpenseDetailComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       var modelToSubmit = this.form.value;
+      modelToSubmit.expenseAccount = modelToSubmit.expenseAccounts[0]; // single account
       modelToSubmit.expenseCategory = modelToSubmit.expenseCategories[0]; // single category
       modelToSubmit.expenseTags = modelToSubmit.expenseTags.map(x => x.name).join(",");
       this.expenseService.save(this.form.value)

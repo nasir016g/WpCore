@@ -973,7 +973,7 @@ var SharedModule = /** @class */ (function () {
             ],
             declarations: [
                 _components_control_messages_component__WEBPACK_IMPORTED_MODULE_3__["ControlMessagesComponent"],
-                _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_7__["ConfirmModalComponent"]
+                _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_7__["ConfirmModalComponent"],
             ],
             entryComponents: [
                 _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_7__["ConfirmModalComponent"]

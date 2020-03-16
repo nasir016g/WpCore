@@ -277,21 +277,22 @@ namespace Wp.Services.Installation
                 var categories = new List<ExpenseCategory>()
                 {
                     new ExpenseCategory { Name = "ATM", Color = "#4E3475", Description = "ATM" },
+                    new ExpenseCategory { Name = "BankCosts", Color = "#4E3475", Description = "Bank costs" },
                     new ExpenseCategory { Name = "Car", Color = "#FFBF00", Description = "Cars gas, tax and etc." },
                     new ExpenseCategory { Name = "Clothes", Color = "#B45F04", Description = "Clothes" },
                     new ExpenseCategory { Name = "CreditAccount", Color = "#230180", Description = "CreditAccount" },
                     new ExpenseCategory { Name = "Education", Color = "#8A0808", Description = "Education" },
                     new ExpenseCategory { Name = "Electronics", Color = "#D11717", Description = "Cell phones, computers, tv and etc." },
-                    new ExpenseCategory { Name = "Go out", Color = "#5e94ff", Description = "Go out" },
+                    //new ExpenseCategory { Name = "Go out", Color = "#5e94ff", Description = "Go out" },
                     new ExpenseCategory { Name = "Groceries", Color = "#03872a", Description = "Includes super markets, kruidvat and etc." },
                     new ExpenseCategory { Name = "Health (Insurance)", Color = "#351fff", Description = "Insurance, deductible etc." },
                     new ExpenseCategory { Name = "Household Goods", Color = "#D11717", Description = "Household Goods" },
                     new ExpenseCategory { Name = "Income", Color = "#2abd42", Description = "Income" },
                     new ExpenseCategory { Name = "Insurance", Color = "#351fff", Description = "Car, house, legal, insurances" },
-                    new ExpenseCategory { Name = "Martgage", Color = "#D11717", Description = "Mortgage" },
+                    new ExpenseCategory { Name = "Mortgage", Color = "#D11717", Description = "Mortgage" },
                     new ExpenseCategory { Name = "Public Transport", Color = "#FFBF00", Description = "Public Transport" },
                     new ExpenseCategory { Name = "Sports", Color = "#8da246", Description = "Sports" },
-                    new ExpenseCategory { Name = "Travel", Color = "#230180", Description = "Travel" },
+                    new ExpenseCategory { Name = "Vacation", Color = "#230180", Description = "Vacation" },
                     new ExpenseCategory { Name = "Utilities", Color = "#D11717", Description = "Includes gas, electricity, water, cellphone, internet and tv, netflix, spotify and etc." },
                     new ExpenseCategory { Name = "Others", Color = "#8ef9d9", Description = "Others" }
                   };

@@ -1,0 +1,7 @@
+<div class="form-group row" [formGroup]="parentForm">
+  <label  class="col-md-4 col-form-label">Accounts</label>
+  <div class="col-md-8">
+    <angular2-multiselect [data]="accounts" [settings]="dropdownSettings"      
+      formControlName="expenseAccounts"></angular2-multiselect>
+  </div>
+</div>
