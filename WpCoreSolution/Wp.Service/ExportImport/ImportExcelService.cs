@@ -28,35 +28,61 @@ namespace Wp.Services.ExportImport
 
         private ExpenseCategory GetExpenseCategoryByName(string name = "")
         {
-            //Household goods wikipedia
             ExpenseCategory expenseCategory = _expenseCategoryService.GetAll().First(x => x.Name == "Others");
 
             if (name == null)
                 return expenseCategory;
            
+            // BankCosts
             if (name.Contains("BasisPakket", StringComparison.InvariantCultureIgnoreCase)
                || name.Contains("BetaalGemak", StringComparison.InvariantCultureIgnoreCase))
             {
-                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "BankCosts");
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Bank Costs");
             }
+
+            // Transportation
             else if (name.Contains("SHELL", StringComparison.InvariantCultureIgnoreCase)
                 || name.Contains("CCV*BP", StringComparison.InvariantCultureIgnoreCase)
                 || name.Contains("TOTAL", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("ANWB")
-                || name.Contains("37-RDJ-5", StringComparison.InvariantCultureIgnoreCase)
+                )
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Gas" && x.Category == "Transportation");
+            }
+            else if (name.Contains("37-RDJ-5", StringComparison.InvariantCultureIgnoreCase)
                 || name.Contains("16-SJD-2", StringComparison.InvariantCultureIgnoreCase))
             {
-                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Car");
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Tax" && x.Category == "Transportation");
             }
-            else if (name.Contains("Zalando", StringComparison.InvariantCultureIgnoreCase)
-               || name.Contains("PRIMARK", StringComparison.InvariantCultureIgnoreCase))
+            else if (name.Contains("ANWB"))
             {
-                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Clothes");
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "ANWB" && x.Category == "Transportation");
             }
+            else if (name.Contains("ov-", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Public Transport");
+            }
+            else if (name.Contains("reiskosten ", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Travel Expenses Reimbursement");
+            }
+
+            // Clothing
+            else if (name.Contains("Zalando", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Zalando");
+            }
+            else if (name.Contains("PRIMARK", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Primark");
+            }
+
+            // Credit Account
             else if (name.Contains("ICS-klantnummer 68037960017", StringComparison.InvariantCultureIgnoreCase))
             {
                 expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "CreditAccount");
-            }           
+            }
+
+            // Groceries
             else if (name.Contains("ALBERT")
                 || name.Contains("AH")
                 || name.Contains("Kruidvat", StringComparison.InvariantCultureIgnoreCase)
@@ -64,55 +90,119 @@ namespace Wp.Services.ExportImport
             {
                 expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Groceries");
             }
-            else if (name.Contains("UNIVE ZORG", StringComparison.InvariantCultureIgnoreCase) 
-                || name.Contains("Apotheek ", StringComparison.InvariantCultureIgnoreCase))
+            else if (name.Contains("ALBERT")
+                || name.Contains("AH"))
             {
-                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Health (Insurance)");
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "AH");
             }
-            else if (name.Contains("Intratuin", StringComparison.InvariantCultureIgnoreCase)
-               || name.Contains("Coolblue", StringComparison.InvariantCultureIgnoreCase)
-               || name.Contains("bol.com", StringComparison.InvariantCultureIgnoreCase)
-               || name.Contains("Alipay", StringComparison.InvariantCultureIgnoreCase)
-               || name.Contains("Ikea", StringComparison.InvariantCultureIgnoreCase))
+            else if (name.Contains("Kruidvat", StringComparison.InvariantCultureIgnoreCase))
             {
-                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Household Goods");
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Kruidvat");
             }
+            else if (name.Contains("HEMA", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "HEMA");
+            }
+
+            // Health Care
+            else if (name.Contains("UNIVE ZORG", StringComparison.InvariantCultureIgnoreCase)) 
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Medical Insurance");
+            }
+            else if (name.Contains("Apotheek ", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Medication");
+            }
+
+            // Household Goods
+            else if (name.Contains("Intratuin", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Intratuin");
+            }
+            else if (name.Contains("Coolblue", StringComparison.InvariantCultureIgnoreCase))              
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Coolblue");
+            }
+            else if (name.Contains("bol.com", StringComparison.InvariantCultureIgnoreCase))              
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Bol.com");
+            }
+            else if (name.Contains("Alipay", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Alipay");
+            }
+            else if (name.Contains("Ikea", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Ikea");
+            }
+
+            // Non-Medical Insurance
             else if (name.Contains("UNIVE", StringComparison.InvariantCultureIgnoreCase))
             {
-                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Insurance");
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "UNIVE" && x.Category == "Non-Medical Insurance");
             }
-            
-            else if (name.Contains("ST11107003621530001", StringComparison.InvariantCultureIgnoreCase) // hypotheek
-                || name.Contains("verzekering 410656062", StringComparison.InvariantCultureIgnoreCase) // opstalverzekering
-                || name.Contains("Vereniging Eigen Huis", StringComparison.InvariantCultureIgnoreCase) 
-                || name.Contains("Gemeentebelasting", StringComparison.InvariantCultureIgnoreCase)) 
 
+            // Housing
+            else if (name.Contains("ST11107003621530001", StringComparison.InvariantCultureIgnoreCase)) // hypotheek
             {
                 expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Mortgage");
             }
-            else if (name.Contains("ov-", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("reiskosten ", StringComparison.InvariantCultureIgnoreCase))
+            else if (name.Contains("verzekering 410656062", StringComparison.InvariantCultureIgnoreCase)) // opstalverzekering
             {
-                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Public Transport");
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Home insurance");
             }
+            else if (name.Contains("Vereniging Eigen Huis", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Vereniging Eigen Huis");
+            }
+            else if (name.Contains("Gemeentebelasting", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Municipal Taxes");
+            }
+
+            // Vacation
             else if (name.Contains("CCV Group BV", StringComparison.InvariantCultureIgnoreCase))
             {
-                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Vacation");
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Schiphol Parking");
             }
-            else if (name.Contains("BEN NEDERLAND", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("ESSENT", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("VITENS", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("NETFLIX", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("Telfort Thuis", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("GBLT", StringComparison.InvariantCultureIgnoreCase))
+
+            // Utilities
+            else if (name.Contains("BEN NEDERLAND", StringComparison.InvariantCultureIgnoreCase))               
             {
-                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Utilities");
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Mobile");
             }
-            else if (name.Contains("GEA") // must be the last
-               || name.Contains("BEA"))
+            else if (name.Contains("ESSENT", StringComparison.InvariantCultureIgnoreCase))
             {
-                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "ATM");
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Gas/Electricity");
             }
+            else if (name.Contains("VITENS", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Water");
+            }
+            else if (name.Contains("GBLT", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Water Tax");
+            }
+            else if (name.Contains("NETFLIX", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "NETFLIX");
+            }
+            else if (name.Contains("Telfort Thuis", StringComparison.InvariantCultureIgnoreCase))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Internet/Tv/Phone");
+            }
+
+            // must be the last
+            else if (name.Contains("GEA")) 
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Cash");
+            }
+            else if (name.Contains("BEA"))
+            {
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "BEA");
+            }
+
+
 
             return expenseCategory;
         }
@@ -120,10 +210,10 @@ namespace Wp.Services.ExportImport
         private string[] GetExpenseTagsByName(string name)
         {
             var result = new List<string>();
-            if (name.Contains("BEN NEDERLAND", StringComparison.InvariantCultureIgnoreCase)) { result.Add("cell-phone"); }
+            if (name.Contains("BEN NEDERLAND", StringComparison.InvariantCultureIgnoreCase)) { result.Add("mobile"); } //
             else if (name.Contains("SHELL", StringComparison.InvariantCultureIgnoreCase)
                 || name.Contains("TOTAL", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("CCV*BP", StringComparison.InvariantCultureIgnoreCase)) { result.Add("car-gas"); }
+                || name.Contains("CCV*BP", StringComparison.InvariantCultureIgnoreCase)) { result.Add("car-gas"); }//
 
             else if (name.Contains("ST11107003621530001", StringComparison.InvariantCultureIgnoreCase)) { result.Add("mortgage"); } //hypotheek
             else if (name.Contains("verzekering 410656062", StringComparison.InvariantCultureIgnoreCase)) { result.Add("home-insurance"); }
@@ -146,16 +236,16 @@ namespace Wp.Services.ExportImport
             else if (name.Contains("Telfort Thuis", StringComparison.InvariantCultureIgnoreCase)) { result.Add("telfort"); }
 
             else if (name.Contains("37-RDJ-5", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("16-SJD-2", StringComparison.InvariantCultureIgnoreCase)) { result.Add("car-tax"); }
-            else if (name.Contains("ANWB")) { result.Add("anwb"); }
-            else if (name.Contains("BasisPakket", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("BetaalGemak", StringComparison.InvariantCultureIgnoreCase)) { result.Add("bank-costs"); }
+                || name.Contains("16-SJD-2", StringComparison.InvariantCultureIgnoreCase)) { result.Add("car-tax"); } //
+            else if (name.Contains("ANWB")) { result.Add("anwb"); } //
+            else if (name.Contains("BasisPakket", StringComparison.InvariantCultureIgnoreCase) //
+                || name.Contains("BetaalGemak", StringComparison.InvariantCultureIgnoreCase)) { result.Add("bank-costs"); } //
             else if (name.Contains("H Ahmadi", StringComparison.InvariantCultureIgnoreCase))  { result.Add("hiela"); }
             else if (name.Contains("S Ahmadi", StringComparison.InvariantCultureIgnoreCase))  { result.Add("sweley"); }
             else if (name.Contains("ALBERT") || name.Contains("AH")) { result.Add("albert-heijn"); }
             else if (name.Contains("Kruidvat")) { result.Add("kruidvat"); }
             else if (name.Contains("CCV Group BV", StringComparison.InvariantCultureIgnoreCase)) { result.Add("schiphol"); }
-            else if (name.Contains("GEA", StringComparison.InvariantCultureIgnoreCase)) { result.Add("cash"); }
+            else if (name.Contains("GEA", StringComparison.InvariantCultureIgnoreCase)) { result.Add("cash"); } //
 
             return result.ToArray();
         }

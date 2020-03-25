@@ -276,25 +276,60 @@ namespace Wp.Services.Installation
             {
                 var categories = new List<ExpenseCategory>()
                 {
-                    new ExpenseCategory { Name = "ATM", Color = "#4E3475", Description = "ATM" },
-                    new ExpenseCategory { Name = "BankCosts", Color = "#4E3475", Description = "Bank costs" },
-                    new ExpenseCategory { Name = "Car", Color = "#FFBF00", Description = "Cars gas, tax and etc." },
-                    new ExpenseCategory { Name = "Clothes", Color = "#B45F04", Description = "Clothes" },
-                    new ExpenseCategory { Name = "CreditAccount", Color = "#230180", Description = "CreditAccount" },
-                    new ExpenseCategory { Name = "Education", Color = "#8A0808", Description = "Education" },
-                    new ExpenseCategory { Name = "Electronics", Color = "#D11717", Description = "Cell phones, computers, tv and etc." },
+                    new ExpenseCategory { Name = "BEA", Category = "ATM", Description = "ATM" },
+                    new ExpenseCategory { Name = "Cash", Category = "ATM", Description = "ATM" },
+
+                    new ExpenseCategory { Name = "Bank Costs", Category = "Bank" , Description = "Bank costs" },
+
+                    new ExpenseCategory { Name = "Tax", Category = "Transportation", Description = "Cars gas, tax and etc." },
+                    new ExpenseCategory { Name = "Gas", Category = "Transportation", Description = "" },
+                    new ExpenseCategory { Name = "ANWB", Category = "Transportation", Description = "" },
+                    new ExpenseCategory { Name = "Car Maintenance", Category = "Transportation", Description = "" },
+                    new ExpenseCategory { Name = "Public Transport", Category = "Transportation" , Description = "Public Transport" },
+                    new ExpenseCategory { Name = "Travel Expenses Reimbursement", Category = "Transportation", Description = "reiskostenvergoeding" },
+
+                    new ExpenseCategory { Name = "Zalando", Category = "Clothing", Description = "Clothes" },
+                    new ExpenseCategory { Name = "Primark", Category = "Clothing", Description = "Clothes" },
+
+                    new ExpenseCategory { Name = "ICS (Nasir)", Category = "Credit Account", Description = "Credit Account" },
+
+                    new ExpenseCategory { Name = "Education", Category = "Education", Description = "Education" },
+                    
+                    new ExpenseCategory { Name = "Electronics", Category = "Electronics", Description = "Cell phones, computers, tv and etc." },
                     //new ExpenseCategory { Name = "Go out", Color = "#5e94ff", Description = "Go out" },
-                    new ExpenseCategory { Name = "Groceries", Color = "#03872a", Description = "Includes super markets, kruidvat and etc." },
-                    new ExpenseCategory { Name = "Health (Insurance)", Color = "#351fff", Description = "Insurance, deductible etc." },
-                    new ExpenseCategory { Name = "Household Goods", Color = "#D11717", Description = "Household Goods" },
-                    new ExpenseCategory { Name = "Income", Color = "#2abd42", Description = "Income" },
-                    new ExpenseCategory { Name = "Insurance", Color = "#351fff", Description = "Car, house, legal, insurances" },
-                    new ExpenseCategory { Name = "Mortgage", Color = "#D11717", Description = "Mortgage" },
-                    new ExpenseCategory { Name = "Public Transport", Color = "#FFBF00", Description = "Public Transport" },
-                    new ExpenseCategory { Name = "Sports", Color = "#8da246", Description = "Sports" },
-                    new ExpenseCategory { Name = "Vacation", Color = "#230180", Description = "Vacation" },
-                    new ExpenseCategory { Name = "Utilities", Color = "#D11717", Description = "Includes gas, electricity, water, cellphone, internet and tv, netflix, spotify and etc." },
-                    new ExpenseCategory { Name = "Others", Color = "#8ef9d9", Description = "Others" }
+                    
+                    new ExpenseCategory { Name = "AH", Category = "Groceries", Description = "Includes super markets, kruidvat and etc." },
+                    new ExpenseCategory { Name = "Kruidvat", Category = "Groceries", Description = "" },
+                    new ExpenseCategory { Name = "HEMA", Category = "Groceries", Description = "" },
+
+                    new ExpenseCategory { Name = "Medical Insurance", Category = "Health Care", Description = "Insurance, deductible etc." },
+                    new ExpenseCategory { Name = "Medication", Category = "Health Care", Description = "" },
+
+                    new ExpenseCategory { Name = "Intratuin", Category = "Household Items", Description = "Household Goods" },
+                    new ExpenseCategory { Name = "Coolblue", Category = "Household Items", Description = "Household Goods" },
+                    new ExpenseCategory { Name = "Bol.com", Category = "Household Items", Description = "Household Goods" },
+                    new ExpenseCategory { Name = "Alipay", Category = "Household Items", Description = "Household Goods" },
+                    new ExpenseCategory { Name = "Ikea", Category = "Household Items", Description = "Household Goods" },
+                    
+                    new ExpenseCategory { Name = "Income", Category = "Income", Description = "Income" },                    
+
+                    new ExpenseCategory { Name = "UNIVE", Category = "Non-Medical Insurance", Description = "Car, house, legal, insurances" },
+
+                    new ExpenseCategory { Name = "Mortgage", Category = "Housing", Description = "hypotheek" },
+                    new ExpenseCategory { Name = "Home insurance", Category = "Housing", Description = "opstalverzekering" },
+                    new ExpenseCategory { Name = "Vereniging Eigen Huis", Category = "Housing", Description = "" },
+                    new ExpenseCategory { Name = "Municipal Taxes", Category = "Housing", Description = "Gemeentebelasting" },
+                    
+                    new ExpenseCategory { Name = "Schiphol Parking", Category = "Vacation", Description = "Vacation" },
+
+                    new ExpenseCategory { Name = "Mobile", Category = "Utilities", Description = "Utilities includes gas, electricity, water, cellphone, internet and tv, netflix, spotify and etc." },
+                    new ExpenseCategory { Name = "Gas/Electricity", Category = "Utilities", Description = "ESSENT" },
+                    new ExpenseCategory { Name = "Water", Category = "Utilities", Description = "VITENS" },
+                    new ExpenseCategory { Name = "Water Tax", Category = "Utilities", Description = "GBLT" },
+                    new ExpenseCategory { Name = "NETFLIX", Category = "Utilities", Description = "" },
+                    new ExpenseCategory { Name = "Internet/Tv/Phone", Category = "Utilities", Description = "Telfort Thuis" },
+
+                    new ExpenseCategory { Name = "Others", Category = "Others", Description = "Others" }
                   };
 
                 categories.ForEach(category => _expenseCategoryService.Insert(category));

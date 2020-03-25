@@ -5,8 +5,8 @@ namespace Wp.Core.Domain.Expenses
     public class ExpenseCategory : EntityAuditable
     {
         public string Name { get; set; }
+        public string Category { get; set; }
         public string Description { get; set; }
-        public string Color { get; set; }
 
         private ICollection<Expense> _expense;
         public virtual ICollection<Expense> Expenses
