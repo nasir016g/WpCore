@@ -25,24 +25,19 @@ namespace Wp.Services.Expenses
             _expenseExpenseTagRepository = expenseExpenseTagRepository;
         }
 
-        public bool ExpenseTagExists(Expense expense, int expenseTagId)
-        {
-            if (expense == null)
-                throw new ArgumentNullException(nameof(expense));
+        #region Utilities
 
-          return  expense.ExpenseExpenseTagMappings.Any(x => x.ExpenseTagId == expenseTagId);
-        }
-
-        public IPagedList<Expense> GetAll(ExpenseSearchModel search = null)
+        private IQueryable<Expense> SearchUseLinq(ExpenseSearchModel search)
         {
+            search ??= new ExpenseSearchModel();
             var query = _expenseRepo.Table;
 
-            if(!string.IsNullOrEmpty(search.Name))
+            if (!string.IsNullOrEmpty(search.Name))
             {
                 query = query.Where(x => x.Name.ToLower().Contains(search.Name.ToLower()));
             }
 
-            if(!string.IsNullOrEmpty(search.Description))
+            if (!string.IsNullOrEmpty(search.Description))
             {
                 query = query.Where(x => x.Description.ToLower().Contains(search.Description.ToLower()));
             }
@@ -62,7 +57,7 @@ namespace Wp.Services.Expenses
             //{
             //  var ets = search.ExpenseTags.ParseExpenseTags();
             if (search.ExpenseTags != null && search.ExpenseTags.Count() > 0)
-            { 
+            {
                 query = from e in query
                         join et in _expenseExpenseTagRepository.Table on e.Id equals et.ExpenseId
                         where search.ExpenseTags.Contains(et.ExpenseTag.Name)
@@ -81,9 +76,28 @@ namespace Wp.Services.Expenses
                 query = from e in query
                         where search.ExpenseCategories.Contains(e.ExpenseCategory.Name)
                         select e;
-            }           
+            }
 
-            if (search.SortField != null)
+            return query;
+        }
+
+
+        #endregion
+
+        public bool ExpenseTagExists(Expense expense, int expenseTagId)
+        {
+            if (expense == null)
+                throw new ArgumentNullException(nameof(expense));
+
+          return  expense.ExpenseExpenseTagMappings.Any(x => x.ExpenseTagId == expenseTagId);
+        }
+
+        public IPagedList<Expense> GetAll(ExpenseSearchModel search = null)
+        {
+            search ??= new ExpenseSearchModel();
+            IQueryable<Expense> query = SearchUseLinq(search);
+
+            if (search?.SortField != null)
             {
                 //// Sort based on descending or not
                 //query = searchModel.SortDescending ? query.OrderByDescending(ExpressionHelper.GetSortProperty<Expense>(searchModel.SortField)) :
@@ -93,6 +107,18 @@ namespace Wp.Services.Expenses
             }
 
             return new PagedList<Expense>(query, search.PageIndex, search.PageSize);
+        }
+
+       
+        public ExpenseSearchTotalsModel GetSearchTotals(ExpenseSearchModel search)
+        {
+            var expenseList = SearchUseLinq(search).ToList();
+            ExpenseSearchTotalsModel model = new ExpenseSearchTotalsModel();
+            model.TotalAmount = expenseList.Sum(x => x.Amount).ToString("0.00");
+            model.SumNegative = expenseList.Where(x => x.Amount < 0).Sum(x => x.Amount).ToString("0.00");
+            model.SumPositive = expenseList.Where(x => x.Amount > 0).Sum(x => x.Amount).ToString("0.00");
+
+            return model;
         }
 
         public Expense GetByDescription(string description, DateTime dateTime)

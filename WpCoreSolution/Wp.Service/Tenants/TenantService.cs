@@ -21,7 +21,7 @@ namespace Wp.Service.Tenants
             TenantDbContext dbContext,
             ITenantsBaseRepository repository) : base(dbContext, repository)
         {
-            
+
             _httpContextAccessor = httpContextAccessor;
             _tenantRepo = repository;
             _tenants = _tenantRepo.Table.ToList();
@@ -50,7 +50,7 @@ namespace Wp.Service.Tenants
             Tenant tenant = null;
 
             string tenantName = _httpContextAccessor.HttpContext?.Request?.Headers?["Tenant"];
-            if(tenantName == null)
+            if (tenantName == null)
             {
                 // query string (install controller)
                 var path = _httpContextAccessor.HttpContext.Request.Path;
@@ -60,7 +60,7 @@ namespace Wp.Service.Tenants
                     if (tenantName == null)
                         tenantName = "WpCore1"; // default
                 }
-            }            
+            }
 
             tenant = _tenants.FirstOrDefault(t => t.TenantName.ToLowerInvariant() == tenantName.ToLowerInvariant());
             return tenant;
@@ -75,7 +75,7 @@ namespace Wp.Service.Tenants
             var tenant = _tenants.FirstOrDefault(t => t.TenantId == TenantId);
             return tenant;
         }
-        
+
         #endregion
 
 
@@ -90,8 +90,11 @@ namespace Wp.Service.Tenants
 
             var tenants = new List<Tenant>()
             {
-                new Tenant { TenantId = Guid.Parse("10DEE2B7-DCBA-45E6-8E03-380D27772944"), TenantName = "WpCore1", ConnectionString = @"server=.\sqlexpress;user id=sa;pwd=aq;persist security info=False;initial catalog=WpCore1;Integrated security=false;Trusted_Connection=false;MultipleActiveResultSets=true"},
-                new Tenant { TenantId = Guid.Parse("66616AEF-53B4-45D8-A9CE-7E6A5CED7EF3"), TenantName = "WpCore2", ConnectionString = @"server=.\sqlexpress;user id=sa;pwd=aq;persist security info=False;initial catalog=WpCore2;Integrated security=false;Trusted_Connection=false;MultipleActiveResultSets=true"},
+                //new Tenant { TenantId = Guid.Parse("10DEE2B7-DCBA-45E6-8E03-380D27772944"), TenantName = "WpCore1", ConnectionString = @"server=.\sqlexpress;user id=sa;pwd=aq;persist security info=False;initial catalog=WpCore1;Integrated security=false;Trusted_Connection=false;MultipleActiveResultSets=true"},
+                //new Tenant { TenantId = Guid.Parse("66616AEF-53B4-45D8-A9CE-7E6A5CED7EF3"), TenantName = "WpCore2", ConnectionString = @"server=.\sqlexpress;user id=sa;pwd=aq;persist security info=False;initial catalog=WpCore2;Integrated security=false;Trusted_Connection=false;MultipleActiveResultSets=true"},
+
+                new Tenant { TenantId = Guid.Parse("10DEE2B7-DCBA-45E6-8E03-380D27772944"), TenantName = "WpCore1", ConnectionString = @"Filename=./WpCore1.sqlite"},
+                new Tenant { TenantId = Guid.Parse("66616AEF-53B4-45D8-A9CE-7E6A5CED7EF3"), TenantName = "WpCore2", ConnectionString = @"Filename=WpCore2.sqlite"},
             };
 
             tenants.ForEach(t => Insert(t));

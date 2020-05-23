@@ -41,20 +41,30 @@ namespace Wp.Web.Api.Extensions
             services.AddEntityFrameworkSqlServer();
             services.AddDbContext<WpDbContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                sqlServerOptionsAction: x =>
+                //options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                //sqlServerOptionsAction: x =>
+                //{
+                //    x.MigrationsAssembly("Wp.Data");
+                //    x.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                //});
+                options.UseSqlite(configuration.GetConnectionString("DefaultConnection"),
+                sqliteOptionsAction: x =>
                 {
                     x.MigrationsAssembly("Wp.Data");
-                    x.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                 });
             });
             services.AddDbContext<TenantDbContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("CatalogConnection"),
-                sqlServerOptionsAction: x =>
+                //options.UseSqlServer(configuration.GetConnectionString("CatalogConnection"),
+                //sqlServerOptionsAction: x =>
+                //{
+                //    x.MigrationsAssembly("Wp.Data");
+                //    x.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                //});
+                options.UseSqlite(configuration.GetConnectionString("CatalogConnection"),
+                sqliteOptionsAction: x =>
                 {
                     x.MigrationsAssembly("Wp.Data");
-                    x.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                 });
             });
 
@@ -70,7 +80,7 @@ namespace Wp.Web.Api.Extensions
                 using (TenantDbContext tContext = serviceScope.ServiceProvider.GetService<TenantDbContext>())
                 {
                     tContext.Database.Migrate();
-                    var tenantService = serviceScope.ServiceProvider.GetService<ITenantService>(); 
+                    var tenantService = serviceScope.ServiceProvider.GetService<ITenantService>();
                     using (WpDbContext context = serviceScope.ServiceProvider.GetService<WpDbContext>())
                     {
                         context.Database.Migrate();
@@ -105,7 +115,7 @@ namespace Wp.Web.Api.Extensions
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
-           
+
             services.AddScoped<IWebPageService, WebPageService>();
             services.AddScoped<ISectionService, SectionService>();
             services.AddScoped<ISettingService, SettingService>();

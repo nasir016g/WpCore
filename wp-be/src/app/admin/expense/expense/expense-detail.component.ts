@@ -62,6 +62,7 @@ export class ExpenseDetailComponent implements OnInit {
       id: this.model.id,
       name: this.model.name,
       description: this.model.description,
+      category: this.model.category,
       amount: this.model.amount,
       date: this.model.date,
       expenseTags: [expenseTags], // this.model.expenseTags,

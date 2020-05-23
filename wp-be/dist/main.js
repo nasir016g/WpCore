@@ -946,8 +946,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/modals/confirm-modal.component */ "./src/app/shared/components/modals/confirm-modal.component.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-bootstrap/datepicker */ "./node_modules/ngx-bootstrap/datepicker/fesm5/ngx-bootstrap-datepicker.js");
+/* harmony import */ var _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modals/confirm-modal.component */ "./src/app/shared/components/modals/confirm-modal.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
 
 
 
@@ -964,31 +966,35 @@ var SharedModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_4__["CommonModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClientModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"],
                 angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_2__["AngularMultiSelectModule"],
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["PaginationModule"].forRoot(),
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["TabsModule"].forRoot(),
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["TooltipModule"].forRoot(),
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["CollapseModule"].forRoot(),
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["ModalModule"].forRoot(),
+                ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_7__["BsDatepickerModule"].forRoot(),
             ],
             declarations: [
                 _components_control_messages_component__WEBPACK_IMPORTED_MODULE_3__["ControlMessagesComponent"],
-                _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_7__["ConfirmModalComponent"],
+                _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_8__["ConfirmModalComponent"],
             ],
             entryComponents: [
-                _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_7__["ConfirmModalComponent"]
+                _components_modals_confirm_modal_component__WEBPACK_IMPORTED_MODULE_8__["ConfirmModalComponent"]
             ],
             exports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_4__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClientModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"],
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["PaginationModule"],
                 angular2_multiselect_dropdown__WEBPACK_IMPORTED_MODULE_2__["AngularMultiSelectModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"],
                 _components_control_messages_component__WEBPACK_IMPORTED_MODULE_3__["ControlMessagesComponent"],
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["TabsModule"],
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["TooltipModule"],
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["CollapseModule"],
-                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["ModalModule"]
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["ModalModule"],
+                ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_7__["BsDatepickerModule"]
             ]
         })
     ], SharedModule);

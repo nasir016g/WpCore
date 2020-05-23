@@ -8,7 +8,6 @@ namespace Wp.Services.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Category { get; set; }
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
         public string[] ExpenseTags { get; set; }

@@ -14,14 +14,14 @@ export class ExpenseCategoryDropdownComponent implements OnInit {
   @Input() single: boolean;
 
   categories = [];
-  dropdownSettings = {}; 
+  settings = {}; 
 
   constructor(private expenseCategoryService: ExpenseCategoryService) {  
    }
 
   ngOnInit() {
 
-    this.dropdownSettings = {
+    this.settings = {
       singleSelection: this.single,
       text: "Select Categories",
       selectAllText: 'Select All',
@@ -29,6 +29,9 @@ export class ExpenseCategoryDropdownComponent implements OnInit {
       labelKey: 'name',
       primaryKey: 'name',    
       enableSearchFilter: false,
+      groupBy: (this.single ? "" : "category"),
+      badgeShowLimit: 5,
+      //enableCheckAll: false,
       classes: "myclass custom-class"
     };
 

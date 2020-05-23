@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpenseService } from './expense.service';
-import { Expense, ExpenseSearchModel } from '../expense.models';
+import { Expense, ExpenseSearchModel, ExpenseSearchTotalsModel } from '../expense.models';
 import { BsModalRef } from 'ngx-bootstrap';
 import { AlertService } from 'ngx-alerts';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -12,11 +12,16 @@ import { cursorTo } from 'readline';
 })
 export class ExpenseListComponent implements OnInit {
   expenses: Array<Expense> = [];
+  expenseSearchTotals: ExpenseSearchTotalsModel;
   deletingExpense: Expense;
   bsModalRef: BsModalRef;
   isCollapsed = false;
 
   searchForm: FormGroup;
+
+  // paging
+  currentPage = 1;
+  totalRecords = 100;  
 
   //#region searchModel
   get searchModel(): ExpenseSearchModel {
@@ -52,6 +57,10 @@ export class ExpenseListComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm(this.formBuilder);
+    if(this.searchModel.pageIndex){
+      this.currentPage = this.searchModel.pageIndex;
+    }
+
     this.search();
   }
   //#endregion
@@ -73,6 +82,7 @@ export class ExpenseListComponent implements OnInit {
 
   search() {
     const modelToSubmit = JSON.parse(JSON.stringify(this.searchForm.value));
+    modelToSubmit.pageIndex = this.currentPage;
     this.searchModel = modelToSubmit; // save searchModel in current session (before preparing)
 
     // prepare expenseTags
@@ -111,13 +121,29 @@ export class ExpenseListComponent implements OnInit {
       });
     }
 
+    modelToSubmit.pageSize = 10;
+    modelToSubmit.pageIndex = this.currentPage - 1;
+ 
     this.expenseService.search(modelToSubmit).subscribe(
-      rez => this.expenses = rez.data,
+      rez => {
+        this.expenses = rez.data
+        this.totalRecords = rez.totalRecords
+      },
       err => this.alertService.danger(err)
     )
+
+    if(modelToSubmit.pageIndex == 0){
+      this.expenseService.searchTotals(modelToSubmit).subscribe(
+        rez => {
+          this.expenseSearchTotals = rez
+        },
+        err => this.alertService.danger(err)
+      )
+    }
   }
 
   onSubmit() {
+    this.currentPage = 1; 
     this.search();
   }
 
@@ -126,24 +152,7 @@ export class ExpenseListComponent implements OnInit {
     this.buildForm(this.formBuilder);
     this.search();
   }
-
-  getTotalAmout() {
-    var sum = this.expenses.reduce((a, b) => a + b.amount, 0);
-    return sum;
-  }
-
-  getSumPositive() {
-    var positive = this.expenses.filter((a) => a.amount >= 0);
-    var sumpositive = positive.reduce((a, b) => a + b.amount, 0);
-    return sumpositive;
-  }
-
-  getSumNegative() {
-    var negative = this.expenses.filter((a) => a.amount < 0)
-    var sumNegative = negative.reduce((a, b) => a + b.amount, 0)
-    return sumNegative;
-  }
-
+  
   public uploadFile(files) {
     if (files.length === 0) {
       return;
@@ -155,4 +164,9 @@ export class ExpenseListComponent implements OnInit {
       err => this.alertService.danger(err)
     )
   }
+  
+  pageChanged(event: any): void {
+    this.currentPage = event.page;
+    this.search();
+  }  
 }

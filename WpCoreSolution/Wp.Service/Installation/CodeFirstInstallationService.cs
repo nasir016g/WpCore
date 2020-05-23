@@ -169,13 +169,13 @@ namespace Wp.Services.Installation
             // Add Users and Roles
 
             //Create Role Administrators if it does not exist
-            var admin = _roleManager.FindByNameAsync(SystemRoleNames.Administrators);
-            if (admin != null)
+            var admin = await _roleManager.FindByNameAsync(SystemRoleNames.Administrators);
+            if (admin == null)
                 await _roleManager.CreateAsync(new IdentityRole(SystemRoleNames.Administrators));
 
             //Create Role Users if it does not exist
-            var fUser = _roleManager.FindByNameAsync(SystemRoleNames.Users);
-            if (fUser != null)
+            var fUser = await _roleManager.FindByNameAsync(SystemRoleNames.Users);
+            if (fUser == null)
                 await _roleManager.CreateAsync(new IdentityRole(SystemRoleNames.Users));
 
             //Create User=test with password=test

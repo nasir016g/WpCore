@@ -79,17 +79,10 @@ namespace Wp.Services.ExportImport
             // Credit Account
             else if (name.Contains("ICS-klantnummer 68037960017", StringComparison.InvariantCultureIgnoreCase))
             {
-                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "CreditAccount");
+                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "ICS (Nasir)");
             }
 
             // Groceries
-            else if (name.Contains("ALBERT")
-                || name.Contains("AH")
-                || name.Contains("Kruidvat", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("HEMA", StringComparison.InvariantCultureIgnoreCase))
-            {
-                expenseCategory = _expenseCategoryService.GetAll().FirstOrDefault(x => x.Name == "Groceries");
-            }
             else if (name.Contains("ALBERT")
                 || name.Contains("AH"))
             {
@@ -210,42 +203,7 @@ namespace Wp.Services.ExportImport
         private string[] GetExpenseTagsByName(string name)
         {
             var result = new List<string>();
-            if (name.Contains("BEN NEDERLAND", StringComparison.InvariantCultureIgnoreCase)) { result.Add("mobile"); } //
-            else if (name.Contains("SHELL", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("TOTAL", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("CCV*BP", StringComparison.InvariantCultureIgnoreCase)) { result.Add("car-gas"); }//
-
-            else if (name.Contains("ST11107003621530001", StringComparison.InvariantCultureIgnoreCase)) { result.Add("mortgage"); } //hypotheek
-            else if (name.Contains("verzekering 410656062", StringComparison.InvariantCultureIgnoreCase)) { result.Add("home-insurance"); }
-            else if (name.Contains("Vereniging Eigen Huis", StringComparison.InvariantCultureIgnoreCase)) { result.Add("vereniging-eigen-huis"); }
-            else if (name.Contains("Gemeentebelasting", StringComparison.InvariantCultureIgnoreCase)) { result.Add("municipal-taxes"); }
-
-            else if (name.Contains("reiskosten ", StringComparison.InvariantCultureIgnoreCase)) { result.Add("travelling-costs"); }
-            else if (name.Contains("HEMA", StringComparison.InvariantCultureIgnoreCase)) { result.Add("hema"); }
-            else if (name.Contains("Ikea", StringComparison.InvariantCultureIgnoreCase)) { result.Add("ikea"); }
-            else if (name.Contains("bol.com", StringComparison.InvariantCultureIgnoreCase)) { result.Add("bol.com"); }
-            else if (name.Contains("Coolblue", StringComparison.InvariantCultureIgnoreCase)) { result.Add("coolblue"); }
-            else if (name.Contains("Alipay", StringComparison.InvariantCultureIgnoreCase)) { result.Add("Alipay"); }
-            else if (name.Contains("KINDERBIJSLAG", StringComparison.InvariantCultureIgnoreCase)) { result.Add("child-benefits"); }
-            else if (name.Contains("Apotheek", StringComparison.InvariantCultureIgnoreCase)) { result.Add("apotheek"); }
-
-            else if (name.Contains("ESSENT", StringComparison.InvariantCultureIgnoreCase)) { result.Add("gas-electricity"); }
-            else if (name.Contains("VITENS", StringComparison.InvariantCultureIgnoreCase)) { result.Add("water");}
-            else if (name.Contains("GBLT", StringComparison.InvariantCultureIgnoreCase)) { result.Add("water-tax"); }
-            else if (name.Contains("NETFLIX", StringComparison.InvariantCultureIgnoreCase)) { result.Add("NETFLIX"); }
-            else if (name.Contains("Telfort Thuis", StringComparison.InvariantCultureIgnoreCase)) { result.Add("telfort"); }
-
-            else if (name.Contains("37-RDJ-5", StringComparison.InvariantCultureIgnoreCase)
-                || name.Contains("16-SJD-2", StringComparison.InvariantCultureIgnoreCase)) { result.Add("car-tax"); } //
-            else if (name.Contains("ANWB")) { result.Add("anwb"); } //
-            else if (name.Contains("BasisPakket", StringComparison.InvariantCultureIgnoreCase) //
-                || name.Contains("BetaalGemak", StringComparison.InvariantCultureIgnoreCase)) { result.Add("bank-costs"); } //
-            else if (name.Contains("H Ahmadi", StringComparison.InvariantCultureIgnoreCase))  { result.Add("hiela"); }
-            else if (name.Contains("S Ahmadi", StringComparison.InvariantCultureIgnoreCase))  { result.Add("sweley"); }
-            else if (name.Contains("ALBERT") || name.Contains("AH")) { result.Add("albert-heijn"); }
-            else if (name.Contains("Kruidvat")) { result.Add("kruidvat"); }
-            else if (name.Contains("CCV Group BV", StringComparison.InvariantCultureIgnoreCase)) { result.Add("schiphol"); }
-            else if (name.Contains("GEA", StringComparison.InvariantCultureIgnoreCase)) { result.Add("cash"); } //
+           // if (name.Contains("BEN NEDERLAND", StringComparison.InvariantCultureIgnoreCase)) { result.Add("mobile"); } 
 
             return result.ToArray();
         }

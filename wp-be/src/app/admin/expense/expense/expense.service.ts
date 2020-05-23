@@ -27,6 +27,13 @@ export class ExpenseService extends ServiceBase {
     }).pipe(catchError(this.errorHandler))  
   }
 
+  searchTotals(searchModel: ExpenseSearchModel) {
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    return this.http.post<any>(this.url + "searchTotals/", JSON.stringify(searchModel), {
+      headers: headers,
+    }).pipe(catchError(this.errorHandler))  
+  }
+
   uploadFile(fileToUpload: File) {
     const formData = new FormData();
     formData.append('importexcelfile', fileToUpload, fileToUpload.name);

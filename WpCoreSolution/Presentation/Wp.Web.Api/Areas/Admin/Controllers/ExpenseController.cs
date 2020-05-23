@@ -65,6 +65,14 @@ namespace Wp.Web.Api.Areas.Admin.Controllers
             };
 
             return Ok(searchResultModel);
+        }        
+
+        [HttpPost("searchTotals")]
+        public IActionResult SearchTotals([FromBody]ExpenseSearchModel searchModel)
+        {
+            var rez = _expenseService.GetSearchTotals(searchModel);
+
+            return Ok(rez);
         }
 
         // GET: api/Expense/5

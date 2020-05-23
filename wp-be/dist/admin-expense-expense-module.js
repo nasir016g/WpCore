@@ -39,7 +39,7 @@ var ExpenseAccountDropdownComponent = /** @class */ (function () {
         var _this = this;
         this.dropdownSettings = {
             singleSelection: this.single,
-            text: "Select Categories",
+            text: "Select Accounts",
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
             labelKey: 'name',
@@ -190,7 +190,7 @@ var ExpenseAccountService = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"form-group row\" [formGroup]=\"parentForm\">\n  <label  class=\"col-md-4 col-form-label\">Categories</label>\n  <div class=\"col-md-8\">\n    <angular2-multiselect [data]=\"categories\" [settings]=\"dropdownSettings\"\n      (onSelect)=\"onItemSelect($event)\" \n      (onDeSelect)=\"OnItemDeSelect($event)\" \n      (onSelectAll)=\"onSelectAll($event)\"\n      (onDeSelectAll)=\"onDeSelectAll($event)\"\n      formControlName=\"expenseCategories\"></angular2-multiselect>\n  </div>\n</div>"
+module.exports = "\n<div class=\"form-group row\" [formGroup]=\"parentForm\">\n  <label  class=\"col-md-4 col-form-label\">Categories</label>\n  <div class=\"col-md-8\">\n    <angular2-multiselect [data]=\"categories\" [settings]=\"settings\"\n      (onSelect)=\"onItemSelect($event)\" \n      (onDeSelect)=\"OnItemDeSelect($event)\" \n      (onSelectAll)=\"onSelectAll($event)\"\n      (onDeSelectAll)=\"onDeSelectAll($event)\"\n      formControlName=\"expenseCategories\"></angular2-multiselect>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -216,11 +216,11 @@ var ExpenseCategoryDropdownComponent = /** @class */ (function () {
     function ExpenseCategoryDropdownComponent(expenseCategoryService) {
         this.expenseCategoryService = expenseCategoryService;
         this.categories = [];
-        this.dropdownSettings = {};
+        this.settings = {};
     }
     ExpenseCategoryDropdownComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.dropdownSettings = {
+        this.settings = {
             singleSelection: this.single,
             text: "Select Categories",
             selectAllText: 'Select All',
@@ -228,6 +228,9 @@ var ExpenseCategoryDropdownComponent = /** @class */ (function () {
             labelKey: 'name',
             primaryKey: 'name',
             enableSearchFilter: false,
+            groupBy: (this.single ? "" : "category"),
+            badgeShowLimit: 5,
+            //enableCheckAll: false,
             classes: "myclass custom-class"
         };
         this.expenseCategoryService.getAll().subscribe(function (rez) { return _this.categories = rez; });
@@ -467,13 +470,13 @@ var ExpenseTagDropdownComponent = /** @class */ (function () {
     }
     ExpenseTagDropdownComponent.prototype.ngOnInit = function () {
     };
-    ExpenseTagDropdownComponent.prototype.onItemSelect = function (item) {
+    ExpenseTagDropdownComponent.prototype.onItemSelect = function () {
     };
-    ExpenseTagDropdownComponent.prototype.OnItemDeSelect = function (item) {
+    ExpenseTagDropdownComponent.prototype.OnItemDeSelect = function () {
     };
-    ExpenseTagDropdownComponent.prototype.onSelectAll = function (items) {
+    ExpenseTagDropdownComponent.prototype.onSelectAll = function () {
     };
-    ExpenseTagDropdownComponent.prototype.onDeSelectAll = function (items) {
+    ExpenseTagDropdownComponent.prototype.onDeSelectAll = function () {
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
@@ -611,7 +614,7 @@ var ExpenseTagService = /** @class */ (function (_super) {
 /*!*************************************************!*\
   !*** ./src/app/admin/expense/expense.models.ts ***!
   \*************************************************/
-/*! exports provided: Expense, ExpenseAccount, ExpenseCategory, ExpenseTag, ExpenseSearchModel */
+/*! exports provided: Expense, ExpenseAccount, ExpenseCategory, ExpenseTag, ExpenseSearchModel, ExpenseSearchTotalsModel */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -621,6 +624,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExpenseCategory", function() { return ExpenseCategory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExpenseTag", function() { return ExpenseTag; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExpenseSearchModel", function() { return ExpenseSearchModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExpenseSearchTotalsModel", function() { return ExpenseSearchTotalsModel; });
 var Expense = /** @class */ (function () {
     function Expense() {
     }
@@ -652,6 +656,12 @@ var ExpenseSearchModel = /** @class */ (function () {
         this.expenseCategories = [];
     }
     return ExpenseSearchModel;
+}());
+
+var ExpenseSearchTotalsModel = /** @class */ (function () {
+    function ExpenseSearchTotalsModel() {
+    }
+    return ExpenseSearchTotalsModel;
 }());
 
 
@@ -718,7 +728,7 @@ var ExpenseModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Exp details</h1>\n<hr>\n\n<form [formGroup]=\"form\" novalidate (ngSubmit)=\"onSubmit()\">\n  <div class=\"form-group row \">\n    <label for=\"name\" class=\"col-md-4 col-form-label\">Name</label>\n    <div class=\"col-md-4\">\n      <input type=\"text\" class=\"form-control\" formControlName=\"name\" id=\"name\">\n      <control-messages [control]=\"form.controls.name\"></control-messages>\n    </div>\n    <div class=\"col-md-2\">\n    </div>\n  </div>\n  <div class=\"form-group row\">\n    <label for=\"\" class=\"col-md-4 col-form-label\">Description</label>\n    <div class=\"col-md-4\">\n      <input type=\"text\" class=\"form-control\" formControlName=\"description\">\n    </div>\n    <div class=\"col-md-2\">\n      <control-messages [control]=\"form.controls.description\"></control-messages>\n    </div>\n  </div>\n\n  <div class=\"form-group row\">\n    <label for=\"amount\" class=\"col-md-4 col-form-label\">Amount</label>\n    <div class=\"col-md-2\">\n      <input type=\"number\" class=\"form-control\" formControlName=\"amount\">\n    </div>\n  </div>\n\n  <div class=\"form-group row\">\n    <label for=\"date\" class=\"col-md-4 col-form-label\">Date</label>\n    <div class=\"col-md-4 pt-3\">\n      <input type=\"checkbox\" class=\"float-left\" formControlName=\"date\">\n    </div>\n  </div> \n  <app-expense-tag-dropdown [parentForm]=\"form\"></app-expense-tag-dropdown>\n\n  <div class=\"form-group row\">\n    <label for=\"expenseAccount\" class=\"col-md-4 col-form-label\">Account</label>\n    <div *ngIf=\"model.expenseAccount\" class=\"col-md-8\">\n      <select class=\"form-control\" (change)=\"onChangeExpenseAccount($event.target.value)\">\n        <option *ngFor=\"let account of expenseAccounts\" [selected]=\"model.expenseAccount.name == account.name\"\n          value={{account.name}}>{{account.name}}</option>\n      </select>\n    </div>\n  </div>\n  <app-expense-account-dropdown [parentForm]=\"form\" [single]=\"true\"></app-expense-account-dropdown>\n  <app-expense-category-dropdown [parentForm]=\"form\" [single]=\"true\"></app-expense-category-dropdown>\n\n  <div class=\"form-group row\">\n    <div class=\"col-md-4\"></div>\n    <div class=\"col-md-8 text-left\">\n      <input type=\"submit\" class=\"btn btn-primary\" value=\"Save\" />\n      <input type=\"button\" class=\"btn btn-warning\" value=\"Back to list\" (click)=\"cancel()\">\n\n    </div>\n  </div>\n\n</form>"
+module.exports = "<h1>Exp details</h1>\r\n<hr>\r\n\r\n<form [formGroup]=\"form\" novalidate (ngSubmit)=\"onSubmit()\">\r\n  <div class=\"form-group row \">\r\n    <label for=\"name\" class=\"col-md-4 col-form-label\">Name</label>\r\n    <div class=\"col-md-4\">\r\n      <input type=\"text\" class=\"form-control\" formControlName=\"name\" id=\"name\">\r\n      <control-messages [control]=\"form.controls.name\"></control-messages>\r\n    </div>\r\n    <div class=\"col-md-2\">\r\n    </div>\r\n  </div>\r\n  <div class=\"form-group row\">\r\n    <label for=\"\" class=\"col-md-4 col-form-label\">Description</label>\r\n    <div class=\"col-md-4\">\r\n      <input type=\"text\" class=\"form-control\" formControlName=\"description\">\r\n    </div>\r\n    <div class=\"col-md-2\">\r\n      <control-messages [control]=\"form.controls.description\"></control-messages>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group row\">\r\n    <label for=\"amount\" class=\"col-md-4 col-form-label\">Amount</label>\r\n    <div class=\"col-md-2\">\r\n      <input type=\"number\" class=\"form-control\" formControlName=\"amount\">\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group row\">\r\n    <label for=\"date\" class=\"col-md-4 col-form-label\">Date</label>\r\n    <div class=\"col-md-4 pt-3\">\r\n      <input type=\"checkbox\" class=\"float-left\" formControlName=\"date\">\r\n    </div>\r\n  </div> \r\n  <app-expense-tag-dropdown [parentForm]=\"form\"></app-expense-tag-dropdown>\r\n\r\n  <!-- <div class=\"form-group row\">\r\n    <label for=\"expenseAccount\" class=\"col-md-4 col-form-label\">Account</label>\r\n    <div *ngIf=\"model.expenseAccount\" class=\"col-md-8\">\r\n      <select class=\"form-control\" (change)=\"onChangeExpenseAccount($event.target.value)\">\r\n        <option *ngFor=\"let account of expenseAccounts\" [selected]=\"model.expenseAccount.name == account.name\"\r\n          value={{account.name}}>{{account.name}}</option>\r\n      </select>\r\n    </div>\r\n  </div> -->\r\n  <app-expense-account-dropdown [parentForm]=\"form\" [single]=\"true\"></app-expense-account-dropdown>\r\n  <app-expense-category-dropdown [parentForm]=\"form\" [single]=\"true\"></app-expense-category-dropdown>\r\n\r\n  <div class=\"form-group row\">\r\n    <div class=\"col-md-4\"></div>\r\n    <div class=\"col-md-8 text-left\">\r\n      <input type=\"submit\" class=\"btn btn-primary\" value=\"Save\" />\r\n      <input type=\"button\" class=\"btn btn-warning\" value=\"Back to list\" (click)=\"cancel()\">\r\n\r\n    </div>\r\n  </div>\r\n\r\n</form>"
 
 /***/ }),
 
@@ -790,6 +800,7 @@ var ExpenseDetailComponent = /** @class */ (function () {
             id: this.model.id,
             name: this.model.name,
             description: this.model.description,
+            category: this.model.category,
             amount: this.model.amount,
             date: this.model.date,
             expenseTags: [expenseTags],
@@ -841,7 +852,7 @@ var ExpenseDetailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"col-md-12\">\n    <div class=\"row\" style=\"margin-bottom:15px;\">\n      <div class=\"col-md-12 text-right\">\n        <input type=\"file\" #file placeholder=\"Choose file\" (change)=\"uploadFile(file.files)\" style=\"display:none;\">\n        <button type=\"button\" class=\"btn btn-success\" (click)=\"file.click()\">Upload File</button>\n      </div>\n    </div>\n\n    <div class=\"card card-body\">\n      <div class=\"row\">\n        <div class=\"col-md-12\">\n          <div style=\"word-spacing:1em; font-weight: bold; font-size: 20px;\" (click)=\"isCollapsed = !isCollapsed\"\n            [attr.aria-expanded]=\"!isCollapsed\" aria-controls=\"collapseBasic\">\n            <i class=\"float-left fa fa-search\"> Search</i>\n            <i class=\"float-right fa\" [ngClass]=\"{'fa-angle-down': isCollapsed, 'fa-angle-up': !isCollapsed}\"></i>\n          </div>\n        </div>\n      </div>\n\n      <div id=\"collapseBasic\" [collapse]=\"isCollapsed\" class=\"collapse\" class=\"row\">\n        <form [formGroup]=\"searchForm\" novalidate (ngSubmit)=\"onSubmit()\">\n          <div class=\"row\">\n            <div class=\"col-md-6\">\n              <div class=\"form-group row \">\n                <label for=\"name\" class=\"col-md-4 col-form-label\">Expense name</label>\n                <div class=\"col-md-8\">\n                  <input type=\"text\" class=\"form-control\" formControlName=\"name\" id=\"name\">\n                </div>\n              </div>\n              <div class=\"form-group row\">\n                <label for=\"description\" class=\"col-md-4 col-form-label\">Description</label>\n                <div class=\"col-md-8\">\n                  <input type=\"text\" class=\"form-control\" formControlName=\"description\">\n                </div>\n              </div>\n            </div>\n            <div class=\"col-md-6\">\n              <app-expense-tag-dropdown [parentForm]=\"searchForm\"></app-expense-tag-dropdown>\n              <app-expense-category-dropdown [parentForm]=\"searchForm\" [single]=\"false\"></app-expense-category-dropdown>\n            </div>\n          </div>\n        \n          <!-- \n  <div class=\"form-group row\">\n    <label for=\"amount\" class=\"col-md-2 col-form-label\">Amount</label>\n    <div class=\"col-md-2\">\n      <input type=\"number\" class=\"form-control\" formControlName=\"amount\">\n    </div>\n  </div>\n\n  <div class=\"form-group row\">\n    <label for=\"date\" class=\"col-md-2 col-form-label\">Date</label>\n    <div class=\"col-md-4 pt-3\">\n      <input type=\"checkbox\" class=\"float-left\" formControlName=\"date\">\n    </div>\n  </div> \n\n  <div class=\"form-group row\">\n    <label class=\"col-md-2 col-form-label\">Tags</label>\n    <div class=\"col-md-8\">\n      <angular2-multiselect [data]=\"tags\" [(ngModel)]=\"selectedTags\" [settings]=\"dropdownSettings\"\n        (onSelect)=\"onItemSelect($event)\" \n        (onDeSelect)=\"OnItemDeSelect($event)\" \n        (onSelectAll)=\"onSelectAll($event)\"\n        (onDeSelectAll)=\"onDeSelectAll($event)\"\n        formControlName=\"expenseTags\"></angular2-multiselect>\n    </div>\n  </div>\n\n  <div class=\"form-group row\">\n    <label for=\"expenseAccount\" class=\"col-md-2 col-form-label\">Account</label>\n    <div *ngIf=\"model.expenseAccount\" class=\"col-md-8\">\n      <select class=\"form-control\" (change)=\"onChangeExpenseAccount($event.target.value)\">\n        <option *ngFor=\"let account of expenseAccounts\" [selected]=\"model.expenseAccount.name == account.name\"\n          value={{account.name}}>{{account.name}}</option>\n      </select>\n    </div>\n  </div>\n\n  <div class=\"form-group row\">\n    <label for=\"expenseCategory\" class=\"col-md-2 col-form-label\">Category</label>\n    <div *ngIf=\"model.expenseCategory\" class=\"col-md-8\">\n      <select class=\"form-control\" (change)=\"onChangeExpenseCategory($event.target.value)\">\n        <option *ngFor=\"let category of expenseCategories\" [selected]=\"model.expenseCategory.name == category.name\"\n          value={{category.name}}>{{category.name}}</option>\n      </select>\n    </div>\n  </div>   -->\n\n          <div class=\"form-group row\">\n            <div class=\"col-md-6\"></div>\n            <div class=\"col-md-6  text-left\">\n              <button type=\"submit\" class=\"btn btn-primary\"><i class=\"float-left fa fa-search\"> Search</i></button>\n            </div>\n          </div>\n        </form>\n      </div>\n    </div>\n    <div class=\"row font-weight-bold\">\n      <div class=\"col-md-3 text-left text-success\">\n        Income: {{ getSumPositive() | number : '1.2-2'}} \n      </div>\n      <div class=\"col-md-3 text-left text-danger\">\n        Outgoings: {{ getSumNegative() | number : '1.2-2'}} \n      </div>\n      <div class=\"col-md-4 text-left\">\n        Total ( surplus / deficit ): {{ getTotalAmout() | number : '1.2-2'}} \n      </div>\n      <div class=\"col-md-2 text-right\">\n        Results: {{expenses?.length }}\n      </div>\n    </div>\n    <table class=\"table table-sm table-bordered\" style=\"table-layout: fixed;\">\n      <thead>\n        <tr class=\"d-flex\">\n          <th class=\"col-1\">ID</th>\n          <th class=\"col-2\">Name</th>\n          <th class=\"col-1\">Amount</th>\n          <th class=\"col-1\">Date</th>\n          <th class=\"col-3\">Description</th>\n          <th class=\"col-1\">Account</th>\n          <th class=\"col-1\">Category</th>\n          <th class=\"col-1\">Tags</th>\n          <th class=\"col-1\"> </th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let exp of expenses\" class=\"d-flex\">\n          <td class=\"col-1\">{{exp.id}}</td>\n          <td class=\"col-2\">{{exp.name}}</td>\n          <td class=\"col-1\">{{exp.amount}}€</td>\n          <td class=\"col-1\">{{exp.date}}</td>\n          <td class=\"col-3 text-left\" style=\"word-wrap:break-word;\">{{exp.description}}</td>\n          <td class=\"col-1\">{{exp.expenseAccount.name}}</td>\n          <td class=\"col-1\">{{exp.expenseCategory.name}}</td>\n          <td class=\"col-1\">{{exp.expenseTags}}</td>\n          <td class=\"col-1\">\n            <a [routerLink]=\"['/admin/expense/edit', exp.id]\"> <i class=\"fa fa-edit pointer\"></i></a>\n            <i class=\"fa fa-trash pointer\" (click)=\"delete(exp)\" title=\"Delete\"></i>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>"
+module.exports = "\n<div class=\"row\">\n  <div class=\"col-md-12\">\n    <div class=\"row\" style=\"margin-bottom:15px;\">\n      <div class=\"col-md-12 text-right\">\n        <input type=\"file\" #file placeholder=\"Choose file\" (change)=\"uploadFile(file.files)\" style=\"display:none;\">\n        <button type=\"button\" class=\"btn btn-success\" (click)=\"file.click()\">Upload File</button>\n      </div>\n    </div>\n\n    <div class=\"card card-body\">\n      <div class=\"row\">\n        <div class=\"col-md-12\">\n          <div style=\"word-spacing:1em; font-weight: bold; font-size: 20px;\" (click)=\"isCollapsed = !isCollapsed\"\n            [attr.aria-expanded]=\"!isCollapsed\" aria-controls=\"collapseBasic\">\n            <i class=\"float-left fa fa-search\"> Search</i>\n            <i class=\"float-right fa\" [ngClass]=\"{'fa-angle-down': isCollapsed, 'fa-angle-up': !isCollapsed}\"></i>\n          </div>\n        </div>\n      </div>\n\n      <div id=\"collapseBasic\" [collapse]=\"isCollapsed\" class=\"collapse\" class=\"row\">\n        <form [formGroup]=\"searchForm\" novalidate (ngSubmit)=\"onSubmit()\">\n          <div class=\"row\">\n            <div class=\"col-md-6\">\n              <div class=\"form-group row \">\n                <label for=\"name\" class=\"col-md-4 col-form-label\">Expense name</label>\n                <div class=\"col-md-8\">\n                  <input type=\"text\" class=\"form-control\" formControlName=\"name\" id=\"name\">\n                </div>\n              </div>\n              <div class=\"form-group row\">\n                <label for=\"description\" class=\"col-md-4 col-form-label\">Description</label>\n                <div class=\"col-md-8\">\n                  <input type=\"text\" class=\"form-control\" formControlName=\"description\">\n                </div>\n              </div>\n              <div class=\"form-group row\">\n                <label for=\"dateFrom\" class=\"col-md-4 col-form-label\">From</label>\n                <div class=\"col-md-8\">\n                  <input type=\"text\" placeholder=\"Date from\" class=\"form-control\" bsDatepicker\n                    formControlName=\"dateFrom\">\n                  <!-- <pre *ngIf=\"searchForm.value.dateFrom\" class=\"code-preview\">{{searchForm.value.dateFrom | date}}</pre> -->\n                </div>\n              </div>\n              <div class=\"form-group row\">\n                <label for=\"dateFrom\" class=\"col-md-4 col-form-label\">To</label>\n                <div class=\"col-md-8\">\n                  <input type=\"text\" placeholder=\"Date to\" class=\"form-control\" bsDatepicker formControlName=\"dateTo\">\n                </div>\n              </div>\n              \n            </div>\n            <div class=\"col-md-6\">\n              <app-expense-tag-dropdown [parentForm]=\"searchForm\"></app-expense-tag-dropdown>\n              <app-expense-account-dropdown [parentForm]=\"searchForm\" [single]=\"false\"></app-expense-account-dropdown>\n              <app-expense-category-dropdown [parentForm]=\"searchForm\" [single]=\"false\"></app-expense-category-dropdown>\n            </div>\n          </div>\n\n          <div class=\"form-group row\">\n            <div class=\"col-md-6\"></div>\n            <div class=\"col-md-6  text-left\">\n              <div class=\"btn-toolbar\">\n                <div class=\"btn-group mr-2\">\n                  <button type=\"submit\" class=\"btn btn-primary\"><i class=\"float-left fa fa-search\"> Search</i></button>\n                </div>\n                <div class=\"btn-group mr-2\">\n                  <button type=\"button\" class=\"btn btn-secondary\" (click)=\"onClear()\"><i\n                      class=\"float-left fa fa-eraser\">Clear</i></button>\n                </div>\n              </div>\n            </div>\n          </div>\n        </form>\n      </div>\n    </div>\n\n    <div class=\"row font-weight-bold\">\n      <div class=\"col-md-3 text-left text-success\">\n        Income: {{ expenseSearchTotals.sumPositive | number : '1.2-2'}}\n      </div>\n      <div class=\"col-md-3 text-left text-danger\">\n        Outgoings: {{ expenseSearchTotals.sumNegative) | number : '1.2-2'}}\n      </div>\n      <div class=\"col-md-4 text-left\">\n        Total ( surplus / deficit ): {{ expenseSearchTotals.totalAmount | number : '1.2-2'}}\n      </div>\n      <div class=\"col-md-2 text-right\">\n        Results: {{totalRecords }}\n      </div>\n    </div>\n    <table class=\"table table-sm table-bordered\" style=\"table-layout: fixed;\">\n      <thead>\n        <tr class=\"d-flex\">\n          <th class=\"col-1\">ID</th>\n          <th class=\"col-2\">Name</th>\n          <th class=\"col-1\">Amount</th>\n          <th class=\"col-1\">Date</th>\n          <th class=\"col-3\">Description</th>\n          <th class=\"col-1\">Account</th>\n          <th class=\"col-1\">Category</th>\n          <th class=\"col-1\">Tags</th>\n          <th class=\"col-1\"> </th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let exp of expenses\" class=\"d-flex\">\n          <td class=\"col-1\">{{exp.id}}</td>\n          <td class=\"col-2\">{{exp.name}}</td>\n          <td class=\"col-1\">{{exp.amount}}€</td>\n          <td class=\"col-1\">{{exp.date}}</td>\n          <td class=\"col-3 text-left\" style=\"word-wrap:break-word;\">{{exp.description}}</td>\n          <td class=\"col-1\">{{exp.expenseAccount.name}}</td>\n          <td class=\"col-1\">{{exp.expenseCategory.name}}</td>\n          <td class=\"col-1\">{{exp.expenseTags}}</td>\n          <td class=\"col-1\">\n            <a [routerLink]=\"['/admin/expense/edit', exp.id]\"> <i class=\"fa fa-edit pointer\"></i></a>\n            <i class=\"fa fa-trash pointer\" (click)=\"delete(exp)\" title=\"Delete\"></i>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    <div class=\"row\">\n      <div class=\"col-xs-12 col-12\">\n        <pagination class=\"justify-content-center\" [totalItems]=\"totalRecords\" [(ngModel)]=\"currentPage\" [maxSize]=\"10\" (pageChanged)=\"pageChanged($event)\"></pagination>\n      </div>\n    </div>\n    \n     \n    <pre class=\"card card-block card-header mb-3\">\n      Page changed to: {{currentPage}}\n    </pre>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -869,81 +880,124 @@ __webpack_require__.r(__webpack_exports__);
 
 var ExpenseListComponent = /** @class */ (function () {
     //#endregion
+    //#region ctor
     function ExpenseListComponent(formBuilder, expenseService, alertService) {
         this.formBuilder = formBuilder;
         this.expenseService = expenseService;
         this.alertService = alertService;
         this.expenses = [];
         this.isCollapsed = false;
-        //#region searchModel
-        this._searchModel = null;
+        // paging
+        this.currentPage = 1;
+        this.totalRecords = 100;
     }
     Object.defineProperty(ExpenseListComponent.prototype, "searchModel", {
+        //#region searchModel
         get: function () {
-            if (!this._searchModel) {
-                var sessionSM = JSON.parse(sessionStorage.getItem('expenseSearchModel'));
-                if (sessionSM != null) {
-                    this._searchModel = sessionSM;
+            var sessionSM = JSON.parse(sessionStorage.getItem('expenseSearchModel'));
+            if (sessionSM != null) {
+                sessionSM.dateFrom = new Date(sessionSM.dateFrom); // ngx datepicker issue (can't read from iso-string: YYYY-MM-DDTHH:mm:ss.sssZ)
+                sessionSM.dateTo = new Date(sessionSM.dateTo); // ngx datepicker issue
+                if (sessionSM.dateFrom.getFullYear() == 1970) {
+                    sessionSM.dateFrom = null;
                 }
-                else {
-                    this._searchModel = new _expense_models__WEBPACK_IMPORTED_MODULE_3__["ExpenseSearchModel"]();
+                if (sessionSM.dateTo.getFullYear() == 1970) {
+                    sessionSM.dateTo = null;
                 }
             }
-            return this._searchModel;
+            else {
+                sessionSM = new _expense_models__WEBPACK_IMPORTED_MODULE_3__["ExpenseSearchModel"]();
+            }
+            return sessionSM;
         },
+        //}
         set: function (value) {
             sessionStorage.setItem('expenseSearchModel', JSON.stringify(value));
-            this._searchModel = value;
         },
         enumerable: true,
         configurable: true
     });
     ExpenseListComponent.prototype.ngOnInit = function () {
         this.buildForm(this.formBuilder);
+        this.currentPage = this.searchModel.pageIndex;
         this.search();
     };
+    //#endregion
     ExpenseListComponent.prototype.buildForm = function (formBuilder) {
-        // // perpare expenseCategories
-        // var expenseCategories = [];
-        // if (this.searchModel.expenseCategories) {
-        //   expenseCategories = this.searchModel.expenseCategories.map(x => {
-        //     return { name: x.name }
-        //   });
-        // }
+        var sm = this.searchModel;
         this.searchForm = formBuilder.group({
-            id: this.searchModel.id,
-            name: this.searchModel.name,
-            description: this.searchModel.description,
-            amount: this.searchModel.amount,
-            dateFrom: this.searchModel.dateFrom,
-            dateTo: this.searchModel.dateTo,
-            expenseTags: [this.searchModel.expenseTags,],
-            expenseAccounts: [this.searchModel.expenseAccounts,],
-            expenseCategories: [this.searchModel.expenseCategories,],
+            id: sm.id,
+            name: sm.name,
+            description: sm.description,
+            amount: sm.amount,
+            dateFrom: sm.dateFrom,
+            dateTo: sm.dateTo,
+            expenseTags: [sm.expenseTags,],
+            expenseAccounts: [sm.expenseAccounts,],
+            expenseCategories: [sm.expenseCategories,],
         });
     };
     ExpenseListComponent.prototype.search = function () {
         var _this = this;
-        var modelToSubmit = this.searchForm.value;
+        var modelToSubmit = JSON.parse(JSON.stringify(this.searchForm.value));
+        modelToSubmit.pageIndex = this.currentPage;
         this.searchModel = modelToSubmit; // save searchModel in current session (before preparing)
-        //modelToSubmit.expenseTags = modelToSubmit.expenseTags.map(x => x.name).join(",");   
         // prepare expenseTags
         if (modelToSubmit.expenseTags) {
-            modelToSubmit.expenseTags = modelToSubmit.expenseTags.map(function (x) { return x.name; }); //convert objects to string array e.g. ["car-gas", "car-tax"]
+            modelToSubmit.expenseTags = modelToSubmit.expenseTags.map(function (x) {
+                if (x.hasOwnProperty('name')) {
+                    return x.name; //convert objects to string array e.g. ["car-gas", "car-tax"]
+                }
+                else {
+                    return x;
+                }
+            });
         }
         // prepare expenseAccounts
         if (modelToSubmit.expenseAccounts) {
-            modelToSubmit.expenseAccounts = modelToSubmit.expenseAccounts.map(function (x) { return x.name; }); //convert objects to string array e.g. ["Nasir private", "Nasir ABN Amro"]
+            modelToSubmit.expenseAccounts = modelToSubmit.expenseAccounts.map(function (x) {
+                if (x.hasOwnProperty('name')) {
+                    return x.name; //convert objects to string array e.g. ["Nasir private", "Nasir ABN Amro"]
+                }
+                else {
+                    return x;
+                }
+            });
         }
         // prepare expenseCategories
         if (modelToSubmit.expenseCategories) {
-            modelToSubmit.expenseCategories = modelToSubmit.expenseCategories.map(function (x) { return x.name; }); //convert objects to string array e.g. ["ATM", "Car"]
+            modelToSubmit.expenseCategories = modelToSubmit.expenseCategories.map(function (x) {
+                if (x.hasOwnProperty('name')) {
+                    return x.name; //convert objects to string array e.g. ["ATM", "Car"]
+                }
+                else {
+                    return x;
+                }
+            });
         }
-        this.expenseService.search(modelToSubmit).subscribe(function (rez) { return _this.expenses = rez.data; }, function (err) { return _this.alertService.danger(err); });
+        modelToSubmit.pageSize = 10;
+        modelToSubmit.pageIndex = this.currentPage - 1;
+        this.expenseService.search(modelToSubmit).subscribe(function (rez) {
+            _this.expenses = rez.data;
+            _this.totalRecords = rez.totalRecords;
+        }, function (err) { return _this.alertService.danger(err); });
+        if (modelToSubmit.pageIndex == 0) {
+            this.expenseService.searchTotals(modelToSubmit).subscribe(function (rez) {
+                _this.expenseSearchTotals = rez.data;
+            }, function (err) { return _this.alertService.danger(err); });
+        }
     };
     ExpenseListComponent.prototype.onSubmit = function () {
+        //this.currentPage = 1; 
+        this.searchModel.pageIndex = 1;
         this.search();
     };
+    ExpenseListComponent.prototype.onClear = function () {
+        this.searchModel = null;
+        this.buildForm(this.formBuilder);
+        this.search();
+    };
+    //#region amount
     ExpenseListComponent.prototype.getTotalAmout = function () {
         var sum = this.expenses.reduce(function (a, b) { return a + b.amount; }, 0);
         return sum;
@@ -958,6 +1012,7 @@ var ExpenseListComponent = /** @class */ (function () {
         var sumNegative = negative.reduce(function (a, b) { return a + b.amount; }, 0);
         return sumNegative;
     };
+    //#endregion
     ExpenseListComponent.prototype.uploadFile = function (files) {
         var _this = this;
         if (files.length === 0) {
@@ -965,6 +1020,10 @@ var ExpenseListComponent = /** @class */ (function () {
         }
         var fileToUpload = files[0];
         this.expenseService.uploadFile(fileToUpload).subscribe(function (rez) { return _this.search(); }, function (err) { return _this.alertService.danger(err); });
+    };
+    ExpenseListComponent.prototype.pageChanged = function (event) {
+        this.currentPage = event.page;
+        this.search();
     };
     ExpenseListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1016,6 +1075,12 @@ var ExpenseService = /** @class */ (function (_super) {
     ExpenseService.prototype.search = function (searchModel) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Content-type', 'application/json');
         return this.http.post(this.url + "search/", JSON.stringify(searchModel), {
+            headers: headers,
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
+    };
+    ExpenseService.prototype.searchTotals = function (searchModel) {
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Content-type', 'application/json');
+        return this.http.post(this.url + "searchTotals/", JSON.stringify(searchModel), {
             headers: headers,
         }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.errorHandler));
     };

@@ -2,7 +2,7 @@
 <div class="form-group row" [formGroup]="parentForm">
   <label  class="col-md-4 col-form-label">Categories</label>
   <div class="col-md-8">
-    <angular2-multiselect [data]="categories" [settings]="dropdownSettings"
+    <angular2-multiselect [data]="categories" [settings]="settings"
       (onSelect)="onItemSelect($event)" 
       (onDeSelect)="OnItemDeSelect($event)" 
       (onSelectAll)="onSelectAll($event)"
