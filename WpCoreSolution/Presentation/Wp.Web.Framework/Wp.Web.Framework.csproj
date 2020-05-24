@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Wp.Core\Wp.Core.csproj" />
-    <ProjectReference Include="..\..\Wp.Service\Wp.Services.csproj" />
+    <ProjectReference Include="..\..\Libraries\Wp.Core\Wp.Core.csproj" />
+    <ProjectReference Include="..\..\Libraries\Wp.Service\Wp.Services.csproj" />
   </ItemGroup>
 
 </Project>

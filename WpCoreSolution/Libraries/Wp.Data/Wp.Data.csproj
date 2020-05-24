@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Wp.Core\Wp.Core.csproj" />
+    <ProjectReference Include="..\Wp.Core\Wp.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
